@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie los valores de estos atributos para modificar la información
 // asociada a un ensamblado.
-[assembly: AssemblyTitle("FrameWorkAnaliticaVisual")]
+[assembly: AssemblyTitle("FrameworkAnaliticaVisual")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FrameWorkAnaliticaVisual")]
+[assembly: AssemblyProduct("FrameworkAnaliticaVisual")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID es para el Id. typelib cuando este proyecto esté expuesto a COM
-[assembly: Guid("03a0eed2-261f-445e-870d-dd45c9078a98")]
+[assembly: Guid("750cd328-47bd-471a-ac73-d4ea47326ecd")]
 
 // La información de versión de un ensamblado consta de los siguientes cuatro valores:
 //

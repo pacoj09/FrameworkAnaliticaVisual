@@ -8,12 +8,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{03A0EED2-261F-445E-870D-DD45C9078A98}</ProjectGuid>
+    <ProjectGuid>{750CD328-47BD-471A-AC73-D4EA47326ECD}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameWorkAnaliticaVisual</RootNamespace>
-    <AssemblyName>FrameWorkAnaliticaVisual</AssemblyName>
+    <RootNamespace>FrameworkAnaliticaVisual</RootNamespace>
+    <AssemblyName>FrameworkAnaliticaVisual</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -48,7 +48,6 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -68,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="StandardForm.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -76,27 +76,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\main.css" />
+    <Content Include="Home.aspx" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.scrolly.min.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\skel-viewport.min.js" />
+    <Content Include="js\skel.min.js" />
+    <Content Include="js\util.js" />
     <Content Include="Web.config" />
-    <Content Include="CanvasJS.aspx" />
-    <Content Include="ChartASP.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CanvasJS.aspx.cs">
-      <DependentUpon>CanvasJS.aspx</DependentUpon>
+    <Compile Include="StandardForm.Master.cs">
+      <DependentUpon>StandardForm.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CanvasJS.aspx.designer.cs">
-      <DependentUpon>CanvasJS.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ChartASP.aspx.cs">
-      <DependentUpon>ChartASP.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ChartASP.aspx.designer.cs">
-      <DependentUpon>ChartASP.aspx</DependentUpon>
+    <Compile Include="StandardForm.Master.designer.cs">
+      <DependentUpon>StandardForm.Master</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -110,7 +117,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>56348</DevelopmentServerPort>
+          <DevelopmentServerPort>63475</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:56348/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
