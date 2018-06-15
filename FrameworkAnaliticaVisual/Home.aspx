@@ -30,9 +30,12 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
+        
+        <asp:DropDownList ID="DropDownList1" runat="server">
+        </asp:DropDownList>
 
-
-    <div id="chartContainer" style="height: 370px; width: 100%;">
+    <div id="chartContainer" style="height: 370px; width: 100%;" align ="left">
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
     </div>
 

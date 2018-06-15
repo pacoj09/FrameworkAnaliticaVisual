@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,16 @@ namespace FrameworkAnaliticaVisual
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            clsEsquema objEsquema = new clsEsquema();
+            if (objEsquema.CargarEsquema())
+            {
+                DropDownList1.DataSource = objEsquema.ListaTablas;
+                DropDownList1.DataBind();
+            }
 
+            //clsGenerador objGenerador = new clsGenerador();
+            //objGenerador.linew = "Hola mundo como te va";
+            //objGenerador.WriteMethod();
         }
     }
 }

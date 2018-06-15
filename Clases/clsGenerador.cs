@@ -9,9 +9,8 @@ namespace Clases
 {
     public class clsGenerador
     {
-        StreamReader sr = new StreamReader("C:\\Test.txt");
-        StreamWriter sw = new StreamWriter("C:\\Test.txt");
-        string linew;
+        public string linew { get; set; }
+        //string linew;
         string liner;
 
         public void GenerateMethod()
@@ -22,21 +21,26 @@ namespace Clases
 
         public void WriteMethod()
         {
+            StreamReader sr = new StreamReader("C:\\Test\\clsPrueba.cs");
             liner = sr.ReadLine();
 
             while (liner != null)
             {
                 if (liner.Equals("#region View"))
                 {
+                    long lineposition = sr.BaseStream.Position + 1;
+                    sr.Close();
+                    StreamWriter sw = new StreamWriter("C:\\Test\\clsPrueba.cs");
+                    sw.BaseStream.Position = lineposition;
                     sw.WriteLine(linew);
-                    while (liner.Equals("#endregion View"))
-                    {
-                        linew = "";
-                        sw.WriteLine(linew);
-                        liner = sr.ReadLine();
-                    }
-                    linew = "} \n #endregion View";
-                    sw.WriteLine(linew);
+                    //while (liner.Equals("#endregion View"))
+                    //{
+                    //    linew = "";
+                    //    sw.WriteLine(linew);
+                    //    liner = sr.ReadLine();
+                    //}
+                    //linew = "} \n #endregion View";
+                    //sw.WriteLine(linew);
                 }
                 liner = sr.ReadLine();
             }

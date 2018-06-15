@@ -48,7 +48,6 @@
         <div class="wrapper style1 first">
             <article class="container" id="top">
                 <div class="row">
-                    <h1>Aqui van los diagramas</h1>
                     <div>
                         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 
