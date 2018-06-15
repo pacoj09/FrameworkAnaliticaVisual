@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="StandardForm.master.cs" Inherits="FrameworkAnaliticaVisual.StandardForm" %>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Framework de Analitica Visual</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.scrolly.min.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/skel-viewport.min.js"></script>
+    <script src="js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="js/main.js"></script>
+
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+
+
+
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="Home.aspx">Nuevo</a></li>
+            <li><a href="Home.aspx">Estilos</a></li>
+            <li><a href="Home.aspx">Comparaciones</a></li>
+            <li><a href="#contact">Informacion</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home -->
+    <form id="form1" runat="server">
+        <div class="wrapper style1 first">
+            <article class="container" id="top">
+                <div class="row">
+                    <div>
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+
+
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </form>
+
+    <!-- Contact -->
+    <div class="wrapper style4">
+        <article id="contact" class="container 75%">
+            <header>
+                <h3>Hola aqui va nuestra informacion</h3>
+            </header>
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Untitled. All rights reserved.</li>
+                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </article>
+    </div>
+
+</body>
+</html>
