@@ -12,16 +12,15 @@ namespace FrameworkAnaliticaVisual
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            clsGenerador objg = new clsGenerador();
+            objg.WriteMethod();
+
             clsEsquema objEsquema = new clsEsquema();
             if (objEsquema.CargarEsquema())
             {
                 DropDownList1.DataSource = objEsquema.ListaTablas;
                 DropDownList1.DataBind();
             }
-
-            //clsGenerador objGenerador = new clsGenerador();
-            //objGenerador.linew = "Hola mundo como te va";
-            //objGenerador.WriteMethod();
         }
     }
 }

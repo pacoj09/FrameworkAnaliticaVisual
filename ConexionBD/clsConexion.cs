@@ -146,10 +146,10 @@ namespace ConexionBD
         /// </summary>
         /// <param name="Statment"></param>
         /// <returns></returns>
-        public int gestionTransaction(string Statment)
+        public int gestionTransaction(string statment)
         {
             int RegistrosAfectados = 0;
-            SqlCommand Gestion = new SqlCommand(Statment, CNX, Transaction);
+            SqlCommand Gestion = new SqlCommand(statment, CNX, Transaction);
             try
             {
                 RegistrosAfectados = Gestion.ExecuteNonQuery();
@@ -167,10 +167,10 @@ namespace ConexionBD
         /// </summary>
         /// <param name="Statment"></param>
         /// <returns></returns>
-        public DataTable consultaTransaction(string Statment)
+        public DataTable consultaTransaction(string query)
         {
             DataTable RegistrosAfectados = new DataTable();
-            SqlCommand Gestion = new SqlCommand(Statment, CNX, Transaction);
+            SqlCommand Gestion = new SqlCommand(query, CNX, Transaction);
             try
             {
                 SqlDataAdapter adapter = new SqlDataAdapter(Gestion);

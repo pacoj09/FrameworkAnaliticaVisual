@@ -32,6 +32,7 @@ namespace Clases
                     }
                     exito = true;
                 }
+                objConexion.cerrarConexion();
             }
             return exito;
         }

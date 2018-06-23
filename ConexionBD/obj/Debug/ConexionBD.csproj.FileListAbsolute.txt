@@ -4,3 +4,9 @@ C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\Co
 C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.csproj.CoreCompileInputs.cache
 C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.dll
 C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.pdb
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\ConexionBD\bin\Debug\ConexionBD.dll
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\ConexionBD\bin\Debug\ConexionBD.pdb
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.csproj.CoreCompileInputs.cache
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.dll
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.pdb
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\ConexionBD\obj\Debug\ConexionBD.csprojResolveAssemblyReference.cache
