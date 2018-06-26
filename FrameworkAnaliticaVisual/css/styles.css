@@ -1,11 +1,10 @@
 ﻿.DoubleColumn {
-    column-count: 2;
-    width: 40%;
+    width: 100%;
 }
 
 .Content {
     /*display: inline-block;*/
     border: 1px solid white;
-    width:100%;
-    float:auto;
+    width:47%;
+    float:left;
 }

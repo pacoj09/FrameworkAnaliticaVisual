@@ -26,8 +26,6 @@
 
     <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
 
-
-
     </asp:ContentPlaceHolder>
 
 </head>
@@ -48,13 +46,9 @@
         <div class="wrapper style1 first">
             <article class="container" id="top">
                 <div class="row">
-                    <div>
-                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 
-
-
-                        </asp:ContentPlaceHolder>
-                    </div>
+                    </asp:ContentPlaceHolder>
                 </div>
             </article>
         </div>
