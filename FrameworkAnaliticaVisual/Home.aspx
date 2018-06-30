@@ -71,7 +71,7 @@
     <div class="DoubleColumn" align="center">
         <div align="center" class="Content">
 
-            <asp:DropDownList ID="ddlTablas" runat="server" OnSelectedIndexChanged="ddlTablas_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlTablas" runat="server" OnSelectedIndexChanged="ddlTablas_SelectedIndexChanged" AutoPostBack="true" >
             </asp:DropDownList>
             <hr />
             <asp:DropDownList ID="ddlColumnas" runat="server">
@@ -119,10 +119,17 @@
                 <asp:Button ID="btnAgregarEnlace" runat="server" Text="Agregar Elance" OnClick="btnAgregarEnlace_Click" Enabled="false" />
                 <br />
                 <hr />
-                <asp:GridView ID="gvDatos" runat="server" Enabled="false" BorderStyle="Solid" BorderColor="Black"></asp:GridView>
+                <asp:GridView ID="gvDatos" runat="server" Enabled="False" OnRowDeleting="gvDatos_RowDeleting" >
+                    <Columns>
+                        <asp:CommandField ButtonType="Link" ShowDeleteButton="True" />
+                    </Columns>
+                </asp:GridView>
 
             </ContentTemplate>
         </asp:UpdatePanel>
+        <br />
+        <asp:Button ID="btnGenrarCodigo" runat="server" Text="Generar Codigo" OnClick="btnGenrarCodigo_Click" />
+        <br />
     </div>
 
 </asp:Content>
