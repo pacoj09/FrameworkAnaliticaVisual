@@ -35,8 +35,7 @@
     <nav id="nav">
         <ul class="container">
             <li><a href="Home.aspx">Nuevo</a></li>
-            <li><a href="Home.aspx">Estilos</a></li>
-            <li><a href="Home.aspx">Comparaciones</a></li>
+            <li><a href="CanvasView.aspx">Vista</a></li>
             <li><a href="#contact">Informacion</a></li>
         </ul>
     </nav>

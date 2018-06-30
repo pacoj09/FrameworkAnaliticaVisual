@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clases", "Clases\Clases.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkAnaliticaVisual", "FrameworkAnaliticaVisual\FrameworkAnaliticaVisual.csproj", "{750CD328-47BD-471A-AC73-D4EA47326ECD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasViews", "CanvasViews\CanvasViews.csproj", "{AB506B22-5801-419F-9B13-65B342A3481E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{750CD328-47BD-471A-AC73-D4EA47326ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{750CD328-47BD-471A-AC73-D4EA47326ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{750CD328-47BD-471A-AC73-D4EA47326ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB506B22-5801-419F-9B13-65B342A3481E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB506B22-5801-419F-9B13-65B342A3481E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB506B22-5801-419F-9B13-65B342A3481E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB506B22-5801-419F-9B13-65B342A3481E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

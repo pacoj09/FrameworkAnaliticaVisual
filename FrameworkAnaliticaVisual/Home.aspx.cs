@@ -151,7 +151,6 @@ namespace FrameworkAnaliticaVisual
 
         protected void gvDatos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            ///Revisar
             string campo_tbl = gvDatos.Rows[e.RowIndex].Cells[1].Text;
             string campo_cvs = gvDatos.Rows[e.RowIndex].Cells[2].Text;
 
@@ -177,10 +176,11 @@ namespace FrameworkAnaliticaVisual
 
         protected void btnGenrarCodigo_Click(object sender, EventArgs e)
         {
-            if (Session["dtCanvas"] != null)
+            if ((Session["dtCanvas"] as DataTable).Rows.Count > 0)
             {
-                clsGenerador objGenerador = new clsGenerador();
-                objGenerador.WriteMethod();
+                clsVista objVista = new clsVista(Session["dtCanvas"] as DataTable);
+                Limpiar();
+                Response.Redirect("~/CanvasView.aspx");
             }
         }
 
