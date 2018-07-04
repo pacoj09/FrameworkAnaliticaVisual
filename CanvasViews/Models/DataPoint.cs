@@ -10,18 +10,37 @@ namespace ASPNET_MVC_Samples.Models
     [DataContract]
     public class DataPoint
     {
-        public DataPoint(double x, double y)
+        private string x, y;
+
+        public void setX(string _x)
         {
-            this.X = x;
-            this.Y = y;
+            this.x = _x;
+        }
+
+        public void setY(string _y)
+        {
+            this.y = _y;
+        }
+
+        public DataPoint() { }
+
+        public List<DataPoint> obtenerLista(int _nObjects)
+        {
+            List<DataPoint> listaDataPoints = new List<DataPoint>();
+            for (int i = 0; i < _nObjects; i++)
+            {
+                DataPoint objDataPoint = new DataPoint();
+                listaDataPoints.Add(objDataPoint);
+            }
+            return listaDataPoints;
         }
 
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "x")]
-        public Nullable<double> X = null;
+        public string X = null;
 
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "y")]
-        public Nullable<double> Y = null;
+        public string Y = null;
     }
 }

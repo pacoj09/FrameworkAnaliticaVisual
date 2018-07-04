@@ -1,4 +1,5 @@
 ﻿using ASPNET_MVC_Samples.Models;
+using Clases;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,32 @@ namespace CanvasViews.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<DataPoint> dataPoints = new List<DataPoint>{
-                new DataPoint(10, 22),
-                new DataPoint(20, 36),
-                new DataPoint(30, 42),
-                new DataPoint(40, 51),
-                new DataPoint(50, 46),
-            };
+            clsFactory objFactory = new clsFactory();
+            DataPoint objDataPoint = new DataPoint();
+            List<DataPoint> dataPoints = objDataPoint.obtenerLista(objFactory.getNumeroFilas());
+            for (int i = 0; i < objFactory.getEnlaces().Rows.Count; i++)
+            {
+                if (objFactory.getEnlaces().Rows[i][1].ToString().Equals("Posicion X"))
+                {
+                    var query = from dtRow in objFactory.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(objFactory.getEnlaces().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas;
+                    for (int j = 0; j < query.ToList().Count; j++)
+                    {
+                        objDataPoint = dataPoints.ElementAt(j);
+                        objDataPoint.setX(query.ToList().ElementAt(j).ToString());
+                        dataPoints.Insert(j, objDataPoint);
+                    }
+                }
+                else if (objFactory.getEnlaces().Rows[i][1].ToString().Equals("Posicion Y"))
+                {
+                    var query = from dtRow in objFactory.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(objFactory.getEnlaces().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas;
+                    for (int j = 0; j < query.ToList().Count; j++)
+                    {
+                        objDataPoint = dataPoints.ElementAt(j);
+                        objDataPoint.setY(query.ToList().ElementAt(j).ToString());
+                        dataPoints.Insert(j, objDataPoint);
+                    }
+                }
+            }
 
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 

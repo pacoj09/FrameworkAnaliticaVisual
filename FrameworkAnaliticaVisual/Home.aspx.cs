@@ -145,6 +145,7 @@ namespace FrameworkAnaliticaVisual
             ddlEnlaceTabla.DataBind();
             cargarComboBoxListaCanvas();
             cargarGrid();
+            Session["Tabla"] = ddlTablas.SelectedValue;
             btnAgregarEnlace.Enabled = true;
             gvDatos.Enabled = true;
         }
@@ -178,9 +179,11 @@ namespace FrameworkAnaliticaVisual
         {
             if ((Session["dtCanvas"] as DataTable).Rows.Count > 0)
             {
-                clsVista objVista = new clsVista(Session["dtCanvas"] as DataTable);
+                clsFactory objFactory = new clsFactory();
+                objFactory.FactoryMethod(Session["Tabla"].ToString(), Session["dtCanvas"] as DataTable);
                 Limpiar();
-                Response.Redirect("~/CanvasView.aspx");
+                ///Cambiar a MVC
+                //Response.Redirect("~/Home/Index");
             }
         }
 
@@ -192,6 +195,7 @@ namespace FrameworkAnaliticaVisual
             Session["dtCanvas"] = null;
             Session["ListaCanvas"] = null;
             Session["ListaTablas"] = null;
+            Session["Tabla"] = null;
         }
     }
 }
