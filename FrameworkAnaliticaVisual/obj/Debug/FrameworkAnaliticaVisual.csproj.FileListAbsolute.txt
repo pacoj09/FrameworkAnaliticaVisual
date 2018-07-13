@@ -60,8 +60,6 @@ C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\Fr
 C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.csproj.CopyComplete
 C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.dll
 C:\Users\pacoa\Documents\Visual Studio 2017\Projects\FrameWorkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.pdb
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.csprojResolveAssemblyReference.cache
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.csproj.CoreCompileInputs.cache
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\bin\FrameworkAnaliticaVisual.dll.config
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\bin\FrameworkAnaliticaVisual.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\bin\FrameworkAnaliticaVisual.pdb
@@ -138,6 +136,8 @@ C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkA
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\bin\es\System.Web.WebPages.resources.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.csprojResolveAssemblyReference.cache
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.csproj.CoreCompileInputs.cache
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.csproj.CopyComplete
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\FrameworkAnaliticaVisual\obj\Debug\FrameworkAnaliticaVisual.pdb

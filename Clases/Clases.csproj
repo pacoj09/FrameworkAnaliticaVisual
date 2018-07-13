@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsColumna.cs" />
     <Compile Include="clsFactory.cs" />
     <Compile Include="clsGenerador.cs" />
     <Compile Include="clsEsquema.cs" />

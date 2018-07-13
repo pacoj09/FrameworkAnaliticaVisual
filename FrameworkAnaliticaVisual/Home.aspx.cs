@@ -14,6 +14,8 @@ namespace FrameworkAnaliticaVisual
 
         private List<string> ListaddlCanvas;
         private List<string> ListaddlTablas;
+        private List<string> ListaTablas;
+        private List<string> ListaEnlacesTablas;
         private DataTable dtCanvas;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -22,6 +24,18 @@ namespace FrameworkAnaliticaVisual
             if (Session["dtCanvas"] == null)
             {
                 cargarGrid();
+            }
+
+            if (Session["Tablas"] == null)
+            {
+                ListaTablas = new List<string>();
+                Session["Tablas"] = ListaTablas;
+            }
+
+            if (Session["ListaEnlacesTablas"] == null)
+            {
+                ListaEnlacesTablas = new List<string>();
+                Session["ListaEnlacesTablas"] = ListaEnlacesTablas;
             }
         }
 
@@ -58,7 +72,7 @@ namespace FrameworkAnaliticaVisual
         {
             dtCanvas = new DataTable();
             dtCanvas.Columns.Add("Columnas_Tabla", typeof(String));
-            dtCanvas.Columns.Add("Datos_Canvas", typeof(String));
+            //dtCanvas.Columns.Add("Datos_Canvas", typeof(WebControl));
             Session["dtCanvas"] = dtCanvas;
             gvDatos.DataSource = dtCanvas;
             gvDatos.DataBind();
@@ -126,7 +140,7 @@ namespace FrameworkAnaliticaVisual
                 dtCanvas = Session["dtCanvas"] as DataTable;
                 DataRow NewRow = dtCanvas.NewRow();
                 NewRow[0] = campo_tbl;
-                NewRow[1] = campo_cvs;
+                //NewRow[1] = ddlEnlaceCanvas;
                 dtCanvas.Rows.Add(NewRow);
                 Session["dtCanvas"] = dtCanvas;
                 gvDatos.DataSource = dtCanvas;
@@ -134,9 +148,27 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
+        protected void gvDatos_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //Find the DropDownList in the Row
+
+                DropDownList drpdwndec = (DropDownList)e.Row.FindControl("ddlCamposCanvas");
+
+                drpdwndec.DataSource = ddlEnlaceCanvas.DataSource;
+
+                drpdwndec.DataBind();
+
+                drpdwndec.Items.Insert(0, new ListItem("No Seleccionado"));
+            }
+        }
+
         protected void btnAgregarColumnas_Click(object sender, EventArgs e)
         {
             ListaddlTablas = new List<string>();
+            ListaTablas = (Session["Tablas"]) as List<string>;
             clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
             var query = from dtRow in objEsquema.getListaColumnas() where dtRow.NombreTabla.StartsWith(ddlTablas.SelectedValue) select dtRow.NombreColumna;
             ListaddlTablas = query.ToList();
@@ -145,7 +177,8 @@ namespace FrameworkAnaliticaVisual
             ddlEnlaceTabla.DataBind();
             cargarComboBoxListaCanvas();
             cargarGrid();
-            Session["Tabla"] = ddlTablas.SelectedValue;
+            ListaTablas.Add(ddlTablas.SelectedValue);
+            Session["Tablas"] = ListaTablas;
             btnAgregarEnlace.Enabled = true;
             gvDatos.Enabled = true;
         }
@@ -179,12 +212,42 @@ namespace FrameworkAnaliticaVisual
         {
             if ((Session["dtCanvas"] as DataTable).Rows.Count > 0)
             {
-                clsFactory objFactory = new clsFactory();
-                objFactory.FactoryMethod(Session["Tabla"].ToString(), Session["dtCanvas"] as DataTable);
-                Limpiar();
+                DropDownList drpdwndec = (DropDownList)gvDatos.Rows[0].FindControl("ddlCamposCanvas");
+                string test = drpdwndec.SelectedValue;
+
+
+                //clsFactory objFactory = new clsFactory();
+                //objFactory.FactoryMethod(Session["Tabla"].ToString(), Session["dtCanvas"] as DataTable);
+                //Limpiar();
                 ///Cambiar a MVC
                 //Response.Redirect("~/Home/Index");
             }
+        }
+
+        private bool ValidarCamposCanvas(string _Campo)
+        {
+            bool exito = true;
+            List<string> ListaEnlacesTablas = Session["ListaEnlacesTablas"] as List<string>;
+            if (ListaEnlacesTablas.Count <= 0)
+            {
+                ListaEnlacesTablas.Add(_Campo);
+            }
+            else
+            {
+                foreach (string item in ListaEnlacesTablas)
+                {
+                    if (item.Equals(_Campo))
+                    {
+                        exito = false;
+                        break;
+                    }
+                }
+                if (exito)
+                {
+                    ListaEnlacesTablas.Add(_Campo);
+                }
+            }
+            return exito;
         }
 
         private void Limpiar()

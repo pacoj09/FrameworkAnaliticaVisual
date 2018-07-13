@@ -1,8 +1,9 @@
 ﻿using ASPNET_MVC_Samples.Models;
-using Clases;
+using CanvasViews.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Dynamic;
 using System.Linq;
 using System.Web;
@@ -15,29 +16,25 @@ namespace CanvasViews.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            clsFactory objFactory = new clsFactory();
+            clsVista obj = clsVista.obtenerclsVista();
             DataPoint objDataPoint = new DataPoint();
-            List<DataPoint> dataPoints = objDataPoint.obtenerLista(objFactory.getNumeroFilas());
-            for (int i = 0; i < objFactory.getEnlaces().Rows.Count; i++)
+            List<DataPoint> dataPoints = objDataPoint.obtenerLista(obj.obtenerNumeroFilas());
+            for (int i = 0; i < obj.getdtColumnas().Rows.Count; i++)
             {
-                if (objFactory.getEnlaces().Rows[i][1].ToString().Equals("Posicion X"))
+                if (obj.getdtColumnas().Rows[i][1].ToString().Equals("Posicion X"))
                 {
-                    var query = from dtRow in objFactory.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(objFactory.getEnlaces().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas;
+                    var query = (from dtRow in obj.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(obj.getdtColumnas().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas).FirstOrDefault();
                     for (int j = 0; j < query.ToList().Count; j++)
                     {
-                        objDataPoint = dataPoints.ElementAt(j);
-                        objDataPoint.setX(query.ToList().ElementAt(j).ToString());
-                        dataPoints.Insert(j, objDataPoint);
+                        dataPoints.ElementAt(j).setX(query.ToList().ElementAt(j).Dato);
                     }
                 }
-                else if (objFactory.getEnlaces().Rows[i][1].ToString().Equals("Posicion Y"))
+                else if (obj.getdtColumnas().Rows[i][1].ToString().Equals("Posicion Y"))
                 {
-                    var query = from dtRow in objFactory.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(objFactory.getEnlaces().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas;
+                    var query = (from dtRow in obj.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(obj.getdtColumnas().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas).FirstOrDefault();
                     for (int j = 0; j < query.ToList().Count; j++)
                     {
-                        objDataPoint = dataPoints.ElementAt(j);
-                        objDataPoint.setY(query.ToList().ElementAt(j).ToString());
-                        dataPoints.Insert(j, objDataPoint);
+                        dataPoints.ElementAt(j).setY(Convert.ToDouble(query.ToList().ElementAt(j).Dato));
                     }
                 }
             }

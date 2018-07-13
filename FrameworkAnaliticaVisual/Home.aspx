@@ -71,7 +71,7 @@
     <div class="DoubleColumn" align="center">
         <div align="center" class="Content">
 
-            <asp:DropDownList ID="ddlTablas" runat="server" OnSelectedIndexChanged="ddlTablas_SelectedIndexChanged" AutoPostBack="true" >
+            <asp:DropDownList ID="ddlTablas" runat="server" OnSelectedIndexChanged="ddlTablas_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
             <hr />
             <asp:DropDownList ID="ddlColumnas" runat="server">
@@ -103,7 +103,7 @@
     <br />
 
     <div align="center">
-        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always" OnLoad="upCanvas_Load">
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Always" OnLoad="btnAgregarEnlace_Click">
             <ContentTemplate>
                 <div class="DoubleColumn" align="center">
                     <div align="center" class="Content">
@@ -116,22 +116,25 @@
                     </div>
                 </div>
                 <br />
-                <asp:Button ID="btnAgregarEnlace" runat="server" Text="Agregar Elance" OnClick="btnAgregarEnlace_Click" Enabled="false" />
+                <asp:Button ID="btnAgregarEnlace" runat="server" Text="Agregar Elance" Enabled="false" />
                 <br />
                 <hr />
-                <asp:GridView ID="gvDatos" runat="server" Enabled="False" OnRowDeleting="gvDatos_RowDeleting" >
+                <asp:GridView ID="gvDatos" runat="server" Enabled="true" OnRowDeleting="gvDatos_RowDeleting" OnRowCreated="gvDatos_RowCreated">
                     <Columns>
                         <asp:CommandField ButtonType="Link" ShowDeleteButton="True" />
+                        <asp:TemplateField HeaderText="Datos_Canvas">
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlCamposCanvas" runat="server">
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
         <asp:Button ID="btnGenrarCodigo" runat="server" Text="Generar Codigo" OnClick="btnGenrarCodigo_Click" />
         <br />
     </div>
-
-    <a href="http://localhost:56207">Click</a>
 
 </asp:Content>

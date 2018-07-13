@@ -10,40 +10,17 @@ namespace Clases
 {
     public class clsVista
     {
-        private static clsVista objVista = new clsVista();
-        private static List<clsEsquemaVista> ListaEsquema;
-        private static DataTable dtColumnas;
-        private static string Tabla;
+        public List<string> ListaSelects { get; set; }
+        private List<clsEsquemaVista> ListaEsquema;
+        private DataTable dtColumnas;
+        private string Tabla;
 
-        private clsVista()
+        public clsVista()
         {
+            ///Aqui irian las lineas a agregar a la lista de querys 
+            ///ListaEsquema.Add("select * from Persona;");
             ListaEsquema = new List<clsEsquemaVista>();
             dtColumnas = new DataTable();
-        }
-
-        public static clsVista obtenerclsVista()
-        {
-            return objVista;
-        }
-
-        public void setdtColumnas(DataTable _dtColumnas)
-        {
-            dtColumnas = _dtColumnas;
-        }
-
-        public void setTabla(string _Tabla)
-        {
-            Tabla = _Tabla;
-        }
-
-        public List<clsEsquemaVista> getListaEsquema()
-        {
-            return ListaEsquema;
-        }
-
-        public DataTable getdtColumnas()
-        {
-            return dtColumnas;
         }
 
         public void cargarListas()
@@ -75,12 +52,8 @@ namespace Clases
 
         public int obtenerNumeroFilas()
         {
-            int numero = 0;
-            for (int i = 0; i < ListaEsquema.ElementAt(0).ListaDetalleColumnas.Count; i++)
-            {
-                numero++;
-            }
-            return numero;
+            
+            return 12;
         }
 
         ~clsVista()
@@ -109,6 +82,26 @@ namespace Clases
         {
             ColumnaxTabla = string.Empty;
             ListaDetalleColumnas = null;
+        }
+    }
+
+    public class clsColumna
+    {
+        public string Dato { get; set; }
+        public string Columna { get; set; }
+
+        public clsColumna() { }
+
+        public clsColumna(string _Dato, string _Columna)
+        {
+            this.Dato = _Dato;
+            this.Columna = _Columna;
+        }
+
+        ~clsColumna()
+        {
+            this.Dato = string.Empty;
+            this.Columna = string.Empty;
         }
     }
 }

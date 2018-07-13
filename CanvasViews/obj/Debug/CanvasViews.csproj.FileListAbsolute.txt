@@ -77,7 +77,3 @@ C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasView
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\obj\Debug\CanvasViews.csproj.CopyComplete
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\obj\Debug\CanvasViews.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\obj\Debug\CanvasViews.pdb
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\bin\Clases.dll
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\bin\ConexionBD.dll
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\bin\Clases.pdb
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameworkAnaliticaVisual\CanvasViews\bin\ConexionBD.pdb

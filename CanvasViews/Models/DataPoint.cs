@@ -10,16 +10,15 @@ namespace ASPNET_MVC_Samples.Models
     [DataContract]
     public class DataPoint
     {
-        private string x, y;
 
         public void setX(string _x)
         {
-            this.x = _x;
+            this.X = _x;
         }
 
-        public void setY(string _y)
+        public void setY(double _y)
         {
-            this.y = _y;
+            this.Y = _y;
         }
 
         public DataPoint() { }
@@ -36,11 +35,11 @@ namespace ASPNET_MVC_Samples.Models
         }
 
         //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "x")]
+        [DataMember(Name = "label")]
         public string X = null;
 
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "y")]
-        public string Y = null;
+        public Nullable<double> Y = null;
     }
 }

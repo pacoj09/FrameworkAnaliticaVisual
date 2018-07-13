@@ -11,30 +11,27 @@ namespace Clases
     {
         public clsFactory() { }
 
-        public void FactoryMethod(string _TableName, DataTable _dt)
+        public void FactoryMethod(List<string> _TablesNames, DataTable _dt)
         {
-            clsVista objVista = clsVista.obtenerclsVista();
-            objVista.setdtColumnas(_dt);
-            objVista.setTabla(_TableName);
-            objVista.cargarListas();
-        }
-        
-        public List<clsEsquemaVista> getListaEsquema()
-        {
-            clsVista objVista = clsVista.obtenerclsVista();
-            return objVista.getListaEsquema();
+            clsGenerador objGenerador = new clsGenerador();
         }
 
-        public DataTable getEnlaces()
-        {
-            clsVista objVista = clsVista.obtenerclsVista();
-            return objVista.getdtColumnas();
-        }
+        //public List<clsEsquemaVista> getListaEsquema()
+        //{
+        //    clsVista objVista = clsVista.obtenerclsVista();
+        //    return objVista.getListaEsquema();
+        //}
 
-        public int getNumeroFilas()
-        {
-            clsVista objVista = clsVista.obtenerclsVista();
-            return objVista.obtenerNumeroFilas();
-        }
+        //public DataTable getEnlaces()
+        //{
+        //    clsVista objVista = clsVista.obtenerclsVista();
+        //    return objVista.getdtColumnas();
+        //}
+
+        //public int getNumeroFilas()
+        //{
+        //    clsVista objVista = clsVista.obtenerclsVista();
+        //    return objVista.obtenerNumeroFilas();
+        //}
     }
 }
