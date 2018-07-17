@@ -34,9 +34,9 @@
     <!-- Nav -->
     <nav id="nav">
         <ul class="container">
-            <li><a href="Home.aspx">Nuevo</a></li>
-            <li><a href="CanvasView.aspx">Vista</a></li>
-            <li><a href="#contact">Informacion</a></li>
+            <li><a href="Home.aspx">Nuevo Vista</a></li>
+            <li><a href="CanvasView.aspx">Ejemplos de Vista</a></li>
+            <li><a href="#contact">Informaci&oacute;n</a></li>
         </ul>
     </nav>
 
@@ -57,7 +57,9 @@
     <div class="wrapper style4">
         <article id="contact" class="container 75%">
             <header>
-                <h3>Hola aqui va nuestra informacion</h3>
+                <h1>ULACTI</h1>
+                <h3>Ingenieros:
+                    <br />Francisco Javier Alvarado N&uacute;&ntilde;ez y Juan Pablo Altamirano Vargas</h3>
             </header>
             <footer>
                 <ul id="copyright">

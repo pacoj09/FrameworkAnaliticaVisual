@@ -161,7 +161,7 @@ namespace FrameworkAnaliticaVisual
 
                 drpdwndec.DataBind();
 
-                drpdwndec.Items.Insert(0, new ListItem("No Seleccionado"));
+                //drpdwndec.Items.Insert(0, new ListItem("No Seleccionado"));
             }
         }
 

@@ -88,6 +88,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBSelection.aspx" />
     <None Include="packages.config" />
     <Content Include="CanvasView.aspx" />
     <Content Include="css\styles.css" />
@@ -132,6 +133,13 @@
     </Compile>
     <Compile Include="StandardForm.Master.designer.cs">
       <DependentUpon>StandardForm.Master</DependentUpon>
+    </Compile>
+    <Compile Include="DBSelection.aspx.cs">
+      <DependentUpon>DBSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DBSelection.aspx.designer.cs">
+      <DependentUpon>DBSelection.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

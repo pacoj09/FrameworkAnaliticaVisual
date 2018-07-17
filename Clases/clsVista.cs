@@ -25,7 +25,7 @@ namespace Clases
 
         public void cargarListas()
         {
-            clsConexion objConexion = new clsConexion();
+            clsConexion objConexion = clsConexion.obtenerclsConexion();
             if (objConexion.abrirConexion())
             {
                 if (dtColumnas != null)
