@@ -9,7 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link rel="stylesheet" href="css/main.css" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/Site.css" rel="stylesheet" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 
@@ -17,58 +22,45 @@
     <!-- Scripts -->
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.scrolly.min.js"></script>
-    <script src="js/skel.min.js"></script>
-    <script src="js/skel-viewport.min.js"></script>
+    <%--<script src="js/skel.min.js"></script>
+    <script src="js/skel-viewport.min.js"></script>--%>
     <script src="js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-    <script src="js/main.js"></script>
-
-
+    <%--<script src="js/main.js"></script>--%>
     <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
-
     </asp:ContentPlaceHolder>
-
 </head>
 <body>
-
-    <!-- Nav -->
-    <nav id="nav">
-        <ul class="container">
-            <li><a href="Home.aspx">Nuevo Vista</a></li>
-            <li><a href="CanvasView.aspx">Ejemplos de Vista</a></li>
-            <li><a href="#contact">Informaci&oacute;n</a></li>
-        </ul>
-    </nav>
-
-    <!-- Home -->
-    <form id="form1" runat="server">
-        <div class="wrapper style1 first">
-            <article class="container" id="top">
-                <div class="row">
-                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-
-                    </asp:ContentPlaceHolder>
+    <form runat="server">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/Home.aspx">Framework de Analitica Visual</a>
                 </div>
-            </article>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/ExView.aspx">Vistas</a></li>
+                        <li><a runat="server" href="~/Contact.aspx">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content" align="center">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <div align="center">
+                <footer>
+                    <p>&copy; <%: DateTime.Now.Year %> - Framework de Analitica Visual</p>
+                </footer>
+            </div>
+
         </div>
     </form>
-
-    <!-- Contact -->
-    <div class="wrapper style4">
-        <article id="contact" class="container 75%">
-            <header>
-                <h1>ULACTI</h1>
-                <h3>Ingenieros:
-                    <br />Francisco Javier Alvarado N&uacute;&ntilde;ez y Juan Pablo Altamirano Vargas</h3>
-            </header>
-            <footer>
-                <ul id="copyright">
-                    <li>&copy; Untitled. All rights reserved.</li>
-                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-                </ul>
-            </footer>
-        </article>
-    </div>
-
 </body>
 </html>

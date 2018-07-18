@@ -9,12 +9,6 @@
     float:left;
 }
 
-.Content_Example {
-    /*display: inline-block;*/
-    border: 1px solid white;
-    width: 100%;
-}
-
 #ContentPlaceHolder1_gvDatos {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;

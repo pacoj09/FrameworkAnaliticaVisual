@@ -57,7 +57,7 @@ namespace Clases
         public bool ProbarConexion(List<string> _ListaCadenaConexion)
         {
             bool exito = false;
-            if (_ListaCadenaConexion.Count == 4)
+            if (_ListaCadenaConexion.Count == 5)
             {
                 if (_ListaCadenaConexion.First().Equals("SQL Server"))
                 {
@@ -91,7 +91,7 @@ namespace Clases
             return exito;
         }
 
-        public bool CargarEsquema()
+        public bool CargarTablasBD()
         {
             bool exito = false;
             clsConexion objConexion = clsConexion.obtenerclsConexion();
