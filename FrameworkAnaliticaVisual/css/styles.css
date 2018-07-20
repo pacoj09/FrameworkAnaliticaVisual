@@ -9,6 +9,11 @@
     float:left;
 }
 
+.laclase {
+    font-size: 16px;
+    font-family: "Verdana", Times, serif;
+}
+
 #ContentPlaceHolder1_gvDatos {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;

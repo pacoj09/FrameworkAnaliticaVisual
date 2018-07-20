@@ -44,8 +44,8 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/ExView.aspx">Vistas</a></li>
-                        <li><a runat="server" href="~/Contact.aspx">Contact</a></li>
+                        <li><a runat="server" class="laclase" href="~/ExView.aspx">Vistas</a></li>
+                        <li><a runat="server" class="laclase" href="~/Contact.aspx">Sobre los Creadores</a></li>
                     </ul>
                 </div>
             </div>

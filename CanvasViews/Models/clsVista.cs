@@ -31,7 +31,7 @@ namespace CanvasViews.Models
             NewRow[1] = "Posicion X";
             dtColumnas.Rows.Add(NewRow);
             DataRow NewRow1 = dtColumnas.NewRow();
-            NewRow1[0] = "edad";
+            NewRow1[0] = "id_carrera";
             NewRow1[1] = "Posicion Y";
             dtColumnas.Rows.Add(NewRow1);
             cargarListas();

@@ -54,6 +54,14 @@ namespace Clases
             ConnectionString = _ConnectionsString;
         }
 
+        public void NuevoEsquema()
+        {
+            ConnectionString = string.Empty;
+            ListaTablas = new List<string>();
+            ListaColumnas = new List<clsTabla>();
+            dtConstraints = new DataTable();
+        }
+
         public bool ProbarConexion(List<string> _ListaCadenaConexion)
         {
             bool exito = false;
@@ -126,25 +134,20 @@ namespace Clases
         {
             bool exito = false;
             clsConexion objConexion = clsConexion.obtenerclsConexion();
-            if (objConexion.abrirConexion())
+            DataTable dtColumnas = new DataTable();
+            for (int i = 0; i < _dtTablas.Rows.Count; i++)
             {
-                DataTable dtColumnas = new DataTable();
-
-                for (int i = 0; i < _dtTablas.Rows.Count; i++)
+                string query = string.Format("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{0}';", _dtTablas.Rows[i][0].ToString());
+                dtColumnas = objConexion.consultar(query);
+                for (int j = 0; j < dtColumnas.Rows.Count; j++)
                 {
-                    string query = string.Format("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{0}';", _dtTablas.Rows[i][0].ToString());
-                    dtColumnas = objConexion.consultar(query);
-                    for (int j = 0; j < dtColumnas.Rows.Count; j++)
-                    {
-                        clsTabla objTabla = new clsTabla(_dtTablas.Rows[i][0].ToString(), dtColumnas.Rows[j][0].ToString());
-                        ListaColumnas.Add(objTabla);
-                    }
+                    clsTabla objTabla = new clsTabla(_dtTablas.Rows[i][0].ToString(), dtColumnas.Rows[j][0].ToString());
+                    ListaColumnas.Add(objTabla);
                 }
-                if (ListaColumnas.Count > 0)
-                {
-                    exito = true;
-                }
-                objConexion.cerrarConexion();
+            }
+            if (ListaColumnas.Count > 0)
+            {
+                exito = true;
             }
             return exito;
         }
@@ -153,15 +156,11 @@ namespace Clases
         {
             bool exito = false;
             clsConexion objConexion = clsConexion.obtenerclsConexion();
-            if (objConexion.abrirConexion())
+            string query = "SELECT FK_Table = FK.TABLE_NAME, FK_Column = CU.COLUMN_NAME, PK_Table = PK.TABLE_NAME, PK_Column = PT.COLUMN_NAME, Constraint_Name = C.CONSTRAINT_NAME FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS C INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS FK ON C.CONSTRAINT_NAME = FK.CONSTRAINT_NAME INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS PK ON C.UNIQUE_CONSTRAINT_NAME = PK.CONSTRAINT_NAME INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE CU ON C.CONSTRAINT_NAME = CU.CONSTRAINT_NAME INNER JOIN(SELECT i1.TABLE_NAME, i2.COLUMN_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS i1 INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE i2 ON i1.CONSTRAINT_NAME = i2.CONSTRAINT_NAME WHERE i1.CONSTRAINT_TYPE = 'PRIMARY KEY') PT ON PT.TABLE_NAME = PK.TABLE_NAME;";
+            dtConstraints = objConexion.consultar(query);
+            if (dtConstraints != null)
             {
-                string query = "SELECT FK_Table = FK.TABLE_NAME, FK_Column = CU.COLUMN_NAME, PK_Table = PK.TABLE_NAME, PK_Column = PT.COLUMN_NAME, Constraint_Name = C.CONSTRAINT_NAME FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS C INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS FK ON C.CONSTRAINT_NAME = FK.CONSTRAINT_NAME INNER JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS PK ON C.UNIQUE_CONSTRAINT_NAME = PK.CONSTRAINT_NAME INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE CU ON C.CONSTRAINT_NAME = CU.CONSTRAINT_NAME INNER JOIN(SELECT i1.TABLE_NAME, i2.COLUMN_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS i1 INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE i2 ON i1.CONSTRAINT_NAME = i2.CONSTRAINT_NAME WHERE i1.CONSTRAINT_TYPE = 'PRIMARY KEY') PT ON PT.TABLE_NAME = PK.TABLE_NAME;";
-                dtConstraints = objConexion.consultar(query);
-                if (dtConstraints != null)
-                {
-                    exito = true;
-                }
-                objConexion.cerrarConexion();
+                exito = true;
             }
             return exito;
         }

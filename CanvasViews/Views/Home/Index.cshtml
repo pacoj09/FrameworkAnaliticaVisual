@@ -11,7 +11,7 @@
     <title>Index</title>
 </head>
 <body>
-    <select id="ddlChartType" onchange="reloadChart(this.value)">
+    <select id="ddlChartType" onchange="reloadChart(this.value,1)">
         <option value="bar">bar</option>
         <option value="spline">spline</option>
         <option value="area">area</option>
@@ -19,27 +19,79 @@
         <option value="doughnut">doughnut</option>
     </select>
 
-    <div id="chartContainer"></div>
+    <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+
+    <select id="ddlChartType" onchange="reloadChart(this.value,2)">
+        <option value="bar">bar</option>
+        <option value="spline">spline</option>
+        <option value="area">area</option>
+        <option value="pie">pie</option>
+        <option value="doughnut">doughnut</option>
+    </select>
+
+    <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+
+    <select id="ddlChartType" onchange="reloadChart(this.value,3)">
+        <option value="bar">bar</option>
+        <option value="spline">spline</option>
+        <option value="area">area</option>
+        <option value="pie">pie</option>
+        <option value="doughnut">doughnut</option>
+    </select>
+
+    <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+
+    <select id="ddlChartType" onchange="reloadChart(this.value,4)">
+        <option value="bar">bar</option>
+        <option value="spline">spline</option>
+        <option value="area">area</option>
+        <option value="pie">pie</option>
+        <option value="doughnut">doughnut</option>
+    </select>
+
+    <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
 
     <script type="text/javascript">
 
-		var type = "bar";
-        
+        var type1 = "bar";
+        var type2 = "bar";
+        var type3 = "bar";
+        var type4 = "bar";
+
         window.onload = function () {
-            loadChart();
+            loadChart1();
+            loadChart2();
+            loadChart3();
+            loadChart4();
         };
 
         function onClick(e) {
             alert(e.dataSeries.type + ", dataPoint { x:" + e.dataPoint.x + ", y: " + e.dataPoint.y + " }");
         }
 
-        function reloadChart(value) {
-            type = value;
-            loadChart();
+        function reloadChart(value, chartID) {
+            switch (chartID) {
+                case 1:
+                    type1 = value;
+                    loadChart1();
+                    break;
+                case 2:
+                    type2 = value;
+                    loadChart2();
+                    break;
+                case 3:
+                    type3 = value;
+                    loadChart3();
+                    break;
+                case 4:
+                    type4 = value;
+                    loadChart4();
+                    break;
+            }
         }
-        
-        function loadChart() {
-            var chart = new CanvasJS.Chart("chartContainer", {
+
+        function loadChart1() {
+            var chart = new CanvasJS.Chart("chartContainer1", {
 				theme: "theme2",
 				animationEnabled: true,
 				title: {
@@ -50,7 +102,7 @@
 				],
 				data: [
 				{
-                    type: type, //change type to bar, line, area, pie, etc
+                    type: type1, //change type to bar, line, area, pie, etc
                     indexLabelPlacement: "outside",
                     showInLegend: true,
                     click: onClick,
@@ -61,6 +113,79 @@
 			});
 			chart.render();
         }
+
+        function loadChart2() {
+            var chart = new CanvasJS.Chart("chartContainer2", {
+				theme: "theme2",
+				animationEnabled: true,
+				title: {
+					text: "Simple Column Chart in ASP.NET MVC"
+				},
+				subtitles: [
+					{ text: "Try Resizing the Browser" }
+				],
+				data: [
+				{
+                    type: type2, //change type to bar, line, area, pie, etc
+                    indexLabelPlacement: "outside",
+                    showInLegend: true,
+                    click: onClick,
+                    //Uncomment below line to add data coming from the controller.
+					dataPoints: @Html.Raw(ViewBag.DataPoints)
+				}
+				]
+			});
+			chart.render();
+        }
+
+        function loadChart3() {
+            var chart = new CanvasJS.Chart("chartContainer3", {
+				theme: "theme2",
+				animationEnabled: true,
+				title: {
+					text: "Simple Column Chart in ASP.NET MVC"
+				},
+				subtitles: [
+					{ text: "Try Resizing the Browser" }
+				],
+				data: [
+				{
+                    type: type3, //change type to bar, line, area, pie, etc
+                    indexLabelPlacement: "outside",
+                    showInLegend: true,
+                    click: onClick,
+                    //Uncomment below line to add data coming from the controller.
+					dataPoints: @Html.Raw(ViewBag.DataPoints)
+				}
+				]
+			});
+			chart.render();
+        }
+
+        function loadChart4() {
+            var chart = new CanvasJS.Chart("chartContainer4", {
+				theme: "theme2",
+				animationEnabled: true,
+				title: {
+					text: "Simple Column Chart in ASP.NET MVC"
+				},
+				subtitles: [
+					{ text: "Try Resizing the Browser" }
+				],
+				data: [
+				{
+                    type: type4, //change type to bar, line, area, pie, etc
+                    indexLabelPlacement: "outside",
+                    showInLegend: true,
+                    click: onClick,
+                    //Uncomment below line to add data coming from the controller.
+					dataPoints: @Html.Raw(ViewBag.DataPoints)
+				}
+				]
+			});
+			chart.render();
+        }
+
 
     </script>
 
