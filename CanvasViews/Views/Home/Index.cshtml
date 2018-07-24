@@ -8,48 +8,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <title>Index</title>
 </head>
 <body>
-    <select id="ddlChartType" onchange="reloadChart(this.value,1)">
-        <option value="bar">bar</option>
-        <option value="spline">spline</option>
-        <option value="area">area</option>
-        <option value="pie">pie</option>
-        <option value="doughnut">doughnut</option>
-    </select>
-
-    <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
-
-    <select id="ddlChartType" onchange="reloadChart(this.value,2)">
-        <option value="bar">bar</option>
-        <option value="spline">spline</option>
-        <option value="area">area</option>
-        <option value="pie">pie</option>
-        <option value="doughnut">doughnut</option>
-    </select>
-
-    <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
-
-    <select id="ddlChartType" onchange="reloadChart(this.value,3)">
-        <option value="bar">bar</option>
-        <option value="spline">spline</option>
-        <option value="area">area</option>
-        <option value="pie">pie</option>
-        <option value="doughnut">doughnut</option>
-    </select>
-
-    <div id="chartContainer3" style="height: 370px; width: 100%;"></div>
-
-    <select id="ddlChartType" onchange="reloadChart(this.value,4)">
-        <option value="bar">bar</option>
-        <option value="spline">spline</option>
-        <option value="area">area</option>
-        <option value="pie">pie</option>
-        <option value="doughnut">doughnut</option>
-    </select>
-
-    <div id="chartContainer4" style="height: 370px; width: 100%;"></div>
+    <div id="graphs"></div>
 
     <script type="text/javascript">
 
@@ -57,13 +20,45 @@
         var type2 = "bar";
         var type3 = "bar";
         var type4 = "bar";
+        var count = @Html.Raw(ViewBag.GraphCount)
+            count = 3;
 
         window.onload = function () {
-            loadChart1();
-            loadChart2();
-            loadChart3();
-            loadChart4();
+            var i;
+            for (i = 1; i <= count; i++) {
+                printGraph(i);
+            }
+            switch (count) {
+                case 1:
+                    loadChart1();
+                    break;
+                case 2:
+                    loadChart1();
+                    loadChart2();
+                    break;
+                case 3:
+                    loadChart1();
+                    loadChart2();
+                    loadChart3();
+                    break;
+                case 4:
+                    loadChart1();
+                    loadChart2();
+                    loadChart3();
+                    loadChart4();
+                    break;
+            }
         };
+
+        function printGraph(count) {
+            document.getElementById('graphs').innerHTML += '<div id="graph' + count + '" class="graphs"></div>'
+            document.getElementById('graph' + count).innerHTML += '<select id="ddlChartType' + count + '" onchange="reloadChart(this.value,' + count +')"><option value="bar">Bar</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pie</option><option value="doughnut">Doughnut</option></select>';
+            document.getElementById('graph' + count).innerHTML += '<div id="chartContainer' + count + '" style="height: 100%; width: 100%;"></div>';
+        }
+
+        function printDropDown() {
+
+        }
 
         function onClick(e) {
             alert(e.dataSeries.type + ", dataPoint { x:" + e.dataPoint.x + ", y: " + e.dataPoint.y + " }");

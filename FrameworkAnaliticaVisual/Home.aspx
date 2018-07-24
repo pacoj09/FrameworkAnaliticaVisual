@@ -30,8 +30,13 @@
             $("#ContentPlaceHolder1_Wizard1_StepNavigationTemplateContainerID_StepNextButton").prop("disabled", false);
         }
 
-        function enable_finishbutton() {
-            $("#ContentPlaceHolder1_Wizard1_FinishNavigationTemplateContainerID_FinishButton").prop("disabled", false);
+        //function enable_finishbutton() {
+        //    $("#ContentPlaceHolder1_Wizard1_FinishNavigationTemplateContainerID_FinishButton").prop("disabled", false);
+        //}
+
+        function enable_ddl_btn_panel(ddlid, btnid) {
+            $("#ContentPlaceHolder1_Wizard1_" + ddlid).prop("disabled", false);
+            $("#ContentPlaceHolder1_Wizard1_" + btnid).prop("disabled", false);
         }
 
         function QuitarTabla(id) {
@@ -104,13 +109,13 @@
                         <br />
                         <asp:Panel ID="pNuevaTabla" runat="server"></asp:Panel>
                         <br />
-                        <asp:Button ID="btnAgregarTabla" CssClass="btn btn-default" runat="server" Text="Agregar Nueva Tabla" OnClick="btnAgregarTabla_Click" />
+                        <asp:Button ID="btnAgregarTabla" CssClass="btn btn-default" runat="server" Text="Agregar Nueva Tabla" OnClick="btnAgregarTabla_Click" Enabled="false" />
                     </fieldset>
                     <br />
                     <br />
                     <p>
                         NOTA: Debe de establecer una tabla principal antes de agregar tablas secundarias.<br />
-                        Las tablas secundarias deben de estar entrelasadas con la princiapl por constraints
+                        Las tablas secundarias deben de estar entrelasadas con la princiapl por constraints.
                     </p>
                 </div>
             </asp:WizardStep>

@@ -40,7 +40,7 @@ namespace CanvasViews.Controllers
             }
 
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-
+            ViewBag.GraphCount = 4;
             return View();
         }
     }

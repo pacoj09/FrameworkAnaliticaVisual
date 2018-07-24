@@ -16,6 +16,7 @@ namespace FrameworkAnaliticaVisual
         private List<string> ListaTablas;
         private int ContadorDDLTablas;
         private List<clsControlesDDLTablas> ListaControlesDDLTablas;
+        private List<string> ListaTablasConstraint;
 
 
 
@@ -47,6 +48,12 @@ namespace FrameworkAnaliticaVisual
                 Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
             }
 
+            if (Session["ListaTablasConstraint"] == null)
+            {
+                ListaTablasConstraint = new List<string>();
+                Session["ListaTablasConstraint"] = ListaTablasConstraint;
+            }
+
             string ddlid = Page.Request.QueryString["ddlid"];
             if (!string.IsNullOrEmpty(ddlid))
             {
@@ -59,25 +66,36 @@ namespace FrameworkAnaliticaVisual
             clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
             if (!string.IsNullOrEmpty(objEsquema.getConnectionString()))
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "enable_button", "enable_startbutton();", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "enable_startbutton", "enable_startbutton();", true);
             }
         }
 
         protected void WizardStep2_Load(object sender, EventArgs e)
         {
             ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
+            this.pNuevaTabla.Controls.Clear();
             foreach (clsControlesDDLTablas control in ListaControlesDDLTablas)
             {
                 this.pNuevaTabla.Controls.Add(control.getDDL());
                 this.pNuevaTabla.Controls.Add(control.getJUMP());
                 this.pNuevaTabla.Controls.Add(control.getBTN());
                 this.pNuevaTabla.Controls.Add(control.getSPACE());
+                //if (control.getDDL().Enabled == true && control.getBTN().Enabled == true)
+                //{
+                //    ScriptManager.RegisterStartupScript(this, GetType(), "enable_dll_btn", "enable_ddl_btn_panel('" + control.getDDL().ID.ToString() + "', '" + control.getBTN().ID.ToString() + "');", true);
+                //}
             }
 
             ContadorDDLTablas = Convert.ToInt32(Session["ContadorDDLTablas"]);
-            if (ContadorDDLTablas < 4)
+            ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
+            if (ContadorDDLTablas < 4 && ListaTablasConstraint.Count > 0)
             {
                 btnAgregarTabla.Enabled = true;
+            }
+
+            if (btnEstablecerTablaPrincipal.Enabled == false)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "enable_stepbutton", "enable_stepbutton();", true);
             }
         }
 
@@ -105,7 +123,7 @@ namespace FrameworkAnaliticaVisual
                 objEsquema.NuevoEsquema();
                 if (objEsquema.ProbarConexion(ListaObjetosCadeConexion))
                 {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "enable_button", "enable_startbutton();", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "enable_startbutton", "enable_startbutton();", true);
                     ScriptManager.RegisterStartupScript(this, GetType(), "Conexion_True", "alert('Conexion establecida con exito');", true);
                 }
                 else
@@ -151,22 +169,38 @@ namespace FrameworkAnaliticaVisual
 
         protected void btnEstablecerTablaPrincipal_Click(object sender, EventArgs e)
         {
-            ///BloquearDDLtablaPirncipal y eliminar la tabla de la lista del Session
-            ///Enable button agregar tabla
-            //ScriptManager.RegisterStartupScript(this, GetType(), "enable_button", "enable_startbutton();", true);
+            clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
+            if (objEsquema.getdtConstraints().Rows.Count > 0)
+            {
+                ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
+                foreach (DataRow row in objEsquema.getdtConstraints().Rows)
+                {
+                    if (row[2].ToString().Equals(ddlTablas.Text))
+                    {
+                        ListaTablasConstraint.Add(row[0].ToString());
+                    }
+                }
+                Session["ListaTablasConstraint"] = ListaTablasConstraint;
+                btnAgregarTabla.Enabled = true;
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "enable_stepbutton", "enable_stepbutton();", true);
         }
 
         protected void btnAgregarTabla_Click(object sender, EventArgs e)
         {
             ContadorDDLTablas = Convert.ToInt32(Session["ContadorDDLTablas"]);
+            ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
             if (ContadorDDLTablas <= 3)
             {
                 ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
                 if (ContadorDDLTablas == 1)
                 {
+                    ddlTablas.Enabled = false;
+                    btnEstablecerTablaPrincipal.Enabled = false;
                     DropDownList ddl = new DropDownList();
                     ddl.ID = "ddlTabla" + ContadorDDLTablas;
-                    //ddl.DataSource = 
+                    ddl.DataSource = ListaTablasConstraint;
+                    ddl.DataBind();
                     Button btn = new Button();
                     btn.Text = "Quitar Tabla";
                     btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
@@ -177,13 +211,16 @@ namespace FrameworkAnaliticaVisual
 
                     clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
                     ListaControlesDDLTablas.Add(newControl);
-                    Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
                 }
                 else if (ContadorDDLTablas == 2)
                 {
+                    ListaControlesDDLTablas.Last().setEnabled(false);
+                    ListaTablasConstraint.Remove(ListaControlesDDLTablas.Last().getDDL().Text);
+
                     DropDownList ddl = new DropDownList();
                     ddl.ID = "ddlTabla" + ContadorDDLTablas;
-                    //ddl.DataSource = 
+                    ddl.DataSource = ListaTablasConstraint;
+                    ddl.DataBind();
                     Button btn = new Button();
                     btn.Text = "Quitar Tabla";
                     btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
@@ -194,13 +231,16 @@ namespace FrameworkAnaliticaVisual
 
                     clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
                     ListaControlesDDLTablas.Add(newControl);
-                    Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
                 }
                 else if (ContadorDDLTablas == 3)
                 {
+                    ListaControlesDDLTablas.Last().setEnabled(false);
+                    ListaTablasConstraint.Remove(ListaControlesDDLTablas.Last().getDDL().Text);
+
                     DropDownList ddl = new DropDownList();
                     ddl.ID = "ddlTabla" + ContadorDDLTablas;
-                    //ddl.DataSource = 
+                    ddl.DataSource = ListaTablasConstraint;
+                    ddl.DataBind();
                     Button btn = new Button();
                     btn.Text = "Quitar Tabla";
                     btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
@@ -211,8 +251,8 @@ namespace FrameworkAnaliticaVisual
 
                     clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
                     ListaControlesDDLTablas.Add(newControl);
-                    Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
                 }
+
                 foreach (clsControlesDDLTablas control in ListaControlesDDLTablas)
                 {
                     this.pNuevaTabla.Controls.Add(control.getDDL());
@@ -222,6 +262,8 @@ namespace FrameworkAnaliticaVisual
                 }
                 ContadorDDLTablas++;
                 Session["ContadorDDLTablas"] = ContadorDDLTablas;
+                Session["ListaTablasConstraint"] = ListaTablasConstraint;
+                Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
             }
 
             if (ContadorDDLTablas == 4)
@@ -232,18 +274,32 @@ namespace FrameworkAnaliticaVisual
 
         private void QuitarTabla(int index)
         {
-            /// Continuar buscar como eliminar el control adecuado, utilizando el control find ddl id
             try
             {
                 ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
                 ListaControlesDDLTablas.RemoveAt(index - 1);
+                if (ListaControlesDDLTablas.Count() > 0)
+                {
+                    ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
+                    ListaTablasConstraint.Add(ListaControlesDDLTablas.Last().getDDL().Text);
+
+                    foreach (clsControlesDDLTablas control in ListaControlesDDLTablas)
+                    {
+                        if (control.getDDL().ID.ToString().Equals(ListaControlesDDLTablas.Last().getDDL().ID.ToString()))
+                        {
+                            control.setEnabled(true);
+                            control.cargarDDL(ListaTablasConstraint);
+                        }
+                    }
+                    Session["ListaTablasConstraint"] = ListaTablasConstraint;
+                }
                 Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
                 ContadorDDLTablas = Convert.ToInt32(Session["ContadorDDLTablas"]);
                 ContadorDDLTablas--;
                 Session["ContadorDDLTablas"] = ContadorDDLTablas;
                 Response.Redirect("~/Home.aspx");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Response.Redirect("~/Home.aspx");
             }
@@ -439,67 +495,6 @@ namespace FrameworkAnaliticaVisual
             Session["ListaObjetosCadeConexion"] = null;
             Session["ListaTablas"] = null;
         }
-
-        private void AddPanel()
-        {
-            //clsUsuario usuario = (clsUsuario)Session["Usuario"];
-            ////clsFotografia fotos = new clsFotografia(usuario.Cedula);
-            ////DataTable imagenes = fotos.consultaFotoUsuario();
-            //int fila = 0;
-            //foreach (DataRow item in imagenes.Rows)
-            //{
-            //    DateTime Fecha = (DateTime)imagenes.Rows[fila][3];
-
-            //    string path = @"" + imagenes.Rows[fila][2].ToString();
-            //    LiteralControl objeto = new LiteralControl("<br /> <center> <div style='font-style: normal;background-color:#cfe9f2; overflow: auto; list-style-position: inside; border-right:1px solid #838282; border-left:1px solid #838282;'>" +
-            //    "<table>" +
-            //    "<tr align='center'>" +
-            //    "<td><h5 style='color:#106bc2'>Foto Publicada por " + imagenes.Rows[fila][8].ToString() + "</h5></td>" +
-            //    "<td><h5 style='color:#106bc2'>" + Fecha.ToString("dd/MM/yyyy") + "</h5>" +
-            //    "</td>" +
-            //    "</tr>" +
-            //    "<tr align='center'>" +
-            //    "<td colspan='3'><h6 style='color:#106bc2'>Cantidad de Visitas: " + imagenes.Rows[fila][1].ToString() + "</h6></td>" +
-            //    "</tr>" +
-            //    "<tr align='center'>" +
-            //    "<td colspan = '3'>" +
-            //    "<h2 style='color:#106bc2'>" + imagenes.Rows[fila][4].ToString() + "</h2>" +
-            //    "</td>" +
-            //    "</tr>" +
-            //    "</table>" +
-            //    "</div>" +
-            //    "<div style='font-style: normal;background-color:#ecfaff; overflow: auto; list-style-position: inside; border-right:1px solid #838282; border-left:1px solid #838282;'>" +
-            //    "<table>" +
-            //    "<tr align='center'>" +
-            //    "<td colspan='3'><img src='" + path + "' alt='no se pudo mostrar' Height='350px' Width='300px' /> </td>" +
-            //    "</tr>" +
-            //    "<tr align='center'>" +
-            //    "<td colspan='3'><h4 style='text-align:center;color:#106bc2'>" + imagenes.Rows[fila][5].ToString() + "</h4></td> " +
-            //    "</tr>" +
-            //    "<tr align='center'>" +
-            //    "<td colspan='3'>" +
-            //    "<a href='javascript:abrirComentario(" + imagenes.Rows[fila][0].ToString() + ");'>Comentar</a>&nbsp;&nbsp;" +
-            //    "<a href='javascript:EliminarFoto(" + imagenes.Rows[fila][0].ToString() + ");'>Eliminar</a>" +
-            //    "</td>" +
-            //    "</tr>" +
-            //    "</table>" +
-            //    "</div>" +
-            //    "</center>");
-            //    this.PanelPrincipal.Controls.Add(objeto);
-
-            //    clsComentario comenatrioFotografia = new clsComentario();
-            //    DataTable comentarios = comenatrioFotografia.consultaComentariosFoto(int.Parse(imagenes.Rows[fila][0].ToString()));
-            //    foreach (DataRow valor in comentarios.Rows)
-            //    {
-            //        LiteralControl comentarioPorfoto = new LiteralControl("<center><div style='font-style: normal;background-color:#ecfaff; z-index: auto; width: auto; height: auto; overflow: auto; list-style-position: inside; border-right:1px solid #838282; border-left:1px solid #838282;'>" +
-            //        "<div style='margin:5px;'>" +
-            //        "<label style='color:#000000'>" + valor[0] + "</label>&nbsp;<input id='Text1' type='text' style='color:#000000; width: 492px;' ReadOnly='true' value='" + valor[1] + "' />" +
-            //        "</div> </div> </center>");
-            //        this.PanelPrincipal.Controls.Add(comentarioPorfoto);
-            //    }
-            //    fila++;
-            //}
-        }
     }
     
     public class clsControlesDDLTablas
@@ -527,6 +522,18 @@ namespace FrameworkAnaliticaVisual
         public LiteralControl getJUMP()
         {
             return this.jump;
+        }
+
+        public void setEnabled(bool _enabled)
+        {
+            this.ddl.Enabled = _enabled;
+            this.btn.Enabled = _enabled;
+        }
+
+        public void cargarDDL(List<string> values)
+        {
+            this.ddl.DataSource = values;
+            this.ddl.DataBind();
         }
 
         public clsControlesDDLTablas(DropDownList _ddl, LiteralControl _jump, Button _btn, LiteralControl _space)
