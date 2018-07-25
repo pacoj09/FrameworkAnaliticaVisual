@@ -17,6 +17,7 @@ namespace FrameworkAnaliticaVisual
         private int ContadorDDLTablas;
         private List<clsControlesDDLTablas> ListaControlesDDLTablas;
         private List<string> ListaTablasConstraint;
+        private List<string> ListaddlColumnCanvas;
 
 
 
@@ -54,6 +55,16 @@ namespace FrameworkAnaliticaVisual
                 Session["ListaTablasConstraint"] = ListaTablasConstraint;
             }
 
+            if (Session["ListaddlColumnCanvas"] == null)
+            {
+                ListaddlColumnCanvas = new List<string>();
+                ListaddlColumnCanvas.Add("Label");
+                ListaddlColumnCanvas.Add("Index Label");
+                ListaddlColumnCanvas.Add("Posicion X");
+                ListaddlColumnCanvas.Add("Posicion Y");
+                Session["ListaddlColumnCanvas"] = ListaddlColumnCanvas;
+            }
+
             string ddlid = Page.Request.QueryString["ddlid"];
             if (!string.IsNullOrEmpty(ddlid))
             {
@@ -73,29 +84,46 @@ namespace FrameworkAnaliticaVisual
         protected void WizardStep2_Load(object sender, EventArgs e)
         {
             ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
-            this.pNuevaTabla.Controls.Clear();
+            if (ListaControlesDDLTablas.Count > 0)
+            {
+                ddlTablas.Enabled = false;
+                btnEstablecerTablaPrincipal.Enabled = false;
+            }
+            else
+            {
+                ddlTablas.Enabled = true;
+                btnEstablecerTablaPrincipal.Enabled = true;
+            }
             foreach (clsControlesDDLTablas control in ListaControlesDDLTablas)
             {
                 this.pNuevaTabla.Controls.Add(control.getDDL());
                 this.pNuevaTabla.Controls.Add(control.getJUMP());
                 this.pNuevaTabla.Controls.Add(control.getBTN());
                 this.pNuevaTabla.Controls.Add(control.getSPACE());
-                //if (control.getDDL().Enabled == true && control.getBTN().Enabled == true)
-                //{
-                //    ScriptManager.RegisterStartupScript(this, GetType(), "enable_dll_btn", "enable_ddl_btn_panel('" + control.getDDL().ID.ToString() + "', '" + control.getBTN().ID.ToString() + "');", true);
-                //}
+                if (ListaControlesDDLTablas.LastOrDefault().getDDL().ID.ToString().Equals(control.getDDL().ID.ToString()))
+                {
+                    if (control.getDDL().ID.ToString().Equals("ddlTabla1"))
+                    {
+                        (this.pNuevaTabla.Controls[0] as DropDownList).Enabled = true;
+                        (this.pNuevaTabla.Controls[2] as Button).Enabled = true;
+                    }
+                    else if (control.getDDL().ID.ToString().Equals("ddlTabla2"))
+                    {
+                        (this.pNuevaTabla.Controls[4] as DropDownList).Enabled = true;
+                        (this.pNuevaTabla.Controls[6] as Button).Enabled = true;
+                    }
+                    else if (control.getDDL().ID.ToString().Equals("ddlTabla3"))
+                    {
+                        (this.pNuevaTabla.Controls[8] as DropDownList).Enabled = true;
+                        (this.pNuevaTabla.Controls[10] as Button).Enabled = true;
+                    }
+                }
             }
 
-            ContadorDDLTablas = Convert.ToInt32(Session["ContadorDDLTablas"]);
             ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
-            if (ContadorDDLTablas < 4 && ListaTablasConstraint.Count > 0)
+            if (ListaTablasConstraint.Count == 0)
             {
-                btnAgregarTabla.Enabled = true;
-            }
-
-            if (btnEstablecerTablaPrincipal.Enabled == false)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "enable_stepbutton", "enable_stepbutton();", true);
+                btnAgregarTabla.Enabled = false;
             }
         }
 
@@ -173,6 +201,7 @@ namespace FrameworkAnaliticaVisual
             if (objEsquema.getdtConstraints().Rows.Count > 0)
             {
                 ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
+                ListaTablasConstraint.Clear();
                 foreach (DataRow row in objEsquema.getdtConstraints().Rows)
                 {
                     if (row[2].ToString().Equals(ddlTablas.Text))
@@ -183,92 +212,109 @@ namespace FrameworkAnaliticaVisual
                 Session["ListaTablasConstraint"] = ListaTablasConstraint;
                 btnAgregarTabla.Enabled = true;
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "enable_stepbutton", "enable_stepbutton();", true);
         }
 
         protected void btnAgregarTabla_Click(object sender, EventArgs e)
         {
-            ContadorDDLTablas = Convert.ToInt32(Session["ContadorDDLTablas"]);
             ListaTablasConstraint = Session["ListaTablasConstraint"] as List<string>;
-            if (ContadorDDLTablas <= 3)
+            ContadorDDLTablas = Convert.ToInt32(Session["ContadorDDLTablas"]);
+            ///Arreglar if no se gragan todas las tablas posibles
+            if (ContadorDDLTablas <= ListaTablasConstraint.Count)
             {
-                ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
-                if (ContadorDDLTablas == 1)
+                if (ContadorDDLTablas <= 3)
                 {
-                    ddlTablas.Enabled = false;
-                    btnEstablecerTablaPrincipal.Enabled = false;
-                    DropDownList ddl = new DropDownList();
-                    ddl.ID = "ddlTabla" + ContadorDDLTablas;
-                    ddl.DataSource = ListaTablasConstraint;
-                    ddl.DataBind();
-                    Button btn = new Button();
-                    btn.Text = "Quitar Tabla";
-                    btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
-                    btn.OnClientClick = "javascript:QuitarTabla(" + ContadorDDLTablas + ");";
-                    btn.CssClass = "btn btn-default";
-                    LiteralControl jump = new LiteralControl("&nbsp;");
-                    LiteralControl space = new LiteralControl("<br /><br />");
+                    ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
+                    if (ContadorDDLTablas == 1)
+                    {
+                        ddlTablas.Enabled = false;
+                        btnEstablecerTablaPrincipal.Enabled = false;
+                        DropDownList ddl = new DropDownList();
+                        ddl.ID = "ddlTabla" + ContadorDDLTablas;
+                        ddl.DataSource = ListaTablasConstraint;
+                        ddl.DataBind();
+                        Button btn = new Button();
+                        btn.Text = "Quitar Tabla";
+                        btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
+                        btn.OnClientClick = "javascript:QuitarTabla(" + ContadorDDLTablas + ");";
+                        btn.CssClass = "btn btn-default";
+                        LiteralControl jump = new LiteralControl("&nbsp;");
+                        LiteralControl space = new LiteralControl("<br /><br />");
 
-                    clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
-                    ListaControlesDDLTablas.Add(newControl);
+                        clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
+                        ListaControlesDDLTablas.Add(newControl);
+                    }
+                    else if (ContadorDDLTablas == 2)
+                    {
+                        ListaControlesDDLTablas.Last().setEnabled(false);
+                        ListaTablasConstraint.Remove(ListaControlesDDLTablas.Last().getDDL().Text);
+
+                        DropDownList ddl = new DropDownList();
+                        ddl.ID = "ddlTabla" + ContadorDDLTablas;
+                        ddl.DataSource = ListaTablasConstraint;
+                        ddl.DataBind();
+                        Button btn = new Button();
+                        btn.Text = "Quitar Tabla";
+                        btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
+                        btn.OnClientClick = "javascript:QuitarTabla(" + ContadorDDLTablas + ");";
+                        btn.CssClass = "btn btn-default";
+                        LiteralControl jump = new LiteralControl("&nbsp;");
+                        LiteralControl space = new LiteralControl("<br /><br />");
+
+                        clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
+                        ListaControlesDDLTablas.Add(newControl);
+                    }
+                    else if (ContadorDDLTablas == 3)
+                    {
+                        ListaControlesDDLTablas.Last().setEnabled(false);
+                        ListaTablasConstraint.Remove(ListaControlesDDLTablas.Last().getDDL().Text);
+
+                        DropDownList ddl = new DropDownList();
+                        ddl.ID = "ddlTabla" + ContadorDDLTablas;
+                        ddl.DataSource = ListaTablasConstraint;
+                        ddl.DataBind();
+                        Button btn = new Button();
+                        btn.Text = "Quitar Tabla";
+                        btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
+                        btn.OnClientClick = "javascript:QuitarTabla(" + ContadorDDLTablas + ");";
+                        btn.CssClass = "btn btn-default";
+                        LiteralControl jump = new LiteralControl("&nbsp;");
+                        LiteralControl space = new LiteralControl("<br /><br />");
+
+                        clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
+                        ListaControlesDDLTablas.Add(newControl);
+                    }
+
+                    foreach (clsControlesDDLTablas control in ListaControlesDDLTablas)
+                    {
+                        this.pNuevaTabla.Controls.Add(control.getDDL());
+                        this.pNuevaTabla.Controls.Add(control.getJUMP());
+                        this.pNuevaTabla.Controls.Add(control.getBTN());
+                        this.pNuevaTabla.Controls.Add(control.getSPACE());
+                        if (ListaControlesDDLTablas.LastOrDefault().getDDL().ID.ToString().Equals(control.getDDL().ID.ToString()))
+                        {
+                            if (control.getDDL().ID.ToString().Equals("ddlTabla1"))
+                            {
+                                (this.pNuevaTabla.Controls[0] as DropDownList).Enabled = true;
+                                (this.pNuevaTabla.Controls[2] as Button).Enabled = true;
+                            }
+                            else if (control.getDDL().ID.ToString().Equals("ddlTabla2"))
+                            {
+                                (this.pNuevaTabla.Controls[4] as DropDownList).Enabled = true;
+                                (this.pNuevaTabla.Controls[6] as Button).Enabled = true;
+                            }
+                            else if (control.getDDL().ID.ToString().Equals("ddlTabla3"))
+                            {
+                                (this.pNuevaTabla.Controls[8] as DropDownList).Enabled = true;
+                                (this.pNuevaTabla.Controls[10] as Button).Enabled = true;
+                            }
+                        }
+                    }
+
+                    ContadorDDLTablas++;
+                    Session["ContadorDDLTablas"] = ContadorDDLTablas;
+                    Session["ListaTablasConstraint"] = ListaTablasConstraint;
+                    Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
                 }
-                else if (ContadorDDLTablas == 2)
-                {
-                    ListaControlesDDLTablas.Last().setEnabled(false);
-                    ListaTablasConstraint.Remove(ListaControlesDDLTablas.Last().getDDL().Text);
-
-                    DropDownList ddl = new DropDownList();
-                    ddl.ID = "ddlTabla" + ContadorDDLTablas;
-                    ddl.DataSource = ListaTablasConstraint;
-                    ddl.DataBind();
-                    Button btn = new Button();
-                    btn.Text = "Quitar Tabla";
-                    btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
-                    btn.OnClientClick = "javascript:QuitarTabla(" + ContadorDDLTablas + ");";
-                    btn.CssClass = "btn btn-default";
-                    LiteralControl jump = new LiteralControl("&nbsp;");
-                    LiteralControl space = new LiteralControl("<br /><br />");
-
-                    clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
-                    ListaControlesDDLTablas.Add(newControl);
-                }
-                else if (ContadorDDLTablas == 3)
-                {
-                    ListaControlesDDLTablas.Last().setEnabled(false);
-                    ListaTablasConstraint.Remove(ListaControlesDDLTablas.Last().getDDL().Text);
-
-                    DropDownList ddl = new DropDownList();
-                    ddl.ID = "ddlTabla" + ContadorDDLTablas;
-                    ddl.DataSource = ListaTablasConstraint;
-                    ddl.DataBind();
-                    Button btn = new Button();
-                    btn.Text = "Quitar Tabla";
-                    btn.ID = "btnQuitarTabla" + ContadorDDLTablas;
-                    btn.OnClientClick = "javascript:QuitarTabla(" + ContadorDDLTablas + ");";
-                    btn.CssClass = "btn btn-default";
-                    LiteralControl jump = new LiteralControl("&nbsp;");
-                    LiteralControl space = new LiteralControl("<br /><br />");
-
-                    clsControlesDDLTablas newControl = new clsControlesDDLTablas(ddl, jump, btn, space);
-                    ListaControlesDDLTablas.Add(newControl);
-                }
-
-                foreach (clsControlesDDLTablas control in ListaControlesDDLTablas)
-                {
-                    this.pNuevaTabla.Controls.Add(control.getDDL());
-                    this.pNuevaTabla.Controls.Add(control.getJUMP());
-                    this.pNuevaTabla.Controls.Add(control.getBTN());
-                    this.pNuevaTabla.Controls.Add(control.getSPACE());
-                }
-                ContadorDDLTablas++;
-                Session["ContadorDDLTablas"] = ContadorDDLTablas;
-                Session["ListaTablasConstraint"] = ListaTablasConstraint;
-                Session["ListaControlesDDLTablas"] = ListaControlesDDLTablas;
-            }
-
-            if (ContadorDDLTablas == 4)
-            {
-                btnAgregarTabla.Enabled = false;
             }
         }
 
@@ -305,6 +351,43 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
+        private void crearGridViews_Step3()
+        {
+            ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
+            int Contador = 1;
+            for (int i = 0; i < ListaControlesDDLTablas.Count + 1; i++)
+            {
+                if (i == 0)
+                {
+                    ListaddlColumnCanvas = Session["ListaddlColumnCanvas"] as List<string>;
+                    DropDownList ddl = new DropDownList();
+                    ddl.DataSource = ListaddlColumnCanvas;
+                    ddl.DataBind();
+
+                    DataTable dtColumnsxTable = new DataTable();
+                    DataRow NewRow = dtColumnsxTable.NewRow();
+                    NewRow[0] = "Campos de Tabla";
+
+                    dtCanvas.Rows.Add(NewRow);
+                    gvDatos.DataSource = dtCanvas;
+                    gvDatos.DataBind();
+
+
+
+                    //GridView gv = new GridView();
+                    //gv.ID = "gvTabla" + Contador;
+                    //TemplateField tfColumnDDL = new TemplateField();
+                    //tfColumnDDL.HeaderText = "Campos Canvas";
+                    //tfColumnDDL.ItemTemplate = ddl as ITemplate;
+                    //gv.Columns.Add(tfColumnDDL);
+
+                }
+            }
+        }
+
+        /// Lo demas no va
+        /// 
+
         //protected void StepPreviousButton_Click(object sender, EventArgs e)
         //{
         //    lcTablas = Session["lcTablas"] as List<LiteralControl>;
@@ -313,16 +396,6 @@ namespace FrameworkAnaliticaVisual
         //}
 
         //No va ha hacer falta
-        private void cargarListaCanvas()
-        {
-            ListaddlCanvas = new List<string>();
-            ListaddlCanvas.Add("Color");
-            ListaddlCanvas.Add("Label");
-            ListaddlCanvas.Add("Index Label");
-            ListaddlCanvas.Add("Posicion X");
-            ListaddlCanvas.Add("Posicion Y");
-            Session["ListaCanvas"] = ListaddlCanvas;
-        }
 
         //No va ha hacer falta
         protected void ddlTablas_SelectedIndexChanged(object sender, EventArgs e)
@@ -338,9 +411,9 @@ namespace FrameworkAnaliticaVisual
         
         private void cargarComboBoxListaCanvas()
         {
-            cargarListaCanvas();
-            ddlEnlaceCanvas.DataSource = ListaddlCanvas;
-            ddlEnlaceCanvas.DataBind();
+            //cargarListaCanvas();
+            //ddlEnlaceCanvas.DataSource = ListaddlCanvas;
+            //ddlEnlaceCanvas.DataBind();
         }
 
         private void cargarGrid()
@@ -489,11 +562,10 @@ namespace FrameworkAnaliticaVisual
 
         private void Limpiar()
         {
-            ListaObjetosCadeConexion = null;
-            ListaTablas = null;
-
-            Session["ListaObjetosCadeConexion"] = null;
-            Session["ListaTablas"] = null;
+            //ListaObjetosCadeConexion = null;
+            //ListaTablas = null;
+            //Session["ListaObjetosCadeConexion"] = null;
+            //Session["ListaTablas"] = null;
         }
     }
     

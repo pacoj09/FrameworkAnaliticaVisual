@@ -51,7 +51,7 @@
         };
 
         function printGraph(count) {
-            document.getElementById('graphs').innerHTML += '<div id="graph' + count + '" class="graphs"></div>'
+            document.getElementById('graphs').innerHTML += '<div id="graph' + count + '" class="graphs"></div>';
             document.getElementById('graph' + count).innerHTML += '<select id="ddlChartType' + count + '" onchange="reloadChart(this.value,' + count +')"><option value="bar">Bar</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pie</option><option value="doughnut">Doughnut</option></select>';
             document.getElementById('graph' + count).innerHTML += '<div id="chartContainer' + count + '" style="height: 100%; width: 100%;"></div>';
         }

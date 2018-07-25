@@ -26,21 +26,14 @@
             $("#ContentPlaceHolder1_Wizard1_StartNavigationTemplateContainerID_StartNextButton").prop("disabled", false);
         }
 
-        function enable_stepbutton() {
-            $("#ContentPlaceHolder1_Wizard1_StepNavigationTemplateContainerID_StepNextButton").prop("disabled", false);
-        }
-
-        //function enable_finishbutton() {
-        //    $("#ContentPlaceHolder1_Wizard1_FinishNavigationTemplateContainerID_FinishButton").prop("disabled", false);
-        //}
-
-        function enable_ddl_btn_panel(ddlid, btnid) {
-            $("#ContentPlaceHolder1_Wizard1_" + ddlid).prop("disabled", false);
-            $("#ContentPlaceHolder1_Wizard1_" + btnid).prop("disabled", false);
-        }
-
         function QuitarTabla(id) {
-            window.location("Home.aspx?ddlid=" + id);
+            ///Revisar funcion para chrome
+            window.location.assign("Home.aspx?ddlid=" + id);
+            return false;
+        }
+
+        function hablitarGrid() {
+            document.getElementById("TablaPrincipal").style.display = block;
         }
 
 
@@ -60,7 +53,7 @@
         </StartNavigationTemplate>
         <StepNavigationTemplate>
             <asp:Button ID="StepPreviousButton" CssClass="btn btn-default" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Anterior" />
-            <asp:Button ID="StepNextButton" CssClass="btn btn-default" runat="server" CommandName="MoveNext" Text="Siguiente" Enabled="false" />
+            <asp:Button ID="StepNextButton" CssClass="btn btn-default" runat="server" CommandName="MoveNext" Text="Siguiente" />
         </StepNavigationTemplate>
         <WizardSteps>
             <asp:WizardStep ID="WizardStep1" runat="server" Title="Conexión a la base de datos" OnLoad="WizardStep1_Load">
@@ -115,7 +108,7 @@
                     <br />
                     <p>
                         NOTA: Debe de establecer una tabla principal antes de agregar tablas secundarias.<br />
-                        Las tablas secundarias deben de estar entrelasadas con la princiapl por constraints.
+                        Las tablas secundarias deben de estar entrelasadas con la principal por constraints.
                     </p>
                 </div>
             </asp:WizardStep>
@@ -127,10 +120,36 @@
                     <fieldset>
                         <legend>Tablas:</legend>
 
-                        <asp:Panel ID="pGridsTablas" runat="server"></asp:Panel>
-
-                        Nombre Tabla:<br>
-                        <asp:GridView ID="GridView1" runat="server" Enabled="true">
+                        <div id="TablaPrincipal" style="display:none">
+                            <h1>Hola Mundo</h1>
+                        <asp:Label ID="lblTablaPrincipal" runat="server" Text="TEST"></asp:Label><br>
+                        <asp:GridView ID="gvPrincipal" runat="server" Enabled="true">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Datos_Canvas">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlCamposCanvasPrincipal" runat="server">
+                                        </asp:DropDownList>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                        <br /><br />
+                        </div>
+                        <a href="" onclick="hablitarGrid()">Testme</a>
+                        <%--<div id="TablasSecundarias">
+                        <asp:Label ID="lblSecundaria1" runat="server" Text="Label"></asp:Label><br>
+                        <asp:GridView ID="gvSecundario1" runat="server" Enabled="true">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Datos_Canvas">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlCamposCanvasSecundario1" runat="server">
+                                        </asp:DropDownList>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                        <br /><br /><asp:Label ID="Label3" runat="server" Text="Label"></asp:Label><br>
+                        <asp:GridView ID="GridView3" runat="server" Enabled="true">
                             <Columns>
                                 <asp:TemplateField HeaderText="Datos_Canvas">
                                     <ItemTemplate>
@@ -140,7 +159,21 @@
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
-                        <br />
+                        <br /><br /><asp:Label ID="Label4" runat="server" Text="Label"></asp:Label><br>
+                        <asp:GridView ID="GridView4" runat="server" Enabled="true">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Datos_Canvas">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlCamposCanvas" runat="server">
+                                        </asp:DropDownList>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                        <br /><br />
+                        </div>--%>
+
+
                     </fieldset>
                     <br />
                     <br />

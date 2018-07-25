@@ -151,6 +151,7 @@ C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Fra
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\bin\es\System.Web.Webpages.Razor.resources.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\bin\es\System.Web.Helpers.resources.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\bin\es\System.Web.Mvc.resources.dll
+C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.csprojResolveAssemblyReference.cache
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.csproj.CoreCompileInputs.cache
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.csproj.CopyComplete
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.dll

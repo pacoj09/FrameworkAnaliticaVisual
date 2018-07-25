@@ -139,22 +139,22 @@ namespace FrameworkAnaliticaVisual {
         protected global::System.Web.UI.WebControls.WizardStep WizardStep3;
         
         /// <summary>
-        /// Control pGridsTablas.
+        /// Control lblTablaPrincipal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pGridsTablas;
+        protected global::System.Web.UI.WebControls.Label lblTablaPrincipal;
         
         /// <summary>
-        /// Control GridView1.
+        /// Control gvPrincipal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView gvPrincipal;
         
         /// <summary>
         /// Control lblCamposTabla.
