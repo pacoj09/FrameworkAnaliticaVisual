@@ -29,11 +29,25 @@
         function QuitarTabla(id) {
             ///Revisar funcion para chrome
             window.location.assign("Home.aspx?ddlid=" + id);
-            return false;
+            return true;
         }
 
-        function hablitarGrid() {
-            document.getElementById("TablaPrincipal").style.display = block;
+        function hablitarGrid(count) {
+            if (count === 0) {
+                document.getElementById("TablaPrincipal").style.display = "block";
+            } else if (count === 1) {
+                document.getElementById("TablaPrincipal").style.display = "block";
+                document.getElementById("TablaSecundaria1").style.display = "block";
+            } else if (count === 2) {
+                document.getElementById("TablaPrincipal").style.display = "block";
+                document.getElementById("TablaSecundaria1").style.display = "block";
+                document.getElementById("TablaSecundaria2").style.display = "block";
+            } else if (count === 3) {
+                document.getElementById("TablaPrincipal").style.display = "block";
+                document.getElementById("TablaSecundaria1").style.display = "block";
+                document.getElementById("TablaSecundaria2").style.display = "block";
+                document.getElementById("TablaSecundaria3").style.display = "block";
+            }
         }
 
 
@@ -53,7 +67,7 @@
         </StartNavigationTemplate>
         <StepNavigationTemplate>
             <asp:Button ID="StepPreviousButton" CssClass="btn btn-default" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Anterior" />
-            <asp:Button ID="StepNextButton" CssClass="btn btn-default" runat="server" CommandName="MoveNext" Text="Siguiente" />
+            <asp:Button ID="StepNextButton" CssClass="btn btn-default" runat="server" CommandName="MoveNext" Text="Siguiente" OnClick="StepNextButton_Click" />
         </StepNavigationTemplate>
         <WizardSteps>
             <asp:WizardStep ID="WizardStep1" runat="server" Title="Conexión a la base de datos" OnLoad="WizardStep1_Load">
@@ -97,7 +111,7 @@
                     <fieldset>
                         <legend>Tablas de la Base de Datos:</legend>
                         Seleccione la tabla principal:<br>
-                        <asp:DropDownList ID="ddlTablas" runat="server" OnSelectedIndexChanged="ddlTablas_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlTablaPrincipal" runat="server"></asp:DropDownList>
                         <asp:Button ID="btnEstablecerTablaPrincipal" CssClass="btn btn-default" runat="server" Text="Establecer Tabla Principal" OnClick="btnEstablecerTablaPrincipal_Click" /><br />
                         <br />
                         <asp:Panel ID="pNuevaTabla" runat="server"></asp:Panel>
@@ -120,59 +134,69 @@
                     <fieldset>
                         <legend>Tablas:</legend>
 
-                        <div id="TablaPrincipal" style="display:none">
-                            <h1>Hola Mundo</h1>
-                        <asp:Label ID="lblTablaPrincipal" runat="server" Text="TEST"></asp:Label><br>
-                        <asp:GridView ID="gvPrincipal" runat="server" Enabled="true">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Datos_Canvas">
-                                    <ItemTemplate>
-                                        <asp:DropDownList ID="ddlCamposCanvasPrincipal" runat="server">
-                                        </asp:DropDownList>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
-                        <br /><br />
+                        <div id="TablaPrincipal" style="display: none">
+                            <asp:Label ID="lblTablaPrincipal" runat="server" Text="Label"></asp:Label><br>
+                            <asp:GridView ID="gvPrincipal" runat="server" Enabled="true" OnRowCreated="gvPrincipal_RowCreated">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlCamposCanvasPrincipal" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                            <br />
                         </div>
-                        <a href="" onclick="hablitarGrid()">Testme</a>
-                        <%--<div id="TablasSecundarias">
-                        <asp:Label ID="lblSecundaria1" runat="server" Text="Label"></asp:Label><br>
-                        <asp:GridView ID="gvSecundario1" runat="server" Enabled="true">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Datos_Canvas">
-                                    <ItemTemplate>
-                                        <asp:DropDownList ID="ddlCamposCanvasSecundario1" runat="server">
-                                        </asp:DropDownList>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
-                        <br /><br /><asp:Label ID="Label3" runat="server" Text="Label"></asp:Label><br>
-                        <asp:GridView ID="GridView3" runat="server" Enabled="true">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Datos_Canvas">
-                                    <ItemTemplate>
-                                        <asp:DropDownList ID="ddlCamposCanvas" runat="server">
-                                        </asp:DropDownList>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
-                        <br /><br /><asp:Label ID="Label4" runat="server" Text="Label"></asp:Label><br>
-                        <asp:GridView ID="GridView4" runat="server" Enabled="true">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Datos_Canvas">
-                                    <ItemTemplate>
-                                        <asp:DropDownList ID="ddlCamposCanvas" runat="server">
-                                        </asp:DropDownList>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                        </asp:GridView>
-                        <br /><br />
-                        </div>--%>
 
+                        <div id="TablaSecundaria1" style="display: none">
+                            <asp:Label ID="lblSecundaria1" runat="server" Text="Label"></asp:Label><br>
+                            <asp:GridView ID="gvSecundario1" runat="server" Enabled="true" OnRowCreated="gvSecundario1_RowCreated">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlCamposCanvasSecundario1" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                            <br />
+                        </div>
+
+                        <div id="TablaSecundaria2" style="display: none">
+                            <asp:Label ID="lblSecundaria2" runat="server" Text="Label"></asp:Label><br>
+                            <asp:GridView ID="gvSecundario2" runat="server" Enabled="true" OnRowCreated="gvSecundario2_RowCreated">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlCamposCanvasSecundario2" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                            <br />
+                        </div>
+
+                        <div id="TablaSecundaria3" style="display: none">
+                            <asp:Label ID="lblSecundaria3" runat="server" Text="Label"></asp:Label><br>
+                            <asp:GridView ID="gvSecundario3" runat="server" Enabled="true" OnRowCreated="gvSecundario3_RowCreated">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlCamposCanvasSecundario3" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                            <br />
+                            <br />
+                        </div>
 
                     </fieldset>
                     <br />
@@ -182,27 +206,8 @@
                     </p>
                 </div>
 
-                <asp:Label ID="lblCamposTabla" runat="server" Text="Campos de la Tabla: "></asp:Label>
-                <br />
-                <asp:DropDownList ID="ddlEnlaceTabla" runat="server"></asp:DropDownList>
-                <br />
-                <asp:Label ID="lblCamposCanvas" runat="server" Text="Campos del Canvas: "></asp:Label>
-                <br />
-                <asp:DropDownList ID="ddlEnlaceCanvas" runat="server"></asp:DropDownList>
-                <br />
-                <asp:Button ID="btnAgregarEnlace" runat="server" Text="Agregar Elance" Enabled="false" />
-                <asp:GridView ID="gvDatos" runat="server" Enabled="true" OnRowDeleting="gvDatos_RowDeleting" OnRowCreated="gvDatos_RowCreated">
-                    <Columns>
-                        <asp:CommandField ButtonType="Link" ShowDeleteButton="True" />
-                        <asp:TemplateField HeaderText="Datos_Canvas">
-                            <ItemTemplate>
-                                <asp:DropDownList ID="ddlCamposCanvas" runat="server">
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
                 <asp:Button ID="btnGenrarCodigo" CssClass="btn btn-default" runat="server" Text="Generar Codigo" OnClick="btnGenrarCodigo_Click" />
+
             </asp:WizardStep>
         </WizardSteps>
     </asp:Wizard>

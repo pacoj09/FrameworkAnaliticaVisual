@@ -94,13 +94,13 @@ namespace FrameworkAnaliticaVisual {
         protected global::System.Web.UI.WebControls.WizardStep WizardStep2;
         
         /// <summary>
-        /// Control ddlTablas.
+        /// Control ddlTablaPrincipal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTablas;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTablaPrincipal;
         
         /// <summary>
         /// Control btnEstablecerTablaPrincipal.
@@ -157,58 +157,58 @@ namespace FrameworkAnaliticaVisual {
         protected global::System.Web.UI.WebControls.GridView gvPrincipal;
         
         /// <summary>
-        /// Control lblCamposTabla.
+        /// Control lblSecundaria1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCamposTabla;
+        protected global::System.Web.UI.WebControls.Label lblSecundaria1;
         
         /// <summary>
-        /// Control ddlEnlaceTabla.
+        /// Control gvSecundario1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEnlaceTabla;
+        protected global::System.Web.UI.WebControls.GridView gvSecundario1;
         
         /// <summary>
-        /// Control lblCamposCanvas.
+        /// Control lblSecundaria2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCamposCanvas;
+        protected global::System.Web.UI.WebControls.Label lblSecundaria2;
         
         /// <summary>
-        /// Control ddlEnlaceCanvas.
+        /// Control gvSecundario2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEnlaceCanvas;
+        protected global::System.Web.UI.WebControls.GridView gvSecundario2;
         
         /// <summary>
-        /// Control btnAgregarEnlace.
+        /// Control lblSecundaria3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarEnlace;
+        protected global::System.Web.UI.WebControls.Label lblSecundaria3;
         
         /// <summary>
-        /// Control gvDatos.
+        /// Control gvSecundario3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDatos;
+        protected global::System.Web.UI.WebControls.GridView gvSecundario3;
         
         /// <summary>
         /// Control btnGenrarCodigo.

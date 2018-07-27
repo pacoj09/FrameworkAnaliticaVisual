@@ -11,9 +11,14 @@ namespace Clases
     {
         public clsFactory() { }
 
-        public void FactoryMethod(List<string> _TablesNames, DataTable _dt)
+        public bool FactoryMethod(List<string> _ListaNombresTablasSeleccionadas, List<DataTable> _ListaTablasEnlasadas)
         {
-            clsGenerador objGenerador = new clsGenerador();
+            bool exito = false;
+            if (_ListaNombresTablasSeleccionadas.Count > 0 && _ListaTablasEnlasadas.Count > 0 && _ListaNombresTablasSeleccionadas.Count == _ListaTablasEnlasadas.Count)
+            {
+                clsGenerador objGenerador = new clsGenerador();
+            }
+            return exito;
         }
 
         //public List<clsEsquemaVista> getListaEsquema()

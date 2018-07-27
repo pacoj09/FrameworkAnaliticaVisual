@@ -10,12 +10,7 @@ namespace Clases
 {
     public class clsGenerador
     {
-
-        public string Metodo { get; set; }
-
-        
-
-        public void GenerateMethod(DataTable dtColumnas, List<string> Tablas)
+        private void GenerateMethod(DataTable dtColumnas, List<string> Tablas)
         {
             ///Este metodo debe de generar el string completo con el codigo del Metodo
             ///Debe haber un for para recorrer por tablas y despeus por columnas, en caso de que sean varias tablas
@@ -31,14 +26,11 @@ namespace Clases
             }
 
 
-            Metodo = string.Format("public void Function(){0}\r\nstring numeroColumnas = {1};\r\n{2}\r\n#endregion View", "{", "10", "}");
+            //Metodo = string.Format("public void Function(){0}\r\nstring numeroColumnas = {1};\r\n{2}\r\n#endregion View", "{", "10", "}");
         }
 
-        public void WriteMethod()
+        private void WriteMethod(List<string> _ListaNombresTablasSeleccionadas, List<DataTable> _ListaTablasEnlasadas)
         {
-            
-            Metodo = string.Format("public void Function(){0}\r\nstring numeroColumnas = {1};\r\n{2}\r\n#endregion View", "{", "10", "}");
-
             string path = $"C:\\Test\\clsPrueba.cs";
             string[] readText = File.ReadAllLines(path);
             for (int i = 0; i < readText.Count(); i++)

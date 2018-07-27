@@ -14,13 +14,11 @@ namespace Clases
         private static clsEsquema objEsquema = new clsEsquema();
         private static string ConnectionString;
         private static List<string> ListaTablas;
-        private static List<clsTabla> ListaColumnas;
         private static DataTable dtConstraints;
 
         private clsEsquema()
         {
             ListaTablas = new List<string>();
-            ListaColumnas = new List<clsTabla>();
             dtConstraints = new DataTable();
         }
 
@@ -32,11 +30,6 @@ namespace Clases
         public List<string> getListaTablas()
         {
             return ListaTablas;
-        }
-
-        public List<clsTabla> getListaColumnas()
-        {
-            return ListaColumnas;
         }
 
         public string getConnectionString()
@@ -58,7 +51,6 @@ namespace Clases
         {
             ConnectionString = string.Empty;
             ListaTablas = new List<string>();
-            ListaColumnas = new List<clsTabla>();
             dtConstraints = new DataTable();
         }
 
@@ -74,12 +66,12 @@ namespace Clases
                 }
                 else if (_ListaCadenaConexion.First().Equals("Oracle"))
                 {
-                    ///Hay que cambiar el string connection a Oracle
+                    ///Hay que cambiar el string connection a Oracle, los metodos que ejecutan los selects deben de revisarse y cambiarse igual
                     setConnectionString(string.Format("Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
                 }
                 else if (_ListaCadenaConexion.First().Equals("MySQL"))
                 {
-                    ///Hay que cambiar el string connection a MySQL
+                    ///Hay que cambiar el string connection a MySQL, los metodos que ejecutan los selects deben de revisarse y cambiarse igual
                     setConnectionString(string.Format("Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
                 }
 
@@ -116,38 +108,13 @@ namespace Clases
                     }
                     if (ListaTablas.Count > 0)
                     {
-                        if (CargarColumnasXTabla(dtTablas))
+                        if (CargarConstraints())
                         {
-                            if (CargarConstraints())
-                            {
-                                exito = true;
-                            }
+                            exito = true;
                         }
                     }
                 }
                 objConexion.cerrarConexion();
-            }
-            return exito;
-        }
-
-        private bool CargarColumnasXTabla(DataTable _dtTablas)
-        {
-            bool exito = false;
-            clsConexion objConexion = clsConexion.obtenerclsConexion();
-            DataTable dtColumnas = new DataTable();
-            for (int i = 0; i < _dtTablas.Rows.Count; i++)
-            {
-                string query = string.Format("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{0}';", _dtTablas.Rows[i][0].ToString());
-                dtColumnas = objConexion.consultar(query);
-                for (int j = 0; j < dtColumnas.Rows.Count; j++)
-                {
-                    clsTabla objTabla = new clsTabla(_dtTablas.Rows[i][0].ToString(), dtColumnas.Rows[j][0].ToString());
-                    ListaColumnas.Add(objTabla);
-                }
-            }
-            if (ListaColumnas.Count > 0)
-            {
-                exito = true;
             }
             return exito;
         }
@@ -165,10 +132,22 @@ namespace Clases
             return exito;
         }
 
+        public DataTable getColumnasXTabla(string _tablename)
+        {
+            clsConexion objConexion = clsConexion.obtenerclsConexion();
+            DataTable dtColumnas = new DataTable();
+            if (objConexion.abrirConexion())
+            {
+                string query = string.Format("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{0}';", _tablename);
+                dtColumnas = objConexion.consultar(query);
+                objConexion.cerrarConexion();
+            }
+            return dtColumnas;
+        }
+
         ~clsEsquema()
         {
             ListaTablas = null;
-            ListaColumnas = null;
             ConnectionString = string.Empty;
             dtConstraints = null;
         }
