@@ -34,19 +34,19 @@
 
         function hablitarGrid(count) {
             if (count === 0) {
-                document.getElementById("TablaPrincipal").style.display = "block";
+                document.getElementById("Vista_1").style.display = "block";
             } else if (count === 1) {
-                document.getElementById("TablaPrincipal").style.display = "block";
-                document.getElementById("TablaSecundaria1").style.display = "block";
+                document.getElementById("Vista_1").style.display = "block";
+                document.getElementById("Vista_2").style.display = "block";
             } else if (count === 2) {
-                document.getElementById("TablaPrincipal").style.display = "block";
-                document.getElementById("TablaSecundaria1").style.display = "block";
-                document.getElementById("TablaSecundaria2").style.display = "block";
+                document.getElementById("Vista_1").style.display = "block";
+                document.getElementById("Vista_2").style.display = "block";
+                document.getElementById("Vista_3").style.display = "block";
             } else if (count === 3) {
-                document.getElementById("TablaPrincipal").style.display = "block";
-                document.getElementById("TablaSecundaria1").style.display = "block";
-                document.getElementById("TablaSecundaria2").style.display = "block";
-                document.getElementById("TablaSecundaria3").style.display = "block";
+                document.getElementById("Vista_1").style.display = "block";
+                document.getElementById("Vista_2").style.display = "block";
+                document.getElementById("Vista_3").style.display = "block";
+                document.getElementById("Vista_4").style.display = "block";
             }
         }
 
@@ -56,7 +56,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <asp:Wizard ID="Wizard1" runat="server" ActiveStepIndex="0" DisplaySideBar="False" CssClass="laclase">
+    <asp:Wizard ID="Wizard1" runat="server" ActiveStepIndex="2" DisplaySideBar="False" CssClass="laclase">
         <FinishNavigationTemplate>
             <asp:Button ID="FinishPreviousButton" CssClass="btn btn-default" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Anterior" />
             <asp:Button ID="FinishButton" CssClass="btn btn-default" runat="server" CommandName="MoveComplete" Text="Finalizar" />
@@ -134,13 +134,28 @@
                     <fieldset>
                         <legend>Tablas:</legend>
 
-                        <div id="TablaPrincipal" style="display: none">
-                            <asp:Label ID="lblTablaPrincipal" runat="server" Text="Label"></asp:Label><br>
-                            <asp:GridView ID="gvPrincipal" runat="server" Enabled="true" OnRowCreated="gvPrincipal_RowCreated">
+                        <div id="Vista_1" style="display: block">
+                            <asp:Label ID="lblVista_1" runat="server" Text="Label">VISTA 1</asp:Label><br>
+                            <asp:GridView ID="gvVista_1" runat="server" Enabled="true" OnRowCreated="gvVista_1_RowCreated">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlCamposCanvasPrincipal" runat="server">
+                                            <asp:DropDownList ID="ddlVista_1_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_1_Tablas_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="COLUMNAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_1_Columnas" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="VALORES_CANVAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_1_CamposCanvas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -150,13 +165,28 @@
                             <br />
                         </div>
 
-                        <div id="TablaSecundaria1" style="display: none">
-                            <asp:Label ID="lblSecundaria1" runat="server" Text="Label"></asp:Label><br>
-                            <asp:GridView ID="gvSecundario1" runat="server" Enabled="true" OnRowCreated="gvSecundario1_RowCreated">
+                        <div id="Vista_2" style="display: block">
+                            <asp:Label ID="lblVista_2" runat="server" Text="Label">VISTA 2</asp:Label><br>
+                            <asp:GridView ID="gvVista_2" runat="server" Enabled="true" OnRowCreated="gvVista_2_RowCreated">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlCamposCanvasSecundario1" runat="server">
+                                            <asp:DropDownList ID="ddlVista_2_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_2_Tablas_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="COLUMNAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_2_Columnas" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="VALORES_CANVAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_2_CamposCanvas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -166,13 +196,28 @@
                             <br />
                         </div>
 
-                        <div id="TablaSecundaria2" style="display: none">
-                            <asp:Label ID="lblSecundaria2" runat="server" Text="Label"></asp:Label><br>
-                            <asp:GridView ID="gvSecundario2" runat="server" Enabled="true" OnRowCreated="gvSecundario2_RowCreated">
+                        <div id="Vista_3" style="display: block">
+                            <asp:Label ID="lblVista_3" runat="server" Text="Label">VISTA 3</asp:Label><br>
+                            <asp:GridView ID="gvVista_3" runat="server" Enabled="true" OnRowCreated="gvVista_3_RowCreated">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlCamposCanvasSecundario2" runat="server">
+                                            <asp:DropDownList ID="ddlVista_3_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_3_Tablas_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="COLUMNAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_3_Columnas" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="VALORES_CANVAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_3_CamposCanvas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -182,13 +227,28 @@
                             <br />
                         </div>
 
-                        <div id="TablaSecundaria3" style="display: none">
-                            <asp:Label ID="lblSecundaria3" runat="server" Text="Label"></asp:Label><br>
-                            <asp:GridView ID="gvSecundario3" runat="server" Enabled="true" OnRowCreated="gvSecundario3_RowCreated">
+                        <div id="Vista_4" style="display: block">
+                            <asp:Label ID="lblVista_4" runat="server" Text="Label">VISTA 4</asp:Label><br>
+                            <asp:GridView ID="gvVista_4" runat="server" Enabled="true" OnRowCreated="gvVista_4_RowCreated">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="CANVAS_VALUES">
+                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlCamposCanvasSecundario3" runat="server">
+                                            <asp:DropDownList ID="ddlVista_4_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_4_Tablas_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="COLUMNAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_4_Columnas" runat="server">
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="VALORES_CANVAS">
+                                        <ItemTemplate>
+                                            <asp:DropDownList ID="ddlVista_4_CamposCanvas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>

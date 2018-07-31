@@ -17,7 +17,7 @@ namespace FrameworkAnaliticaVisual
         private List<clsControlesDDLTablas> ListaControlesDDLTablas;
         private List<string> ListaTablasConstraint;
         private List<string> ListaddlColumnCanvas;
-        private List<DataTable> ListadtColumnas;
+        private List<clsTablesColumnsSelected> ListaclsTablesColumnsSelected;
         private List<string> ListaNombresTablasSeleccionadas;
         private List<DataTable> ListaTablasEnlasadas;
 
@@ -58,10 +58,10 @@ namespace FrameworkAnaliticaVisual
                 Session["ListaddlColumnCanvas"] = ListaddlColumnCanvas;
             }
 
-            if (Session["ListadtColumnas"] == null)
+            if (Session["ListaclsTablesColumnsSelected"] == null)
             {
-                ListadtColumnas = new List<DataTable>();
-                Session["ListadtColumnas"] = ListadtColumnas;
+                ListaclsTablesColumnsSelected = new List<clsTablesColumnsSelected>();
+                Session["ListaclsTablesColumnsSelected"] = ListaclsTablesColumnsSelected;
             }
 
             if (Session["ListaNombresTablasSeleccionadas"] == null)
@@ -134,40 +134,41 @@ namespace FrameworkAnaliticaVisual
 
         protected void WizardStep3_Load(object sender, EventArgs e)
         {
-            ListadtColumnas = Session["ListadtColumnas"] as List<DataTable>;
-            ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
-            if (ListadtColumnas.Count > 0 && ListaNombresTablasSeleccionadas.Count > 0)
+            if (gvVista_1.Rows.Count < 0)
             {
-                int Contador = 0;
-                foreach (DataTable dt in ListadtColumnas)
+                ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+                ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
+                if (ListaclsTablesColumnsSelected.Count > 0 && ListaNombresTablasSeleccionadas.Count > 0)
                 {
-                    if (Contador == 0)
+                    DataTable dtnewColumns = new DataTable();
+                    dtnewColumns = Session["dtnewColumns"] as DataTable;
+                    int Contador = 0;
+                    for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                     {
-                        lblTablaPrincipal.Text = ListaNombresTablasSeleccionadas[Contador];
-                        gvPrincipal.DataSource = dt;
-                        gvPrincipal.DataBind();
+                        if (i == 0)
+                        {
+                            gvVista_1.DataSource = dtnewColumns;
+                            gvVista_1.DataBind();
+                        }
+                        else if (i == 1)
+                        {
+                            gvVista_2.DataSource = dtnewColumns;
+                            gvVista_2.DataBind();
+                        }
+                        else if (i == 2)
+                        {
+                            gvVista_3.DataSource = dtnewColumns;
+                            gvVista_3.DataBind();
+                        }
+                        else if (i == 3)
+                        {
+                            gvVista_4.DataSource = dtnewColumns;
+                            gvVista_4.DataBind();
+                        }
+                        Contador++;
                     }
-                    else if (Contador == 1)
-                    {
-                        lblSecundaria1.Text = ListaNombresTablasSeleccionadas[Contador];
-                        gvSecundario1.DataSource = dt;
-                        gvSecundario1.DataBind();
-                    }
-                    else if (Contador == 2)
-                    {
-                        lblSecundaria2.Text = ListaNombresTablasSeleccionadas[Contador];
-                        gvSecundario2.DataSource = dt;
-                        gvSecundario2.DataBind();
-                    }
-                    else if (Contador == 3)
-                    {
-                        lblSecundaria3.Text = ListaNombresTablasSeleccionadas[Contador];
-                        gvSecundario3.DataSource = dt;
-                        gvSecundario3.DataBind();
-                    }
-                    Contador++;
+                    ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (Contador - 1) + ");", true);
                 }
-                ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (Contador - 1) + ");", true);
             }
         }
 
@@ -391,13 +392,13 @@ namespace FrameworkAnaliticaVisual
 
         protected void StepNextButton_Click(object sender, EventArgs e)
         {
-            ListadtColumnas = Session["ListadtColumnas"] as List<DataTable>;
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
             ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
-            if (ListadtColumnas.Count > 0 && ListaNombresTablasSeleccionadas.Count > 0)
+            if (ListaclsTablesColumnsSelected.Count > 0 && ListaNombresTablasSeleccionadas.Count > 0)
             {
-                ListadtColumnas.Clear();
+                ListaclsTablesColumnsSelected.Clear();
                 ListaNombresTablasSeleccionadas.Clear();
-                Session["ListadtColumnas"] = ListadtColumnas;
+                Session["ListaclsTablesColumnsSelected"] = ListaclsTablesColumnsSelected;
                 Session["ListaNombresTablasSeleccionadas"] = ListaNombresTablasSeleccionadas;
 
             }
@@ -407,203 +408,253 @@ namespace FrameworkAnaliticaVisual
         private void crearGridViews_Step3()
         {
             ListaControlesDDLTablas = Session["ListaControlesDDLTablas"] as List<clsControlesDDLTablas>;
-            ListadtColumnas = Session["ListadtColumnas"] as List<DataTable>;
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
             ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
             clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
             for (int i = 0; i < ListaControlesDDLTablas.Count + 1; i++)
             {
+                clsTablesColumnsSelected objTablesColumnsSelected;
                 DataTable dtColumnasxTable = new DataTable();
                 if (i == 0)
                 {
                     dtColumnasxTable = objEsquema.getColumnasXTabla(ddlTablaPrincipal.Text);
                     ListaNombresTablasSeleccionadas.Add(ddlTablaPrincipal.Text);
+                    objTablesColumnsSelected = new clsTablesColumnsSelected(ddlTablaPrincipal.Text, dtColumnasxTable);
                 }
                 else
                 {
                     dtColumnasxTable = objEsquema.getColumnasXTabla(ListaControlesDDLTablas[i - 1].getDDL().Text);
                     ListaNombresTablasSeleccionadas.Add(ListaControlesDDLTablas[i - 1].getDDL().Text);
+                    objTablesColumnsSelected = new clsTablesColumnsSelected(ListaControlesDDLTablas[i - 1].getDDL().Text, dtColumnasxTable);
                 }
-                ListadtColumnas.Add(dtColumnasxTable);
+                ListaclsTablesColumnsSelected.Add(objTablesColumnsSelected);
             }
 
-            Session["ListadtColumnas"] = ListadtColumnas;
+            Session["ListaclsTablesColumnsSelected"] = ListaclsTablesColumnsSelected;
             Session["ListaNombresTablasSeleccionadas"] = ListaNombresTablasSeleccionadas;
 
-            int Contador = 0;
-            foreach (DataTable dt in ListadtColumnas)
+            DataTable dtnewColumns = new DataTable();
+            DataColumn column;
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Consecutivo";
+            dtnewColumns.Columns.Add(column);
+            for (int i = 0; i < 4; i++)
             {
-                if (Contador == 0)
+                DataRow newRow = dtnewColumns.NewRow();
+                newRow["Consecutivo"] = (i + 1).ToString();
+                dtnewColumns.Rows.Add(newRow);
+            }
+            Session["dtnewColumns"] = dtnewColumns;
+
+
+            int Contador = 0;
+            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            {
+                if (i == 0)
                 {
-                    lblTablaPrincipal.Text = ListaNombresTablasSeleccionadas[Contador];
-                    gvPrincipal.DataSource = dt;
-                    gvPrincipal.DataBind();
+                    gvVista_1.DataSource = dtnewColumns;
+                    gvVista_1.DataBind();
                 }
-                else if (Contador == 1)
+                else if (i == 1)
                 {
-                    lblSecundaria1.Text = ListaNombresTablasSeleccionadas[Contador];
-                    gvSecundario1.DataSource = dt;
-                    gvSecundario1.DataBind();
+                    gvVista_2.DataSource = dtnewColumns;
+                    gvVista_2.DataBind();
                 }
-                else if (Contador == 2)
+                else if (i == 2)
                 {
-                    lblSecundaria2.Text = ListaNombresTablasSeleccionadas[Contador];
-                    gvSecundario2.DataSource = dt;
-                    gvSecundario2.DataBind();
+                    gvVista_3.DataSource = dtnewColumns;
+                    gvVista_3.DataBind();
                 }
-                else if (Contador == 3)
+                else if (i == 3)
                 {
-                    lblSecundaria3.Text = ListaNombresTablasSeleccionadas[Contador];
-                    gvSecundario3.DataSource = dt;
-                    gvSecundario3.DataBind();
+                    gvVista_4.DataSource = dtnewColumns;
+                    gvVista_4.DataBind();
                 }
                 Contador++;
             }
             ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (Contador - 1) + ");", true);
         }
 
-        protected void gvPrincipal_RowCreated(object sender, GridViewRowEventArgs e)
+        protected void gvVista_1_RowCreated(object sender, GridViewRowEventArgs e)
         {
             ListaddlColumnCanvas = Session["ListaddlColumnCanvas"] as List<string>;
+            ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                DropDownList drpdwndec = (DropDownList)e.Row.FindControl("ddlCamposCanvasPrincipal");
-                drpdwndec.DataSource = ListaddlColumnCanvas;
-                drpdwndec.DataBind();
+                DropDownList ddl1 = (DropDownList)e.Row.FindControl("ddlVista_1_CamposCanvas");
+                ddl1.DataSource = ListaddlColumnCanvas;
+                ddl1.DataBind();
+
+                DropDownList ddl2 = (DropDownList)e.Row.FindControl("ddlVista_1_Tablas");
+                ddl2.DataSource = ListaNombresTablasSeleccionadas;
+                ddl2.DataBind();
+
+                DropDownList ddl3 = (DropDownList)e.Row.FindControl("ddlVista_1_Columnas");
+                ddl3.DataSource = ListaclsTablesColumnsSelected.First().getColumns_names();
+                ddl3.DataTextField = "COLUMN_NAME";
+                ddl3.DataValueField = "COLUMN_NAME";
+                ddl3.DataBind();
             }
         }
 
-        protected void gvSecundario1_RowCreated(object sender, GridViewRowEventArgs e)
+        protected void gvVista_2_RowCreated(object sender, GridViewRowEventArgs e)
         {
             ListaddlColumnCanvas = Session["ListaddlColumnCanvas"] as List<string>;
+            ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                DropDownList drpdwndec = (DropDownList)e.Row.FindControl("ddlCamposCanvasSecundario1");
-                drpdwndec.DataSource = ListaddlColumnCanvas;
-                drpdwndec.DataBind();
+                DropDownList ddl1 = (DropDownList)e.Row.FindControl("ddlVista_2_CamposCanvas");
+                ddl1.DataSource = ListaddlColumnCanvas;
+                ddl1.DataBind();
+
+                DropDownList ddl2 = (DropDownList)e.Row.FindControl("ddlVista_2_Tablas");
+                ddl2.DataSource = ListaNombresTablasSeleccionadas;
+                ddl2.DataBind();
+
+                DropDownList ddl3 = (DropDownList)e.Row.FindControl("ddlVista_2_Columnas");
+                ddl3.DataSource = ListaclsTablesColumnsSelected.First().getColumns_names();
+                ddl3.DataTextField = "COLUMN_NAME";
+                ddl3.DataValueField = "COLUMN_NAME";
+                ddl3.DataBind();
             }
         }
 
-        protected void gvSecundario2_RowCreated(object sender, GridViewRowEventArgs e)
+        protected void gvVista_3_RowCreated(object sender, GridViewRowEventArgs e)
         {
             ListaddlColumnCanvas = Session["ListaddlColumnCanvas"] as List<string>;
+            ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                DropDownList drpdwndec = (DropDownList)e.Row.FindControl("ddlCamposCanvasSecundario2");
-                drpdwndec.DataSource = ListaddlColumnCanvas;
-                drpdwndec.DataBind();
+                DropDownList ddl1 = (DropDownList)e.Row.FindControl("ddlVista_3_CamposCanvas");
+                ddl1.DataSource = ListaddlColumnCanvas;
+                ddl1.DataBind();
+
+                DropDownList ddl2 = (DropDownList)e.Row.FindControl("ddlVista_3_Tablas");
+                ddl2.DataSource = ListaNombresTablasSeleccionadas;
+                ddl2.DataBind();
+
+                DropDownList ddl3 = (DropDownList)e.Row.FindControl("ddlVista_3_Columnas");
+                ddl3.DataSource = ListaclsTablesColumnsSelected.First().getColumns_names();
+                ddl3.DataTextField = "COLUMN_NAME";
+                ddl3.DataValueField = "COLUMN_NAME";
+                ddl3.DataBind();
             }
         }
 
-        protected void gvSecundario3_RowCreated(object sender, GridViewRowEventArgs e)
+        protected void gvVista_4_RowCreated(object sender, GridViewRowEventArgs e)
         {
             ListaddlColumnCanvas = Session["ListaddlColumnCanvas"] as List<string>;
+            ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                DropDownList drpdwndec = (DropDownList)e.Row.FindControl("ddlCamposCanvasSecundario3");
-                drpdwndec.DataSource = ListaddlColumnCanvas;
-                drpdwndec.DataBind();
+                DropDownList ddl1 = (DropDownList)e.Row.FindControl("ddlVista_4_CamposCanvas");
+                ddl1.DataSource = ListaddlColumnCanvas;
+                ddl1.DataBind();
+
+                DropDownList ddl2 = (DropDownList)e.Row.FindControl("ddlVista_4_Tablas");
+                ddl2.DataSource = ListaNombresTablasSeleccionadas;
+                ddl2.DataBind();
+
+                DropDownList ddl3 = (DropDownList)e.Row.FindControl("ddlVista_4_Columnas");
+                ddl3.DataSource = ListaclsTablesColumnsSelected.First().getColumns_names();
+                ddl3.DataTextField = "COLUMN_NAME";
+                ddl3.DataValueField = "COLUMN_NAME";
+                ddl3.DataBind();
             }
         }
 
         protected void btnGenrarCodigo_Click(object sender, EventArgs e)
         {
-            ListadtColumnas = Session["ListadtColumnas"] as List<DataTable>;
-            ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
-            ListaTablasEnlasadas = Session["ListaTablasEnlasadas"] as List<DataTable>;
-            for (int i = 0; i < ListadtColumnas.Count; i++)
-            {
-                List<string> ListaEnlacesTablas = new List<string>();
-                Session["ListaEnlacesTablas"] = ListaEnlacesTablas;
-                DataTable dtTablasEnlaces = new DataTable();
-                DataColumn column;
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "Enlace";
-                dtTablasEnlaces.Columns.Add(column);
-                column = new DataColumn();
-                column.DataType = Type.GetType("System.String");
-                column.ColumnName = "Columna";
-                dtTablasEnlaces.Columns.Add(column);
-                if (i == 0)
-                {
-                    foreach (GridViewRow row in gvPrincipal.Rows)
-                    {
-                        DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasPrincipal");
-                        if (ValidarCamposCanvas(drpdwndec.Text))
-                        {
-                            DataRow newRow = dtTablasEnlaces.NewRow();
-                            newRow["Enlace"] = drpdwndec.Text;
-                            newRow["Columna"] = row.Cells[1].Text;
-                            dtTablasEnlaces.Rows.Add(newRow);
-                        }
-                    }
-                }
-                else if (i == 1)
-                {
-                    foreach (GridViewRow row in gvSecundario1.Rows)
-                    {
-                        DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario1");
-                        if (ValidarCamposCanvas(drpdwndec.Text))
-                        {
-                            DataRow newRow = dtTablasEnlaces.NewRow();
-                            newRow["Enlace"] = drpdwndec.Text;
-                            newRow["Columna"] = row.Cells[1].Text;
-                            dtTablasEnlaces.Rows.Add(newRow);
-                        }
-                    }
-                }
-                else if (i == 2)
-                {
-                    foreach (GridViewRow row in gvSecundario2.Rows)
-                    {
-                        DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario2");
-                        if (ValidarCamposCanvas(drpdwndec.Text))
-                        {
-                            DataRow newRow = dtTablasEnlaces.NewRow();
-                            newRow["Enlace"] = drpdwndec.Text;
-                            newRow["Columna"] = row.Cells[1].Text;
-                            dtTablasEnlaces.Rows.Add(newRow);
-                        }
-                    }
-                }
-                else if (i == 3)
-                {
-                    foreach (GridViewRow row in gvSecundario3.Rows)
-                    {
-                        DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario3");
-                        if (ValidarCamposCanvas(drpdwndec.Text))
-                        {
-                            DataRow newRow = dtTablasEnlaces.NewRow();
-                            newRow["Enlace"] = drpdwndec.Text;
-                            newRow["Columna"] = row.Cells[1].Text;
-                            dtTablasEnlaces.Rows.Add(newRow);
-                        }
-                    }
-                }
-                ///Revisar que no guarde una de mas
-                ListaTablasEnlasadas.Add(dtTablasEnlaces);
-            }
-
-            ///Una vez cargado las tablas instanciar el factory y generar la clase
-            clsFactory objFactory = new clsFactory();
-            if (true)
-            {
-
-            }
-
-
-            //if ((Session["dtCanvas"] as DataTable).Rows.Count > 0)
+            //ListadtColumnas = Session["ListadtColumnas"] as List<DataTable>;
+            //ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
+            //ListaTablasEnlasadas = Session["ListaTablasEnlasadas"] as List<DataTable>;
+            //for (int i = 0; i < ListadtColumnas.Count; i++)
             //{
-            //    //DropDownList drpdwndec = (DropDownList)gvDatos.Rows[0].FindControl("ddlCamposCanvas");
-            //    //string test = drpdwndec.SelectedValue;
-
-
-            //    //clsFactory objFactory = new clsFactory();
-            //    //objFactory.FactoryMethod(Session["Tabla"].ToString(), Session["dtCanvas"] as DataTable);
-            //    //Limpiar();
-            //    ///Cambiar a MVC
-            //    //Response.Redirect("~/Home/Index");
+            //    List<string> ListaVerificarEnlacesTablas = new List<string>();
+            //    Session["ListaVerificarEnlacesTablas"] = ListaVerificarEnlacesTablas;
+            //    DataTable dtTablasEnlaces = new DataTable();
+            //    DataColumn column;
+            //    column = new DataColumn();
+            //    column.DataType = System.Type.GetType("System.String");
+            //    column.ColumnName = "Enlace";
+            //    dtTablasEnlaces.Columns.Add(column);
+            //    column = new DataColumn();
+            //    column.DataType = Type.GetType("System.String");
+            //    column.ColumnName = "Columna";
+            //    dtTablasEnlaces.Columns.Add(column);
+            //    if (i == 0)
+            //    {
+            //        foreach (GridViewRow row in gvPrincipal.Rows)
+            //        {
+            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasPrincipal");
+            //            if (ValidarCamposCanvas(drpdwndec.Text))
+            //            {
+            //                DataRow newRow = dtTablasEnlaces.NewRow();
+            //                newRow["Enlace"] = drpdwndec.Text;
+            //                newRow["Columna"] = row.Cells[1].Text;
+            //                dtTablasEnlaces.Rows.Add(newRow);
+            //            }
+            //        }
+            //    }
+            //    else if (i == 1)
+            //    {
+            //        foreach (GridViewRow row in gvSecundario1.Rows)
+            //        {
+            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario1");
+            //            if (ValidarCamposCanvas(drpdwndec.Text))
+            //            {
+            //                DataRow newRow = dtTablasEnlaces.NewRow();
+            //                newRow["Enlace"] = drpdwndec.Text;
+            //                newRow["Columna"] = row.Cells[1].Text;
+            //                dtTablasEnlaces.Rows.Add(newRow);
+            //            }
+            //        }
+            //    }
+            //    else if (i == 2)
+            //    {
+            //        foreach (GridViewRow row in gvSecundario2.Rows)
+            //        {
+            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario2");
+            //            if (ValidarCamposCanvas(drpdwndec.Text))
+            //            {
+            //                DataRow newRow = dtTablasEnlaces.NewRow();
+            //                newRow["Enlace"] = drpdwndec.Text;
+            //                newRow["Columna"] = row.Cells[1].Text;
+            //                dtTablasEnlaces.Rows.Add(newRow);
+            //            }
+            //        }
+            //    }
+            //    else if (i == 3)
+            //    {
+            //        foreach (GridViewRow row in gvSecundario3.Rows)
+            //        {
+            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario3");
+            //            if (ValidarCamposCanvas(drpdwndec.Text))
+            //            {
+            //                DataRow newRow = dtTablasEnlaces.NewRow();
+            //                newRow["Enlace"] = drpdwndec.Text;
+            //                newRow["Columna"] = row.Cells[1].Text;
+            //                dtTablasEnlaces.Rows.Add(newRow);
+            //            }
+            //        }
+            //    }
+            //    ListaTablasEnlasadas.Add(dtTablasEnlaces);
             //}
+
+            clsFactory objFactory = new clsFactory();
+            if (objFactory.FactoryMethod(ListaNombresTablasSeleccionadas, ListaTablasEnlasadas))
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Create_Class_True", "alert('Se ha escrito la clase');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Create_Class_False", "alert('Error al escribir la clase');", true);
+            }
         }
 
         private bool ValidarCamposCanvas(string _Campo)
@@ -611,14 +662,14 @@ namespace FrameworkAnaliticaVisual
             bool exito = true;
             if (!_Campo.Equals("No Seleccionado"))
             {
-                List<string> ListaEnlacesTablas = Session["ListaEnlacesTablas"] as List<string>;
-                if (ListaEnlacesTablas.Count <= 0)
+                List<string> ListaVerificarEnlacesTablas = Session["ListaVerificarEnlacesTablas"] as List<string>;
+                if (ListaVerificarEnlacesTablas.Count <= 0)
                 {
-                    ListaEnlacesTablas.Add(_Campo);
+                    ListaVerificarEnlacesTablas.Add(_Campo);
                 }
                 else
                 {
-                    foreach (string item in ListaEnlacesTablas)
+                    foreach (string item in ListaVerificarEnlacesTablas)
                     {
                         if (item.Equals(_Campo))
                         {
@@ -628,7 +679,7 @@ namespace FrameworkAnaliticaVisual
                     }
                     if (exito)
                     {
-                        ListaEnlacesTablas.Add(_Campo);
+                        ListaVerificarEnlacesTablas.Add(_Campo);
                     }
                 }
             }
@@ -639,123 +690,16 @@ namespace FrameworkAnaliticaVisual
             return exito;
         }
 
-
-
-
-        /// Lo demas no va
-        /// 
-
-        //protected void StepPreviousButton_Click(object sender, EventArgs e)
-        //{
-        //    lcTablas = Session["lcTablas"] as List<LiteralControl>;
-        //    lcTablas.First().ID = "NotReloadWizard2";
-        //    Session["lcTablas"] = lcTablas;
-        //}
-
-        //No va ha hacer falta
-
-        //No va ha hacer falta
-        //protected void ddlTablas_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
-        //    var query = from dtRow in objEsquema.getListaColumnas() where dtRow.NombreTabla.StartsWith(ddlTablas.SelectedValue) select dtRow.NombreColumna;
-        //    if (query.ToList().Count > 0)
-        //    {
-        //        //ddlColumnas.DataSource = query.ToList();
-        //        //ddlColumnas.DataBind();
-        //    }
-        //}
-
-        private void cargarComboBoxListaCanvas()
-        {
-            //cargarListaCanvas();
-            //ddlEnlaceCanvas.DataSource = ListaddlCanvas;
-            //ddlEnlaceCanvas.DataBind();
-        }
-
-        private void cargarGrid()
-        {
-            //dtCanvas = new DataTable();
-            //dtCanvas.Columns.Add("Columnas_Tabla", typeof(String));
-            ////dtCanvas.Columns.Add("Datos_Canvas", typeof(WebControl));
-            //Session["dtCanvas"] = dtCanvas;
-            //gvDatos.DataSource = dtCanvas;
-            //gvDatos.DataBind();
-        }
-
-        protected void btnAgregarEnlace_Click(object sender, EventArgs e)
-        {
-            //if (!string.IsNullOrEmpty(ddlEnlaceCanvas.SelectedValue) || !string.IsNullOrEmpty(ddlEnlaceTabla.SelectedValue))
-            //{
-            //    ///Elimina el campo de la lista
-            //    string campo_cvs = ddlEnlaceCanvas.SelectedValue;
-            //    ListaddlCanvas = Session["ListaCanvas"] as List<string>;
-            //    ListaddlCanvas.Remove(campo_cvs);
-            //    Session["ListaCanvas"] = ListaddlCanvas;
-            //    ddlEnlaceCanvas.DataSource = ListaddlCanvas;
-            //    ddlEnlaceCanvas.DataBind();
-
-            //    ///Elimina el campo de la lista
-            //    string campo_tbl = ddlEnlaceTabla.SelectedValue;
-            //    ListaddlTablas = Session["ListaTablas"] as List<string>;
-            //    ListaddlTablas.Remove(campo_tbl);
-            //    Session["ListaTablas"] = ListaddlTablas;
-            //    ddlEnlaceTabla.DataSource = ListaddlTablas;
-            //    ddlEnlaceTabla.DataBind();
-
-            //    ///Carga el row com los campos seleccionados
-            //    dtCanvas = Session["dtCanvas"] as DataTable;
-            //    DataRow NewRow = dtCanvas.NewRow();
-            //    NewRow[0] = campo_tbl;
-            //    //NewRow[1] = ddlEnlaceCanvas;
-            //    dtCanvas.Rows.Add(NewRow);
-            //    Session["dtCanvas"] = dtCanvas;
-            //    gvDatos.DataSource = dtCanvas;
-            //    gvDatos.DataBind();
-            //}
-        }
-
-        protected void gvDatos_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //Find the DropDownList in the Row
-
-                DropDownList drpdwndec = (DropDownList)e.Row.FindControl("ddlCamposCanvas");
-
-                //drpdwndec.DataSource = ddlEnlaceCanvas.DataSource;
-
-                drpdwndec.DataBind();
-
-                //drpdwndec.Items.Insert(0, new ListItem("No Seleccionado"));
-            }
-        }
-
-        protected void btnAgregarColumnas_Click(object sender, EventArgs e)
-        {
-            //ListaddlTablas = new List<string>();
-            //ListaTablas = (Session["Tablas"]) as List<string>;
-            //clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
-            //var query = from dtRow in objEsquema.getListaColumnas() where dtRow.NombreTabla.StartsWith(ddlTablas.SelectedValue) select dtRow.NombreColumna;
-            //ListaddlTablas = query.ToList();
-            //Session["ListaTablas"] = ListaddlTablas;
-            //ddlEnlaceTabla.DataSource = ListaddlTablas;
-            //ddlEnlaceTabla.DataBind();
-            //cargarComboBoxListaCanvas();
-            //cargarGrid();
-            //ListaTablas.Add(ddlTablas.SelectedValue);
-            //Session["Tablas"] = ListaTablas;
-            //btnAgregarEnlace.Enabled = true;
-            //gvDatos.Enabled = true;
-        }
-
         private void Limpiar()
         {
-            //ListaObjetosCadeConexion = null;
-            //ListaTablas = null;
-            //Session["ListaObjetosCadeConexion"] = null;
-            //Session["ListaTablas"] = null;
+            Session["ListaObjetosCadeConexion"] = null;
+            Session["ContadorDDLTablas"] = null;
+            Session["ListaControlesDDLTablas"] = null;
+            Session["ListaTablasConstraint"] = null;
+            Session["ListaddlColumnCanvas"] = null;
+            Session["ListadtColumnas"] = null;
+            Session["ListaNombresTablasSeleccionadas"] = null;
+            Session["ListaTablasEnlasadas"] = null;
         }
     }
 
@@ -804,6 +748,29 @@ namespace FrameworkAnaliticaVisual
             this.jump = _jump;
             this.btn = _btn;
             this.space = _space;
+        }
+    }
+
+    public class clsTablesColumnsSelected
+    {
+        private string table_name;
+        private DataTable columns_names;
+
+        public string getTable_name()
+        {
+            return this.table_name;
+        }
+
+        public DataTable getColumns_names()
+        {
+            return this.columns_names;
+        }
+
+        public clsTablesColumnsSelected(string _table_name, DataTable _columns_names)
+        {
+            this.columns_names = new DataTable();
+            this.table_name = _table_name;
+            this.columns_names = _columns_names;
         }
     }
 }

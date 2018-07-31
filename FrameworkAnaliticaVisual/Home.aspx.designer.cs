@@ -139,76 +139,76 @@ namespace FrameworkAnaliticaVisual {
         protected global::System.Web.UI.WebControls.WizardStep WizardStep3;
         
         /// <summary>
-        /// Control lblTablaPrincipal.
+        /// Control lblVista_1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTablaPrincipal;
+        protected global::System.Web.UI.WebControls.Label lblVista_1;
         
         /// <summary>
-        /// Control gvPrincipal.
+        /// Control gvVista_1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPrincipal;
+        protected global::System.Web.UI.WebControls.GridView gvVista_1;
         
         /// <summary>
-        /// Control lblSecundaria1.
+        /// Control lblVista_2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSecundaria1;
+        protected global::System.Web.UI.WebControls.Label lblVista_2;
         
         /// <summary>
-        /// Control gvSecundario1.
+        /// Control gvVista_2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSecundario1;
+        protected global::System.Web.UI.WebControls.GridView gvVista_2;
         
         /// <summary>
-        /// Control lblSecundaria2.
+        /// Control lblVista_3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSecundaria2;
+        protected global::System.Web.UI.WebControls.Label lblVista_3;
         
         /// <summary>
-        /// Control gvSecundario2.
+        /// Control gvVista_3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSecundario2;
+        protected global::System.Web.UI.WebControls.GridView gvVista_3;
         
         /// <summary>
-        /// Control lblSecundaria3.
+        /// Control lblVista_4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSecundaria3;
+        protected global::System.Web.UI.WebControls.Label lblVista_4;
         
         /// <summary>
-        /// Control gvSecundario3.
+        /// Control gvVista_4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSecundario3;
+        protected global::System.Web.UI.WebControls.GridView gvVista_4;
         
         /// <summary>
         /// Control btnGenrarCodigo.

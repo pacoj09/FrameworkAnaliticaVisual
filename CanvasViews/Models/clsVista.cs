@@ -27,13 +27,17 @@ namespace CanvasViews.Models
             dtColumnas.Columns.Add("Columnas_Tabla", typeof(String));
             dtColumnas.Columns.Add("Datos_Canvas", typeof(String));
             DataRow NewRow = dtColumnas.NewRow();
-            NewRow[0] = "id";
+            NewRow[0] = "nombre";
             NewRow[1] = "Posicion X";
             dtColumnas.Rows.Add(NewRow);
             DataRow NewRow1 = dtColumnas.NewRow();
-            NewRow1[0] = "id_carrera";
+            NewRow1[0] = "id";
             NewRow1[1] = "Posicion Y";
             dtColumnas.Rows.Add(NewRow1);
+            DataRow NewRow2 = dtColumnas.NewRow();
+            NewRow2[0] = "nombre";
+            NewRow2[1] = "Label";
+            dtColumnas.Rows.Add(NewRow2);
             cargarListas();
         }
         #endregion
@@ -118,10 +122,22 @@ namespace CanvasViews.Models
                 {
                     for (int i = 0; i < dtColumnas.Rows.Count; i++)
                     {
+                        string query;
                         DataTable dtRows = new DataTable();
-                        string query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), Tabla);
-                        dtRows = consultar(query);
+                        if (i == 0)
+                        {
+                            query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), "persona");
+                        }
+                        else if (i == 1)
+                        {
+                            query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), "carrera");
+                        }
+                        else
+                        {
+                            query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), "carrera");
+                        }
 
+                        dtRows = consultar(query);
                         List<clsColumna> ListaCampos = new List<clsColumna>();
                         foreach (DataRow item in dtRows.Rows)
                         {

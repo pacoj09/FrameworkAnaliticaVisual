@@ -42,7 +42,7 @@ namespace Clases
                     //for (int i = 0; i < length; i++)
                     //{
                     //}
-                    readText[i + 1] = Metodo;
+                    //readText[i + 1] = Metodo;
                     int rest = readText.Length - (i + 2);
                     Array.Clear(readText, i + 2, rest);
                     break;
@@ -51,7 +51,7 @@ namespace Clases
                 if (readText[i].Equals("#region View"))
                 {
                     //Se debe de remplasar el string por una propiedad que se carge en otro metodo
-                    readText[i + 1] = Metodo;
+                    //readText[i + 1] = Metodo;
                     int rest = readText.Length - (i + 2);
                     Array.Clear(readText, i + 2, rest);
                     break;

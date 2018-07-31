@@ -26,7 +26,7 @@ namespace CanvasViews.Controllers
                     var query = (from dtRow in obj.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(obj.getdtColumnas().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas).FirstOrDefault();
                     for (int j = 0; j < query.ToList().Count; j++)
                     {
-                        dataPoints.ElementAt(j).setX(query.ToList().ElementAt(j).Dato);
+                        dataPoints.ElementAt(j).setX(query.ToList().ElementAt(j).Dato.ToString());
                     }
                 }
                 else if (obj.getdtColumnas().Rows[i][1].ToString().Equals("Posicion Y"))
@@ -35,6 +35,14 @@ namespace CanvasViews.Controllers
                     for (int j = 0; j < query.ToList().Count; j++)
                     {
                         dataPoints.ElementAt(j).setY(Convert.ToDouble(query.ToList().ElementAt(j).Dato));
+                    }
+                }
+                else if (obj.getdtColumnas().Rows[i][1].ToString().Equals("Label"))
+                {
+                    var query = (from dtRow in obj.getListaEsquema() where dtRow.ColumnaxTabla.StartsWith(obj.getdtColumnas().Rows[i][0].ToString()) select dtRow.ListaDetalleColumnas).FirstOrDefault();
+                    for (int j = 0; j < query.ToList().Count; j++)
+                    {
+                        dataPoints.ElementAt(j).setLabel(query.ToList().ElementAt(j).Dato.ToString());
                     }
                 }
             }

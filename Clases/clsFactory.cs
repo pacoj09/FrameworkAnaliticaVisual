@@ -20,23 +20,5 @@ namespace Clases
             }
             return exito;
         }
-
-        //public List<clsEsquemaVista> getListaEsquema()
-        //{
-        //    clsVista objVista = clsVista.obtenerclsVista();
-        //    return objVista.getListaEsquema();
-        //}
-
-        //public DataTable getEnlaces()
-        //{
-        //    clsVista objVista = clsVista.obtenerclsVista();
-        //    return objVista.getdtColumnas();
-        //}
-
-        //public int getNumeroFilas()
-        //{
-        //    clsVista objVista = clsVista.obtenerclsVista();
-        //    return objVista.obtenerNumeroFilas();
-        //}
     }
 }
