@@ -149,21 +149,25 @@ namespace FrameworkAnaliticaVisual
                         {
                             gvVista_1.DataSource = dtnewColumns;
                             gvVista_1.DataBind();
+                            gvVista_1.Columns[4].Visible = false;
                         }
                         else if (i == 1)
                         {
                             gvVista_2.DataSource = dtnewColumns;
                             gvVista_2.DataBind();
+                            gvVista_2.Columns[4].Visible = false;
                         }
                         else if (i == 2)
                         {
                             gvVista_3.DataSource = dtnewColumns;
                             gvVista_3.DataBind();
+                            gvVista_3.Columns[4].Visible = false;
                         }
                         else if (i == 3)
                         {
                             gvVista_4.DataSource = dtnewColumns;
                             gvVista_4.DataBind();
+                            gvVista_4.Columns[4].Visible = false;
                         }
                         Contador++;
                     }
@@ -567,6 +571,87 @@ namespace FrameworkAnaliticaVisual
                 ddl3.DataBind();
             }
         }
+
+        protected void gvVista_1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Tablas");
+            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Columnas");
+            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            {
+                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                {
+                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                    ddl2.DataTextField = "COLUMN_NAME";
+                    ddl2.DataValueField = "COLUMN_NAME";
+                    ddl2.DataBind();
+                    break;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1)+ ");", true);
+        }
+
+        protected void gvVista_2_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Tablas");
+            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Columnas");
+            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            {
+                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                {
+                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                    ddl2.DataTextField = "COLUMN_NAME";
+                    ddl2.DataValueField = "COLUMN_NAME";
+                    ddl2.DataBind();
+                    break;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1) + ");", true);
+        }
+
+        protected void gvVista_3_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Tablas");
+            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Columnas");
+            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            {
+                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                {
+                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                    ddl2.DataTextField = "COLUMN_NAME";
+                    ddl2.DataValueField = "COLUMN_NAME";
+                    ddl2.DataBind();
+                    break;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1) + ");", true);
+        }
+
+        protected void gvVista_4_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Tablas");
+            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Columnas");
+            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            {
+                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                {
+                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                    ddl2.DataTextField = "COLUMN_NAME";
+                    ddl2.DataValueField = "COLUMN_NAME";
+                    ddl2.DataBind();
+                    break;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1) + ");", true);
+        }
+
+        //protected void ddlVista_1_Tablas_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    gvVista_1.Rows[e.GetType().]
+        //}
 
         protected void btnGenrarCodigo_Click(object sender, EventArgs e)
         {

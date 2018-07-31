@@ -56,7 +56,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <asp:Wizard ID="Wizard1" runat="server" ActiveStepIndex="2" DisplaySideBar="False" CssClass="laclase">
+    <asp:Wizard ID="Wizard1" runat="server" ActiveStepIndex="0" DisplaySideBar="False" CssClass="laclase">
         <FinishNavigationTemplate>
             <asp:Button ID="FinishPreviousButton" CssClass="btn btn-default" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Anterior" />
             <asp:Button ID="FinishButton" CssClass="btn btn-default" runat="server" CommandName="MoveComplete" Text="Finalizar" />
@@ -134,14 +134,14 @@
                     <fieldset>
                         <legend>Tablas:</legend>
 
-                        <div id="Vista_1" style="display: block">
+                        <div id="Vista_1" style="display: none">
                             <asp:Label ID="lblVista_1" runat="server" Text="Label">VISTA 1</asp:Label><br>
-                            <asp:GridView ID="gvVista_1" runat="server" Enabled="true" OnRowCreated="gvVista_1_RowCreated">
+                            <asp:GridView ID="gvVista_1" runat="server" Enabled="true" OnRowCreated="gvVista_1_RowCreated" OnRowEditing="gvVista_1_RowEditing">
                                 <Columns>
-                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlVista_1_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_1_Tablas_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlVista_1_Tablas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -165,14 +165,14 @@
                             <br />
                         </div>
 
-                        <div id="Vista_2" style="display: block">
+                        <div id="Vista_2" style="display: none">
                             <asp:Label ID="lblVista_2" runat="server" Text="Label">VISTA 2</asp:Label><br>
-                            <asp:GridView ID="gvVista_2" runat="server" Enabled="true" OnRowCreated="gvVista_2_RowCreated">
+                            <asp:GridView ID="gvVista_2" runat="server" Enabled="true" OnRowCreated="gvVista_2_RowCreated" OnRowEditing="gvVista_2_RowEditing">
                                 <Columns>
-                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlVista_2_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_2_Tablas_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlVista_2_Tablas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -196,14 +196,14 @@
                             <br />
                         </div>
 
-                        <div id="Vista_3" style="display: block">
+                        <div id="Vista_3" style="display: none">
                             <asp:Label ID="lblVista_3" runat="server" Text="Label">VISTA 3</asp:Label><br>
-                            <asp:GridView ID="gvVista_3" runat="server" Enabled="true" OnRowCreated="gvVista_3_RowCreated">
+                            <asp:GridView ID="gvVista_3" runat="server" Enabled="true" OnRowCreated="gvVista_3_RowCreated" OnRowEditing="gvVista_3_RowEditing">
                                 <Columns>
-                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlVista_3_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_3_Tablas_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlVista_3_Tablas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -227,14 +227,14 @@
                             <br />
                         </div>
 
-                        <div id="Vista_4" style="display: block">
+                        <div id="Vista_4" style="display: none">
                             <asp:Label ID="lblVista_4" runat="server" Text="Label">VISTA 4</asp:Label><br>
-                            <asp:GridView ID="gvVista_4" runat="server" Enabled="true" OnRowCreated="gvVista_4_RowCreated">
+                            <asp:GridView ID="gvVista_4" runat="server" Enabled="true" OnRowCreated="gvVista_4_RowCreated" OnRowEditing="gvVista_4_RowEditing">
                                 <Columns>
-                                    <asp:CommandField CausesValidation="False" EditText="Actualizar" InsertVisible="False" ShowCancelButton="False" ShowEditButton="True" />
+                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
-                                            <asp:DropDownList ID="ddlVista_4_Tablas" runat="server" OnSelectedIndexChanged="ddlVista_4_Tablas_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlVista_4_Tablas" runat="server">
                                             </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
