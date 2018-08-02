@@ -467,6 +467,7 @@ namespace FrameworkAnaliticaVisual
                     gvVista_4.DataBind();
                 }
             }
+            ScriptManager.RegisterStartupScript(this, GetType(), "HabilitarVistas_True", "habilitarGrid(" + ddlNumeroVistas.SelectedValue + ");", true);
         }
 
         protected void gvVista_1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -581,14 +582,13 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
-        protected void gvVista_1_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void gvVista_1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ///revisar funcion
             try
             {
                 ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Tablas");
-                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Columnas");
+                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[gvVista_1.SelectedIndex].FindControl("ddlVista_1_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[gvVista_1.SelectedIndex].FindControl("ddlVista_1_Columnas");
                 for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
                     if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
@@ -600,6 +600,7 @@ namespace FrameworkAnaliticaVisual
                         break;
                     }
                 }
+                ScriptManager.RegisterStartupScript(this, GetType(), "HabilitarVistas_True", "habilitarGrid(" + ddlNumeroVistas.SelectedValue + ");", true);
             }
             catch (Exception)
             {
@@ -607,13 +608,13 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
-        protected void gvVista_2_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void gvVista_2_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Tablas");
-                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Columnas");
+                DropDownList ddl1 = (DropDownList)gvVista_2.Rows[gvVista_2.SelectedIndex].FindControl("ddlVista_2_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_2.Rows[gvVista_2.SelectedIndex].FindControl("ddlVista_2_Columnas");
                 for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
                     if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
@@ -625,6 +626,7 @@ namespace FrameworkAnaliticaVisual
                         break;
                     }
                 }
+                ScriptManager.RegisterStartupScript(this, GetType(), "HabilitarVistas_True", "habilitarGrid(" + ddlNumeroVistas.SelectedValue + ");", true);
             }
             catch (Exception)
             {
@@ -632,13 +634,13 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
-        protected void gvVista_3_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void gvVista_3_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Tablas");
-                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Columnas");
+                DropDownList ddl1 = (DropDownList)gvVista_3.Rows[gvVista_3.SelectedIndex].FindControl("ddlVista_3_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_3.Rows[gvVista_3.SelectedIndex].FindControl("ddlVista_3_Columnas");
                 for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
                     if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
@@ -650,6 +652,7 @@ namespace FrameworkAnaliticaVisual
                         break;
                     }
                 }
+                ScriptManager.RegisterStartupScript(this, GetType(), "HabilitarVistas_True", "habilitarGrid(" + ddlNumeroVistas.SelectedValue + ");", true);
             }
             catch (Exception)
             {
@@ -657,13 +660,13 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
-        protected void gvVista_4_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void gvVista_4_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Tablas");
-                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Columnas");
+                DropDownList ddl1 = (DropDownList)gvVista_4.Rows[gvVista_4.SelectedIndex].FindControl("ddlVista_4_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_4.Rows[gvVista_4.SelectedIndex].FindControl("ddlVista_4_Columnas");
                 for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
                     if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
@@ -675,6 +678,7 @@ namespace FrameworkAnaliticaVisual
                         break;
                     }
                 }
+                ScriptManager.RegisterStartupScript(this, GetType(), "HabilitarVistas_True", "habilitarGrid(" + ddlNumeroVistas.SelectedValue + ");", true);
             }
             catch (Exception)
             {
@@ -684,84 +688,102 @@ namespace FrameworkAnaliticaVisual
 
         protected void btnGenrarCodigo_Click(object sender, EventArgs e)
         {
-            //ListadtColumnas = Session["ListadtColumnas"] as List<DataTable>;
-            //ListaNombresTablasSeleccionadas = Session["ListaNombresTablasSeleccionadas"] as List<string>;
-            //ListaTablasEnlasadas = Session["ListaTablasEnlasadas"] as List<DataTable>;
-            //for (int i = 0; i < ListadtColumnas.Count; i++)
-            //{
-            //    List<string> ListaVerificarEnlacesTablas = new List<string>();
-            //    Session["ListaVerificarEnlacesTablas"] = ListaVerificarEnlacesTablas;
-            //    DataTable dtTablasEnlaces = new DataTable();
-            //    DataColumn column;
-            //    column = new DataColumn();
-            //    column.DataType = System.Type.GetType("System.String");
-            //    column.ColumnName = "Enlace";
-            //    dtTablasEnlaces.Columns.Add(column);
-            //    column = new DataColumn();
-            //    column.DataType = Type.GetType("System.String");
-            //    column.ColumnName = "Columna";
-            //    dtTablasEnlaces.Columns.Add(column);
-            //    if (i == 0)
-            //    {
-            //        foreach (GridViewRow row in gvPrincipal.Rows)
-            //        {
-            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasPrincipal");
-            //            if (ValidarCamposCanvas(drpdwndec.Text))
-            //            {
-            //                DataRow newRow = dtTablasEnlaces.NewRow();
-            //                newRow["Enlace"] = drpdwndec.Text;
-            //                newRow["Columna"] = row.Cells[1].Text;
-            //                dtTablasEnlaces.Rows.Add(newRow);
-            //            }
-            //        }
-            //    }
-            //    else if (i == 1)
-            //    {
-            //        foreach (GridViewRow row in gvSecundario1.Rows)
-            //        {
-            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario1");
-            //            if (ValidarCamposCanvas(drpdwndec.Text))
-            //            {
-            //                DataRow newRow = dtTablasEnlaces.NewRow();
-            //                newRow["Enlace"] = drpdwndec.Text;
-            //                newRow["Columna"] = row.Cells[1].Text;
-            //                dtTablasEnlaces.Rows.Add(newRow);
-            //            }
-            //        }
-            //    }
-            //    else if (i == 2)
-            //    {
-            //        foreach (GridViewRow row in gvSecundario2.Rows)
-            //        {
-            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario2");
-            //            if (ValidarCamposCanvas(drpdwndec.Text))
-            //            {
-            //                DataRow newRow = dtTablasEnlaces.NewRow();
-            //                newRow["Enlace"] = drpdwndec.Text;
-            //                newRow["Columna"] = row.Cells[1].Text;
-            //                dtTablasEnlaces.Rows.Add(newRow);
-            //            }
-            //        }
-            //    }
-            //    else if (i == 3)
-            //    {
-            //        foreach (GridViewRow row in gvSecundario3.Rows)
-            //        {
-            //            DropDownList drpdwndec = (DropDownList)row.Cells[0].FindControl("ddlCamposCanvasSecundario3");
-            //            if (ValidarCamposCanvas(drpdwndec.Text))
-            //            {
-            //                DataRow newRow = dtTablasEnlaces.NewRow();
-            //                newRow["Enlace"] = drpdwndec.Text;
-            //                newRow["Columna"] = row.Cells[1].Text;
-            //                dtTablasEnlaces.Rows.Add(newRow);
-            //            }
-            //        }
-            //    }
-            //    ListaTablasEnlasadas.Add(dtTablasEnlaces);
-            //}
+            ListaTablasEnlasadas = Session["ListaTablasEnlasadas"] as List<DataTable>;
+            for (int i = 0; i < Convert.ToInt32(ddlNumeroVistas.SelectedValue); i++)
+            {
+                List<string> ListaVerificarEnlacesTablas = new List<string>();
+                Session["ListaVerificarEnlacesTablas"] = ListaVerificarEnlacesTablas;
+                DataTable dtTablasEnlaces = new DataTable();
+                DataColumn column;
+                column = new DataColumn();
+                column.DataType = Type.GetType("System.String");
+                column.ColumnName = "Tabla";
+                dtTablasEnlaces.Columns.Add(column);
+                column = new DataColumn();
+                column.DataType = Type.GetType("System.String");
+                column.ColumnName = "Columna";
+                dtTablasEnlaces.Columns.Add(column);
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Enlace";
+                dtTablasEnlaces.Columns.Add(column);
+                if (i == 0)
+                {
+                    foreach (GridViewRow row in gvVista_1.Rows)
+                    {
+                        DropDownList ddl1 = (DropDownList)row.Cells[1].FindControl("ddlVista_1_Tablas");
+                        DropDownList ddl2 = (DropDownList)row.Cells[2].FindControl("ddlVista_1_Columnas");
+                        DropDownList ddl3 = (DropDownList)row.Cells[3].FindControl("ddlVista_1_CamposCanvas");
+                        if (ValidarCamposCanvas(ddl3.Text))
+                        {
+                            DataRow newRow = dtTablasEnlaces.NewRow();
+                            newRow["Tabla"] = ddl1.Text;
+                            newRow["Columna"] = ddl2.Text;
+                            newRow["Enlace"] = ddl3.Text;
+                            dtTablasEnlaces.Rows.Add(newRow);
+                        }
+                    }
+                }
+                else if (i == 1)
+                {
+                    foreach (GridViewRow row in gvVista_2.Rows)
+                    {
+                        DropDownList ddl1 = (DropDownList)row.Cells[1].FindControl("ddlVista_2_Tablas");
+                        DropDownList ddl2 = (DropDownList)row.Cells[2].FindControl("ddlVista_2_Columnas");
+                        DropDownList ddl3 = (DropDownList)row.Cells[3].FindControl("ddlVista_2_CamposCanvas");
+                        if (ValidarCamposCanvas(ddl3.Text))
+                        {
+                            DataRow newRow = dtTablasEnlaces.NewRow();
+                            newRow["Tabla"] = ddl1.Text;
+                            newRow["Columna"] = ddl2.Text;
+                            newRow["Enlace"] = ddl3.Text;
+                            dtTablasEnlaces.Rows.Add(newRow);
+                        }
+                    }
+                }
+                else if (i == 2)
+                {
+                    foreach (GridViewRow row in gvVista_3.Rows)
+                    {
+                        DropDownList ddl1 = (DropDownList)row.Cells[1].FindControl("ddlVista_3_Tablas");
+                        DropDownList ddl2 = (DropDownList)row.Cells[2].FindControl("ddlVista_3_Columnas");
+                        DropDownList ddl3 = (DropDownList)row.Cells[3].FindControl("ddlVista_3_CamposCanvas");
+                        if (ValidarCamposCanvas(ddl3.Text))
+                        {
+                            DataRow newRow = dtTablasEnlaces.NewRow();
+                            newRow["Tabla"] = ddl1.Text;
+                            newRow["Columna"] = ddl2.Text;
+                            newRow["Enlace"] = ddl3.Text;
+                            dtTablasEnlaces.Rows.Add(newRow);
+                        }
+                    }
+                }
+                else if (i == 3)
+                {
+                    foreach (GridViewRow row in gvVista_4.Rows)
+                    {
+                        DropDownList ddl1 = (DropDownList)row.Cells[1].FindControl("ddlVista_4_Tablas");
+                        DropDownList ddl2 = (DropDownList)row.Cells[2].FindControl("ddlVista_4_Columnas");
+                        DropDownList ddl3 = (DropDownList)row.Cells[3].FindControl("ddlVista_4_CamposCanvas");
+                        if (ValidarCamposCanvas(ddl3.Text))
+                        {
+                            DataRow newRow = dtTablasEnlaces.NewRow();
+                            newRow["Tabla"] = ddl1.Text;
+                            newRow["Columna"] = ddl2.Text;
+                            newRow["Enlace"] = ddl3.Text;
+                            dtTablasEnlaces.Rows.Add(newRow);
+                        }
+                    }
+                }
+
+                if (dtTablasEnlaces.Rows.Count > 0)
+                {
+                    ListaTablasEnlasadas.Add(dtTablasEnlaces);
+                }
+            }
 
             clsFactory objFactory = new clsFactory();
-            if (objFactory.FactoryMethod(ListaNombresTablasSeleccionadas, ListaTablasEnlasadas))
+            if (objFactory.FactoryMethod(ListaTablasEnlasadas))
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "Create_Class_True", "alert('Se ha escrito la clase');", true);
             }

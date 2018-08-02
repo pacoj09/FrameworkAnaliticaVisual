@@ -11,17 +11,43 @@ namespace Clases
     public class clsVista
     {
         public List<string> ListaSelects { get; set; }
-        private List<clsEsquemaVista> ListaEsquema;
+        private List<DataTable> ListaEsquema;
         private DataTable dtColumnas;
         private string Tabla;
+        private List<DataTable> ListadtEnlacesTablas;
 
         public clsVista()
         {
-            ///Aqui irian las lineas a agregar a la lista de querys 
-            ///ListaEsquema.Add("select * from Persona;");
-            ListaEsquema = new List<clsEsquemaVista>();
-            dtColumnas = new DataTable();
+            cargarVista1();
         }
+
+        #region Vista1
+        public void cargarVista1() {
+            ListadtEnlacesTablas = new List<DataTable>();
+            DataTable dt = new DataTable();
+            DataColumn column;
+            column = new DataColumn();
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tabla";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Columna";
+            dt.Columns.Add(column);
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Enlace";
+            dt.Columns.Add(column);
+            ///se recorre con for
+            DataRow newRow = dt.NewRow();
+            newRow["Tabla"] = "persona";
+            newRow["Columna"] = "id";
+            newRow["Enlace"] = "Posicion X";
+            dt.Rows.Add(newRow);
+            ///termina for
+            ListadtEnlacesTablas.Add(dt);
+        }
+        #endregion Vista1
 
         public void cargarListas()
         {
@@ -43,7 +69,7 @@ namespace Clases
                             ListaCampos.Add(objColumna);
                         }
                         clsEsquemaVista objEsquemaVista = new clsEsquemaVista(dtColumnas.Rows[i][0].ToString(), ListaCampos);
-                        ListaEsquema.Add(objEsquemaVista);
+                        //ListaEsquema.Add(objEsquemaVista);
                     }
                 }
                 objConexion.cerrarConexion();

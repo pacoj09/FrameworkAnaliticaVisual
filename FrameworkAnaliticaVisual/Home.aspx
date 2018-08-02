@@ -32,30 +32,24 @@
             return true;
         }
 
-
-        $(document).ready(function () {
-            $('#ContentPlaceHolder1_Wizard1_ddlNumeroVistas').change(function () {
-                hablitarGrid($('#ContentPlaceHolder1_Wizard1_ddlNumeroVistas').text)
-            });
-        });
-
-        function hablitarGrid(count) {
-            if (count === 0) {
+        function habilitarGrid(count) {
+            count = parseInt(count);
+            if (count === 1) {
                 document.getElementById("Vista_1").style.display = "block";
                 document.getElementById("Vista_2").style.display = "none";
-                document.getElementById("Vista_3").style.display = "none";
-                document.getElementById("Vista_4").style.display = "none";
-            } else if (count === 1) {
-                document.getElementById("Vista_1").style.display = "block";
-                document.getElementById("Vista_2").style.display = "block";
                 document.getElementById("Vista_3").style.display = "none";
                 document.getElementById("Vista_4").style.display = "none";
             } else if (count === 2) {
                 document.getElementById("Vista_1").style.display = "block";
                 document.getElementById("Vista_2").style.display = "block";
-                document.getElementById("Vista_3").style.display = "block";
+                document.getElementById("Vista_3").style.display = "none";
                 document.getElementById("Vista_4").style.display = "none";
             } else if (count === 3) {
+                document.getElementById("Vista_1").style.display = "block";
+                document.getElementById("Vista_2").style.display = "block";
+                document.getElementById("Vista_3").style.display = "block";
+                document.getElementById("Vista_4").style.display = "none";
+            } else if (count === 4) {
                 document.getElementById("Vista_1").style.display = "block";
                 document.getElementById("Vista_2").style.display = "block";
                 document.getElementById("Vista_3").style.display = "block";
@@ -147,7 +141,7 @@
                     <fieldset>
                         <legend>Vistas:</legend>
                         Seleccione el numero de vistas:<br>
-                        <asp:DropDownList ID="ddlNumeroVistas" runat="server">
+                        <asp:DropDownList ID="ddlNumeroVistas" runat="server" onChange="habilitarGrid(this.value);">
                             <asp:ListItem Selected="True" Value="1">1</asp:ListItem>
                             <asp:ListItem Value="2">2</asp:ListItem>
                             <asp:ListItem Value="3">3</asp:ListItem>
@@ -157,9 +151,9 @@
                         <br />
                         <div id="Vista_1" style="display: none">
                             <asp:Label ID="lblVista_1" runat="server" Text="Label">VISTA 1</asp:Label><br>
-                            <asp:GridView ID="gvVista_1" runat="server" Enabled="true" OnRowDataBound="gvVista_1_RowDataBound" OnRowCreated="gvVista_1_RowCreated" OnRowEditing="gvVista_1_RowEditing">
+                            <asp:GridView ID="gvVista_1" runat="server" Enabled="true" OnRowDataBound="gvVista_1_RowDataBound" OnRowCreated="gvVista_1_RowCreated" OnSelectedIndexChanged="gvVista_1_SelectedIndexChanged">
                                 <Columns>
-                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
+                                    <asp:CommandField CausesValidation="False" InsertVisible="False" SelectText="Actualizar Columnas" ShowCancelButton="False" ShowSelectButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
                                             <asp:DropDownList ID="ddlVista_1_Tablas" runat="server">
@@ -185,12 +179,12 @@
                             <br />
                             <br />
                         </div>
-
+                        
                         <div id="Vista_2" style="display: none">
                             <asp:Label ID="lblVista_2" runat="server" Text="Label">VISTA 2</asp:Label><br>
-                            <asp:GridView ID="gvVista_2" runat="server" Enabled="true" OnRowDataBound="gvVista_2_RowDataBound" OnRowCreated="gvVista_2_RowCreated" OnRowEditing="gvVista_2_RowEditing">
+                            <asp:GridView ID="gvVista_2" runat="server" Enabled="true" OnRowDataBound="gvVista_2_RowDataBound" OnRowCreated="gvVista_2_RowCreated" OnSelectedIndexChanged="gvVista_2_SelectedIndexChanged">
                                 <Columns>
-                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
+                                    <asp:CommandField CausesValidation="False" InsertVisible="False" SelectText="Actualizar Columnas" ShowCancelButton="False" ShowSelectButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
                                             <asp:DropDownList ID="ddlVista_2_Tablas" runat="server">
@@ -216,12 +210,12 @@
                             <br />
                             <br />
                         </div>
-
+                        
                         <div id="Vista_3" style="display: none">
                             <asp:Label ID="lblVista_3" runat="server" Text="Label">VISTA 3</asp:Label><br>
-                            <asp:GridView ID="gvVista_3" runat="server" Enabled="true" OnRowDataBound="gvVista_3_RowDataBound" OnRowCreated="gvVista_3_RowCreated" OnRowEditing="gvVista_3_RowEditing">
+                            <asp:GridView ID="gvVista_3" runat="server" Enabled="true" OnRowDataBound="gvVista_3_RowDataBound" OnRowCreated="gvVista_3_RowCreated" OnSelectedIndexChanged="gvVista_3_SelectedIndexChanged">
                                 <Columns>
-                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
+                                    <asp:CommandField CausesValidation="False" InsertVisible="False" SelectText="Actualizar Columnas" ShowCancelButton="False" ShowSelectButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
                                             <asp:DropDownList ID="ddlVista_3_Tablas" runat="server">
@@ -247,12 +241,12 @@
                             <br />
                             <br />
                         </div>
-
+                        
                         <div id="Vista_4" style="display: none">
                             <asp:Label ID="lblVista_4" runat="server" Text="Label">VISTA 4</asp:Label><br>
-                            <asp:GridView ID="gvVista_4" runat="server" Enabled="true" OnRowDataBound="gvVista_4_RowDataBound" OnRowCreated="gvVista_4_RowCreated" OnRowEditing="gvVista_4_RowEditing">
+                            <asp:GridView ID="gvVista_4" runat="server" Enabled="true" OnRowDataBound="gvVista_4_RowDataBound" OnRowCreated="gvVista_4_RowCreated" OnSelectedIndexChanged="gvVista_4_SelectedIndexChanged">
                                 <Columns>
-                                    <asp:CommandField EditText="Actualizar Columnas" ShowEditButton="True" />
+                                    <asp:CommandField CausesValidation="False" InsertVisible="False" SelectText="Actualizar Columnas" ShowCancelButton="False" ShowSelectButton="True" />
                                     <asp:TemplateField HeaderText="TABLAS">
                                         <ItemTemplate>
                                             <asp:DropDownList ID="ddlVista_4_Tablas" runat="server">
@@ -278,7 +272,6 @@
                             <br />
                             <br />
                         </div>
-
                     </fieldset>
                     <br />
                     <br />
