@@ -139,6 +139,15 @@ namespace FrameworkAnaliticaVisual {
         protected global::System.Web.UI.WebControls.WizardStep WizardStep3;
         
         /// <summary>
+        /// Control ddlNumeroVistas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlNumeroVistas;
+        
+        /// <summary>
         /// Control lblVista_1.
         /// </summary>
         /// <remarks>

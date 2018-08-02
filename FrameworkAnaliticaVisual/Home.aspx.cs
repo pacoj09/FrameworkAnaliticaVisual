@@ -142,36 +142,29 @@ namespace FrameworkAnaliticaVisual
                 {
                     DataTable dtnewColumns = new DataTable();
                     dtnewColumns = Session["dtnewColumns"] as DataTable;
-                    int Contador = 0;
-                    for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+                    for (int i = 0; i < 4; i++)
                     {
                         if (i == 0)
                         {
                             gvVista_1.DataSource = dtnewColumns;
                             gvVista_1.DataBind();
-                            gvVista_1.Columns[4].Visible = false;
                         }
                         else if (i == 1)
                         {
                             gvVista_2.DataSource = dtnewColumns;
                             gvVista_2.DataBind();
-                            gvVista_2.Columns[4].Visible = false;
                         }
                         else if (i == 2)
                         {
                             gvVista_3.DataSource = dtnewColumns;
                             gvVista_3.DataBind();
-                            gvVista_3.Columns[4].Visible = false;
                         }
                         else if (i == 3)
                         {
                             gvVista_4.DataSource = dtnewColumns;
                             gvVista_4.DataBind();
-                            gvVista_4.Columns[4].Visible = false;
                         }
-                        Contador++;
                     }
-                    ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (Contador - 1) + ");", true);
                 }
             }
         }
@@ -450,10 +443,8 @@ namespace FrameworkAnaliticaVisual
                 dtnewColumns.Rows.Add(newRow);
             }
             Session["dtnewColumns"] = dtnewColumns;
-
-
-            int Contador = 0;
-            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            
+            for (int i = 0; i < 4; i++)
             {
                 if (i == 0)
                 {
@@ -475,9 +466,27 @@ namespace FrameworkAnaliticaVisual
                     gvVista_4.DataSource = dtnewColumns;
                     gvVista_4.DataBind();
                 }
-                Contador++;
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (Contador - 1) + ");", true);
+        }
+
+        protected void gvVista_1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[4].Visible = false;
+        }
+
+        protected void gvVista_2_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[4].Visible = false;
+        }
+
+        protected void gvVista_3_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[4].Visible = false;
+        }
+
+        protected void gvVista_4_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            e.Row.Cells[4].Visible = false;
         }
 
         protected void gvVista_1_RowCreated(object sender, GridViewRowEventArgs e)
@@ -574,84 +583,104 @@ namespace FrameworkAnaliticaVisual
 
         protected void gvVista_1_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Tablas");
-            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Columnas");
-            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            ///revisar funcion
+            try
             {
-                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_1_Columnas");
+                for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
-                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
-                    ddl2.DataTextField = "COLUMN_NAME";
-                    ddl2.DataValueField = "COLUMN_NAME";
-                    ddl2.DataBind();
-                    break;
+                    if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                    {
+                        ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                        ddl2.DataTextField = "COLUMN_NAME";
+                        ddl2.DataValueField = "COLUMN_NAME";
+                        ddl2.DataBind();
+                        break;
+                    }
                 }
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1)+ ");", true);
+            catch (Exception)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Error_Columnas.Bind", "alert('No se ha podido cargar las columnas correctamente, favor volver a intentar');", true);
+            }
         }
 
         protected void gvVista_2_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Tablas");
-            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Columnas");
-            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            try
             {
-                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_2_Columnas");
+                for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
-                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
-                    ddl2.DataTextField = "COLUMN_NAME";
-                    ddl2.DataValueField = "COLUMN_NAME";
-                    ddl2.DataBind();
-                    break;
+                    if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                    {
+                        ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                        ddl2.DataTextField = "COLUMN_NAME";
+                        ddl2.DataValueField = "COLUMN_NAME";
+                        ddl2.DataBind();
+                        break;
+                    }
                 }
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1) + ");", true);
+            catch (Exception)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Error_Columnas.Bind", "alert('No se ha podido cargar las columnas correctamente, favor volver a intentar');", true);
+            }
         }
 
         protected void gvVista_3_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Tablas");
-            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Columnas");
-            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            try
             {
-                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_3_Columnas");
+                for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
-                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
-                    ddl2.DataTextField = "COLUMN_NAME";
-                    ddl2.DataValueField = "COLUMN_NAME";
-                    ddl2.DataBind();
-                    break;
+                    if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                    {
+                        ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                        ddl2.DataTextField = "COLUMN_NAME";
+                        ddl2.DataValueField = "COLUMN_NAME";
+                        ddl2.DataBind();
+                        break;
+                    }
                 }
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1) + ");", true);
+            catch (Exception)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Error_Columnas.Bind", "alert('No se ha podido cargar las columnas correctamente, favor volver a intentar');", true);
+            }
         }
 
         protected void gvVista_4_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
-            DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Tablas");
-            DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Columnas");
-            for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
+            try
             {
-                if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
+                DropDownList ddl1 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Tablas");
+                DropDownList ddl2 = (DropDownList)gvVista_1.Rows[e.NewEditIndex].FindControl("ddlVista_4_Columnas");
+                for (int i = 0; i < ListaclsTablesColumnsSelected.Count; i++)
                 {
-                    ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
-                    ddl2.DataTextField = "COLUMN_NAME";
-                    ddl2.DataValueField = "COLUMN_NAME";
-                    ddl2.DataBind();
-                    break;
+                    if (ListaclsTablesColumnsSelected.ElementAt(i).getTable_name().Equals(ddl1.SelectedValue.ToString()))
+                    {
+                        ddl2.DataSource = ListaclsTablesColumnsSelected.ElementAt(i).getColumns_names();
+                        ddl2.DataTextField = "COLUMN_NAME";
+                        ddl2.DataValueField = "COLUMN_NAME";
+                        ddl2.DataBind();
+                        break;
+                    }
                 }
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "enable_gridview", "hablitarGrid(" + (ListaclsTablesColumnsSelected.Count - 1) + ");", true);
+            catch (Exception)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Error_Columnas.Bind", "alert('No se ha podido cargar las columnas correctamente, favor volver a intentar');", true);
+            }
         }
-
-        //protected void ddlVista_1_Tablas_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    gvVista_1.Rows[e.GetType().]
-        //}
 
         protected void btnGenrarCodigo_Click(object sender, EventArgs e)
         {
