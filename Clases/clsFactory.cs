@@ -17,7 +17,9 @@ namespace Clases
             if (_ListaTablasEnlasadas.Count > 0)
             {
                 clsGenerador objGenerador = new clsGenerador();
-
+                objGenerador.setListadtEnlacesTablas(_ListaTablasEnlasadas);
+                objGenerador.GenerateMethod();
+                exito = true;
             }
             return exito;
         }

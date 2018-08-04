@@ -785,6 +785,9 @@ namespace FrameworkAnaliticaVisual
             clsFactory objFactory = new clsFactory();
             if (objFactory.FactoryMethod(ListaTablasEnlasadas))
             {
+                Limpiar();
+                Response.Redirect("Home.aspx");
+                ///no tira el mensaje
                 ScriptManager.RegisterStartupScript(this, GetType(), "Create_Class_True", "alert('Se ha escrito la clase');", true);
             }
             else
@@ -833,7 +836,7 @@ namespace FrameworkAnaliticaVisual
             Session["ListaControlesDDLTablas"] = null;
             Session["ListaTablasConstraint"] = null;
             Session["ListaddlColumnCanvas"] = null;
-            Session["ListadtColumnas"] = null;
+            Session["ListaclsTablesColumnsSelected"] = null;
             Session["ListaNombresTablasSeleccionadas"] = null;
             Session["ListaTablasEnlasadas"] = null;
         }

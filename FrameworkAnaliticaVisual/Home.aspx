@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/StandardForm.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="FrameworkAnaliticaVisual.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/StandardForm.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="FrameworkAnaliticaVisual.Home" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
@@ -91,16 +91,16 @@
                         </asp:DropDownList>
                         <br>
                         Nombre del Servidor:<br>
-                        <asp:TextBox ID="txtServidor" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtServidor" runat="server" style="width:430px;"></asp:TextBox>
                         <br>
                         Nombre de la Base de Datos:<br>
-                        <asp:TextBox ID="txtBaseDatos" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtBaseDatos" runat="server" style="width:430px;"></asp:TextBox>
                         <br>
                         Nombre de Usario:<br>
-                        <asp:TextBox ID="txtUser" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtUser" runat="server" style="width:430px;"></asp:TextBox>
                         <br>
                         Contrase&ntilde;a:<br>
-                        <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtPassword" runat="server" style="width:430px;"></asp:TextBox>
                         <br>
                         <br>
                         <asp:Button ID="btnProbarConexion" CssClass="btn btn-default" runat="server" Text="Probar Conexion" OnClick="btnProbarConexion_Click" OnClientClick="return ValidarFormulario()" />
