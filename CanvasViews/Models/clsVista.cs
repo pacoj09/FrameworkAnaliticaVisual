@@ -9,62 +9,172 @@ namespace CanvasViews.Models
 {
     public class clsVista
     {
-        private static clsVista objVista = new clsVista();
-        private static List<clsEsquemaVista> ListaEsquema;
-        private static DataTable dtColumnas;
-        private static string Tabla;
-        private static string cadenaConexion;
-
+        private List<clsEnlaceColumna> ListaEnlaceColumnas;
+        private List<DataTable> ListadtEnlacesTablas;
+        private string CadenaConexion;
         private SqlConnection CNX = null;
 
         #region Constructor
-        private clsVista()
+        public clsVista()
         {
-            cadenaConexion = "Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            setTabla("Persona");
-            ListaEsquema = new List<clsEsquemaVista>();
-            dtColumnas = new DataTable();
-            dtColumnas.Columns.Add("Columnas_Tabla", typeof(String));
-            dtColumnas.Columns.Add("Datos_Canvas", typeof(String));
-            DataRow NewRow = dtColumnas.NewRow();
-            NewRow[0] = "nombre";
-            NewRow[1] = "Posicion X";
-            dtColumnas.Rows.Add(NewRow);
-            DataRow NewRow1 = dtColumnas.NewRow();
-            NewRow1[0] = "id";
-            NewRow1[1] = "Posicion Y";
-            dtColumnas.Rows.Add(NewRow1);
-            DataRow NewRow2 = dtColumnas.NewRow();
-            NewRow2[0] = "nombre";
-            NewRow2[1] = "Label";
-            dtColumnas.Rows.Add(NewRow2);
-            cargarListas();
+            ListaEnlaceColumnas = new List<clsEnlaceColumna>();
+            ListadtEnlacesTablas = new List<DataTable>();
+            CadenaConexion = "Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            cargarVista1();
+            cargarVista2();
+            cargarVista3();
         }
-        #endregion
+        #endregion Constructor
 
-        public static clsVista obtenerclsVista()
+        public List<clsEnlaceColumna> getListaEnlaceColumnas()
         {
-            return objVista;
+            return this.ListaEnlaceColumnas;
         }
 
-        public void setdtColumnas(DataTable _dtColumnas)
+        public List<DataTable> getListadtEnlacesTablas()
         {
-            dtColumnas = _dtColumnas;
+            return this.ListadtEnlacesTablas;
         }
 
-        public void setTabla(string _Tabla)
+        #region Vista1
+        public void cargarVista1()
         {
-            Tabla = _Tabla;
+            DataTable dt = new DataTable();
+            DataColumn column;
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tabla";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Columna";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Enlace";
+            dt.Columns.Add(column);
+            DataRow newRow1 = dt.NewRow();
+            newRow1["Tabla"] = "carrera";
+            newRow1["Columna"] = "id";
+            newRow1["Enlace"] = "Posicion Y";
+            dt.Rows.Add(newRow1);
+            DataRow newRow2 = dt.NewRow();
+            newRow2["Tabla"] = "carrera";
+            newRow2["Columna"] = "nombre";
+            newRow2["Enlace"] = "Posicion X";
+            dt.Rows.Add(newRow2);
+            ListadtEnlacesTablas.Add(dt);
         }
+        #endregion Vista1
 
-        public List<clsEsquemaVista> getListaEsquema()
+        #region Vista2
+        public void cargarVista2()
         {
-            return ListaEsquema;
+            DataTable dt = new DataTable();
+            DataColumn column;
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tabla";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Columna";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Enlace";
+            dt.Columns.Add(column);
+            DataRow newRow1 = dt.NewRow();
+            newRow1["Tabla"] = "persona";
+            newRow1["Columna"] = "id";
+            newRow1["Enlace"] = "Posicion Y";
+            dt.Rows.Add(newRow1);
+            DataRow newRow2 = dt.NewRow();
+            newRow2["Tabla"] = "carrera";
+            newRow2["Columna"] = "nombre";
+            newRow2["Enlace"] = "Posicion X";
+            dt.Rows.Add(newRow2);
+            ListadtEnlacesTablas.Add(dt);
         }
+        #endregion Vista2
 
-        public DataTable getdtColumnas()
+        #region Vista3
+        public void cargarVista3()
         {
-            return dtColumnas;
+            DataTable dt = new DataTable();
+            DataColumn column;
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Tabla";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Columna";
+            dt.Columns.Add(column);
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "Enlace";
+            dt.Columns.Add(column);
+            DataRow newRow1 = dt.NewRow();
+            newRow1["Tabla"] = "profesor";
+            newRow1["Columna"] = "id";
+            newRow1["Enlace"] = "Posicion Y";
+            dt.Rows.Add(newRow1);
+            DataRow newRow2 = dt.NewRow();
+            newRow2["Tabla"] = "persona";
+            newRow2["Columna"] = "nombre";
+            newRow2["Enlace"] = "Posicion X";
+            dt.Rows.Add(newRow2);
+            ListadtEnlacesTablas.Add(dt);
+        }
+        #endregion Vista3
+
+        #region Vista4
+        public void cargarVista4()
+        {
+
+
+
+
+
+        }
+        #endregion Vista4
+
+        public void cargarListas()
+        {
+            CNX = new SqlConnection(CadenaConexion);
+            if (abrirConexion())
+            {
+                int MaxRows = 0;
+                int contador = 0;
+                foreach (DataTable dt in this.ListadtEnlacesTablas)
+                {
+                    List<DataTable> ListadtEnlaces = new List<DataTable>();
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataTable dtRows = new DataTable();
+                        string query = string.Format("select {0} from {1};", dt.Rows[i][1].ToString(), dt.Rows[i][0].ToString());
+                        dtRows = consultar(query);
+                        if (dtRows.Rows.Count > 0)
+                        {
+                            ListadtEnlaces.Add(dtRows);
+                        }
+
+                        if (contador == 0)
+                        {
+                            MaxRows = dtRows.Rows.Count;
+                        }
+                        else if (MaxRows < dtRows.Rows.Count)
+                        {
+                            MaxRows = dtRows.Rows.Count;
+                        }
+                    }
+                    clsEnlaceColumna objEnlaceColumna = new clsEnlaceColumna(ListadtEnlaces, contador, MaxRows);
+                    contador++;
+                    this.ListaEnlaceColumnas.Add(objEnlaceColumna);
+                }
+                cerrarConexion();
+            }
         }
 
         public bool abrirConexion()
@@ -113,101 +223,38 @@ namespace CanvasViews.Models
             return dtResultado;
         }
 
-        public void cargarListas()
-        {
-            CNX = new SqlConnection(cadenaConexion);
-            if (abrirConexion())
-            {
-                if (dtColumnas != null)
-                {
-                    for (int i = 0; i < dtColumnas.Rows.Count; i++)
-                    {
-                        string query;
-                        DataTable dtRows = new DataTable();
-                        if (i == 0)
-                        {
-                            query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), "persona");
-                        }
-                        else if (i == 1)
-                        {
-                            query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), "carrera");
-                        }
-                        else
-                        {
-                            query = string.Format("select {0} from {1};", dtColumnas.Rows[i][0].ToString(), "carrera");
-                        }
-
-                        dtRows = consultar(query);
-                        List<clsColumna> ListaCampos = new List<clsColumna>();
-                        foreach (DataRow item in dtRows.Rows)
-                        {
-                            clsColumna objColumna = new clsColumna(item[0].ToString(), dtColumnas.Rows[i][0].ToString());
-                            ListaCampos.Add(objColumna);
-                        }
-                        clsEsquemaVista objEsquemaVista = new clsEsquemaVista(dtColumnas.Rows[i][0].ToString(), ListaCampos);
-                        ListaEsquema.Add(objEsquemaVista);
-                    }
-                }
-                cerrarConexion();
-            }
-        }
-
-        public int obtenerNumeroFilas()
-        {
-            int numero = 0;
-            for (int i = 0; i < ListaEsquema.ElementAt(0).ListaDetalleColumnas.Count; i++)
-            {
-                numero++;
-            }
-            return numero;
-        }
-
         ~clsVista()
         {
-            ListaEsquema = null;
-            dtColumnas = null;
-            Tabla = string.Empty;
+
         }
     }
 
-
-    public class clsEsquemaVista
+    public class clsEnlaceColumna
     {
-        public string ColumnaxTabla { get; set; }
-        public List<clsColumna> ListaDetalleColumnas { get; set; }
+        private List<DataTable> dtColumnas;
+        private int Vista;
+        private int MaxRows;
 
-        public clsEsquemaVista() { }
-
-        public clsEsquemaVista(string _ColumnaxTabla, List<clsColumna> _ListaDetalleColumnas)
+        public List<DataTable> getdtColumnas()
         {
-            this.ColumnaxTabla = _ColumnaxTabla;
-            this.ListaDetalleColumnas = _ListaDetalleColumnas;
+            return this.dtColumnas;
         }
 
-        ~clsEsquemaVista()
+        public int getVista()
         {
-            ColumnaxTabla = string.Empty;
-            ListaDetalleColumnas = null;
-        }
-    }
-
-    public class clsColumna
-    {
-        public string Dato { get; set; }
-        public string Columna { get; set; }
-
-        public clsColumna() { }
-
-        public clsColumna(string _Dato, string _Columna)
-        {
-            this.Dato = _Dato;
-            this.Columna = _Columna;
+            return this.Vista;
         }
 
-        ~clsColumna()
+        public int getMaxRows()
         {
-            this.Dato = string.Empty;
-            this.Columna = string.Empty;
+            return this.MaxRows;
+        }
+
+        public clsEnlaceColumna(List<DataTable> _dtColumnas, int _Vista, int _MaxRows)
+        {
+            this.dtColumnas = _dtColumnas;
+            this.Vista = _Vista;
+            this.MaxRows = _MaxRows;
         }
     }
 }

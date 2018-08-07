@@ -21,7 +21,6 @@ namespace Clases
             cargarVista1();
             cargarVista2();
             cargarVista3();
-            cargarVista4();
         }
         #endregion Constructor
 
@@ -50,18 +49,13 @@ namespace Clases
             DataRow newRow2 = dt.NewRow();
             newRow2["Tabla"] = "persona";
             newRow2["Columna"] = "cedula";
-            newRow2["Enlace"] = "Posicion X";
+            newRow2["Enlace"] = "Label";
             dt.Rows.Add(newRow2);
             DataRow newRow3 = dt.NewRow();
             newRow3["Tabla"] = "persona";
-            newRow3["Columna"] = "nombre";
-            newRow3["Enlace"] = "Label";
+            newRow3["Columna"] = "edad";
+            newRow3["Enlace"] = "Index Label";
             dt.Rows.Add(newRow3);
-            DataRow newRow4 = dt.NewRow();
-            newRow4["Tabla"] = "persona";
-            newRow4["Columna"] = "edad";
-            newRow4["Enlace"] = "Index Label";
-            dt.Rows.Add(newRow4);
             ListadtEnlacesTablas.Add(dt);
         }
         #endregion Vista1
@@ -84,19 +78,19 @@ namespace Clases
             column.ColumnName = "Enlace";
             dt.Columns.Add(column);
             DataRow newRow1 = dt.NewRow();
-            newRow1["Tabla"] = "persona";
-            newRow1["Columna"] = "cedula";
-            newRow1["Enlace"] = "Label";
+            newRow1["Tabla"] = "alumno";
+            newRow1["Columna"] = "id";
+            newRow1["Enlace"] = "Posicion Y";
             dt.Rows.Add(newRow1);
             DataRow newRow2 = dt.NewRow();
             newRow2["Tabla"] = "alumno";
-            newRow2["Columna"] = "id";
-            newRow2["Enlace"] = "Posicion Y";
+            newRow2["Columna"] = "id_persona";
+            newRow2["Enlace"] = "Index Label";
             dt.Rows.Add(newRow2);
             DataRow newRow3 = dt.NewRow();
             newRow3["Tabla"] = "persona";
-            newRow3["Columna"] = "profesion";
-            newRow3["Enlace"] = "Index Label";
+            newRow3["Columna"] = "nombre";
+            newRow3["Enlace"] = "Label";
             dt.Rows.Add(newRow3);
             ListadtEnlacesTablas.Add(dt);
         }
@@ -120,19 +114,19 @@ namespace Clases
             column.ColumnName = "Enlace";
             dt.Columns.Add(column);
             DataRow newRow1 = dt.NewRow();
-            newRow1["Tabla"] = "persona";
-            newRow1["Columna"] = "nombre";
-            newRow1["Enlace"] = "Label";
+            newRow1["Tabla"] = "profesor";
+            newRow1["Columna"] = "id";
+            newRow1["Enlace"] = "Posicion Y";
             dt.Rows.Add(newRow1);
             DataRow newRow2 = dt.NewRow();
-            newRow2["Tabla"] = "contacto";
-            newRow2["Columna"] = "tipo";
-            newRow2["Enlace"] = "Posicion Y";
+            newRow2["Tabla"] = "profesor";
+            newRow2["Columna"] = "id_persona";
+            newRow2["Enlace"] = "Index Label";
             dt.Rows.Add(newRow2);
             DataRow newRow3 = dt.NewRow();
-            newRow3["Tabla"] = "contacto";
-            newRow3["Columna"] = "descripcion";
-            newRow3["Enlace"] = "Index Label";
+            newRow3["Tabla"] = "persona";
+            newRow3["Columna"] = "nombre";
+            newRow3["Enlace"] = "Posicion X";
             dt.Rows.Add(newRow3);
             ListadtEnlacesTablas.Add(dt);
         }
@@ -141,36 +135,11 @@ namespace Clases
         #region Vista4
         public void cargarVista4()
         {
-            DataTable dt = new DataTable();
-            DataColumn column;
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Tabla";
-            dt.Columns.Add(column);
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Columna";
-            dt.Columns.Add(column);
-            column = new DataColumn();
-            column.DataType = Type.GetType("System.String");
-            column.ColumnName = "Enlace";
-            dt.Columns.Add(column);
-            DataRow newRow1 = dt.NewRow();
-            newRow1["Tabla"] = "alumno";
-            newRow1["Columna"] = "id";
-            newRow1["Enlace"] = "Posicion Y";
-            dt.Rows.Add(newRow1);
-            DataRow newRow2 = dt.NewRow();
-            newRow2["Tabla"] = "alumno";
-            newRow2["Columna"] = "beca";
-            newRow2["Enlace"] = "Label";
-            dt.Rows.Add(newRow2);
-            DataRow newRow3 = dt.NewRow();
-            newRow3["Tabla"] = "contacto";
-            newRow3["Columna"] = "id_persona";
-            newRow3["Enlace"] = "Index Label";
-            dt.Rows.Add(newRow3);
-            ListadtEnlacesTablas.Add(dt);
+
+
+
+
+
         }
         #endregion Vista4
 
@@ -178,12 +147,17 @@ namespace Clases
         public void cargarListas()
         {
 
+
+
+
+
         }
         #endregion FuncionCargar
 
         ~clsVista()
         {
-
+            ListadtEnlacesTablas = null;
+            CadenaConexion = string.Empty;
         }
     }
 }

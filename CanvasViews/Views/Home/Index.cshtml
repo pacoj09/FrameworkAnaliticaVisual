@@ -20,8 +20,7 @@
         var type2 = "bar";
         var type3 = "bar";
         var type4 = "bar";
-        var count = @Html.Raw(ViewBag.GraphCount)
-            count = 3;
+        var count = @Html.Raw(ViewBag.GraphCount);
 
         window.onload = function () {
             var i;
@@ -102,7 +101,7 @@
                     showInLegend: true,
                     click: onClick,
                     //Uncomment below line to add data coming from the controller.
-					dataPoints: @Html.Raw(ViewBag.DataPoints)
+					dataPoints: @Html.Raw(ViewBag.DataPoints1)
 				}
 				]
 			});
@@ -126,7 +125,7 @@
                     showInLegend: true,
                     click: onClick,
                     //Uncomment below line to add data coming from the controller.
-					dataPoints: @Html.Raw(ViewBag.DataPoints)
+					dataPoints: @Html.Raw(ViewBag.DataPoints2)
 				}
 				]
 			});
@@ -150,7 +149,7 @@
                     showInLegend: true,
                     click: onClick,
                     //Uncomment below line to add data coming from the controller.
-					dataPoints: @Html.Raw(ViewBag.DataPoints)
+					dataPoints: @Html.Raw(ViewBag.DataPoints3)
 				}
 				]
 			});
@@ -174,14 +173,12 @@
                     showInLegend: true,
                     click: onClick,
                     //Uncomment below line to add data coming from the controller.
-					dataPoints: @Html.Raw(ViewBag.DataPoints)
+					dataPoints: @Html.Raw(ViewBag.DataPoints4)
 				}
 				]
 			});
 			chart.render();
         }
-
-
     </script>
 
 </body>

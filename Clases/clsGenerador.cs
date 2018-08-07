@@ -23,6 +23,7 @@ namespace Clases
         public void GenerateMethod()
         {
             string path = System.IO.Directory.GetCurrentDirectory() + $"\\clsVista.cs";
+            File.WriteAllLines(path, WriteMethodClaseVista());
             List<string> readText = new List<string>();
             readText = File.ReadAllLines(path).ToList<string>();
             for (int i = 0; i < readText.Count(); i++)
@@ -58,123 +59,30 @@ namespace Clases
             {
                 readText.Clear();
                 readText = File.ReadAllLines(path).ToList<string>();
-                if (contador == 1)
+                for (int i = 0; i < readText.Count(); i++)
                 {
-                    for (int i = 0; i < readText.Count(); i++)
+                    if (readText[i].Trim().Equals("#region Vista" + contador))
                     {
-                        if (readText[i].Trim().Equals("#region Vista1"))
+                        bool enable = false;
+                        List<string> readTextRest = new List<string>();
+                        readTextRest = readText.GetRange((i + 2), (readText.Count - (i + 2)));
+                        readText.RemoveRange((i + 2), (readText.Count - (i + 2)));
+                        for (int j = 0; j < readTextRest.Count; j++)
                         {
-                            bool enable = false;
-                            List<string> readTextRest = new List<string>();
-                            readTextRest = readText.GetRange((i + 2), (readText.Count - (i + 2)));
-                            readText.RemoveRange((i + 2), (readText.Count - (i + 2)));
-                            for (int j = 0; j < readTextRest.Count; j++)
+                            if (readTextRest[j + 2].Trim().Equals("#endregion Vista" + contador))
                             {
-                                if (readTextRest[j + 2].Trim().Equals("#endregion Vista1"))
-                                {
-                                    readTextRest.RemoveRange(0, j);
-                                    readTextRest[0] = WriteMethodVistas(dt);
-                                    enable = true;
-                                    break;
-                                }
-                            }
-
-                            if (enable)
-                            {
-                                var ListaCombinada = readText.Concat(readTextRest);
-                                File.WriteAllLines(path, ListaCombinada);
+                                readTextRest.RemoveRange(0, j);
+                                readTextRest[0] = WriteMethodVistas(dt);
+                                enable = true;
                                 break;
                             }
                         }
-                    }
-                }
-                else if (contador == 2)
-                {
-                    for (int i = 0; i < readText.Count(); i++)
-                    {
-                        if (readText[i].Trim().Equals("#region Vista2"))
-                        {
-                            bool enable = false;
-                            List<string> readTextRest = new List<string>();
-                            readTextRest = readText.GetRange((i + 2), (readText.Count - (i + 2)));
-                            readText.RemoveRange((i + 2), (readText.Count - (i + 2)));
-                            for (int j = 0; j < readTextRest.Count; j++)
-                            {
-                                if (readTextRest[j + 2].Trim().Equals("#endregion Vista2"))
-                                {
-                                    readTextRest.RemoveRange(0, j);
-                                    readTextRest[0] = WriteMethodVistas(dt);
-                                    enable = true;
-                                    break;
-                                }
-                            }
 
-                            if (enable)
-                            {
-                                var ListaCombinada = readText.Concat(readTextRest);
-                                File.WriteAllLines(path, ListaCombinada);
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (contador == 3)
-                {
-                    for (int i = 0; i < readText.Count(); i++)
-                    {
-                        if (readText[i].Trim().Equals("#region Vista3"))
+                        if (enable)
                         {
-                            bool enable = false;
-                            List<string> readTextRest = new List<string>();
-                            readTextRest = readText.GetRange((i + 2), (readText.Count - (i + 2)));
-                            readText.RemoveRange((i + 2), (readText.Count - (i + 2)));
-                            for (int j = 0; j < readTextRest.Count; j++)
-                            {
-                                if (readTextRest[j + 2].Trim().Equals("#endregion Vista3"))
-                                {
-                                    readTextRest.RemoveRange(0, j);
-                                    readTextRest[0] = WriteMethodVistas(dt);
-                                    enable = true;
-                                    break;
-                                }
-                            }
-
-                            if (enable)
-                            {
-                                var ListaCombinada = readText.Concat(readTextRest);
-                                File.WriteAllLines(path, ListaCombinada);
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if (contador == 4)
-                {
-                    for (int i = 0; i < readText.Count(); i++)
-                    {
-                        if (readText[i].Trim().Equals("#region Vista4"))
-                        {
-                            bool enable = false;
-                            List<string> readTextRest = new List<string>();
-                            readTextRest = readText.GetRange((i + 2), (readText.Count - (i + 2)));
-                            readText.RemoveRange((i + 2), (readText.Count - (i + 2)));
-                            for (int j = 0; j < readTextRest.Count; j++)
-                            {
-                                if (readTextRest[j + 2].Trim().Equals("#endregion Vista4"))
-                                {
-                                    readTextRest.RemoveRange(0, j);
-                                    readTextRest[0] = WriteMethodVistas(dt);
-                                    enable = true;
-                                    break;
-                                }
-                            }
-
-                            if (enable)
-                            {
-                                var ListaCombinada = readText.Concat(readTextRest);
-                                File.WriteAllLines(path, ListaCombinada);
-                                break;
-                            }
+                            var ListaCombinada = readText.Concat(readTextRest);
+                            File.WriteAllLines(path, ListaCombinada);
+                            break;
                         }
                     }
                 }
@@ -222,6 +130,67 @@ namespace Clases
             }
             Datos += "\r\n\t\tListadtEnlacesTablas.Add(dt);";
             return Datos;
+        }
+
+        private string[] WriteMethodClaseVista()
+        {
+            string[] claseVista = { "using ConexionBD;"+
+                                "\r\nusing System;"+
+                                "\r\nusing System.Collections.Generic;"+
+                                "\r\nusing System.Data;"+
+                                "\r\nusing System.Linq;"+
+                                "\r\nusing System.Text;"+
+                                "\r\nusing System.Threading.Tasks;"+
+                                "\r\n\r\nnamespace Clases"+
+                                "\r\n{"+
+                                "\r\n\tpublic class clsVista"+
+                                "\r\n\t{"+
+                                "\r\n\t\tprivate List<DataTable> ListadtEnlacesTablas;"+
+                                "\r\n\t\tprivate string CadenaConexion;"+
+                                "\r\n"+
+                                "\r\n\t\t#region Constructor"+
+                                "\r\n\t\tpublic clsVista(){"+
+                                "\r\n\r\n\r\n\r\n\r\n"+
+                                "\r\n\t\t}"+
+                                "\r\n\t\t#endregion Constructor"+
+                                "\r\n\t"+
+                                "\r\n\t\t#region Vista1"+
+                                "\r\n\t\tpublic void cargarVista1(){"+
+                                "\r\n\r\n\r\n\r\n\r\n"+
+                                "\r\n\t\t}"+
+                                "\r\n\t\t#endregion Vista1"+
+                                "\r\n"+
+                                "\r\n\t\t#region Vista2"+
+                                "\r\n\t\tpublic void cargarVista2(){"+
+                                "\r\n\r\n\r\n\r\n\r\n"+
+                                "\r\n\t\t}"+
+                                "\r\n\t\t#endregion Vista2"+
+                                "\r\n"+
+                                "\r\n\t\t#region Vista3"+
+                                "\r\n\t\tpublic void cargarVista3(){"+
+                                "\r\n\r\n\r\n\r\n\r\n"+
+                                "\r\n\t\t}"+
+                                "\r\n\t\t#endregion Vista3"+
+                                "\r\n"+
+                                "\r\n\t\t#region Vista4"+
+                                "\r\n\t\tpublic void cargarVista4(){"+
+                                "\r\n\r\n\r\n\r\n\r\n"+
+                                "\r\n\t\t}"+
+                                "\r\n\t\t#endregion Vista4"+
+                                "\r\n"+
+                                "\r\n\t\t#region FuncionCargar"+
+                                "\r\n\t\tpublic void cargarListas(){"+
+                                "\r\n\r\n\r\n\r\n\r\n"+
+                                "\r\n\t\t}"+
+                                "\r\n\t\t#endregion FuncionCargar"+
+                                "\r\n"+
+                                "\r\n\t\t~clsVista(){"+
+                                "\r\n\t\t\tListadtEnlacesTablas = null;"+
+                                "\r\n\t\t\tCadenaConexion = string.Empty;"+
+                                "\r\n\t\t}"+
+                                "\r\n\t}"+
+                                "\r\n}" };
+            return claseVista;
         }
     }
 }
