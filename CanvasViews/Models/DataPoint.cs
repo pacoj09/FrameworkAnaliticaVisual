@@ -11,7 +11,7 @@ namespace ASPNET_MVC_Samples.Models
     public class DataPoint
     {
 
-        public void setX(string _x)
+        public void setX(double _x)
         {
             this.X = _x;
         }
@@ -23,7 +23,17 @@ namespace ASPNET_MVC_Samples.Models
 
         public void setLabel(string _label)
         {
-            this.label = _label;
+            this.Label = _label;
+        }
+
+        public void setIndexLabel(string _indexlabel)
+        {
+            this.indexLabel = _indexlabel;
+        }
+
+        public void setName(string _name)
+        {
+            this.name = _name;
         }
 
         public DataPoint() { }
@@ -39,16 +49,19 @@ namespace ASPNET_MVC_Samples.Models
             return listaDataPoints;
         }
 
-        //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "label")]
-        public string X = null;
+        public string Label = null;
 
-        //Explicitly setting the name to be used while serializing to JSON.
+        [DataMember(Name = "indexLabel")]
+        public string indexLabel = null;
+
+        [DataMember(Name = "name")]
+        public string name = null;
+
+        [DataMember(Name = "x")]
+        public Nullable<double> X = null;
+
         [DataMember(Name = "y")]
         public Nullable<double> Y = null;
-
-        //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "indexLabel")]
-        public string label = null;
     }
 }

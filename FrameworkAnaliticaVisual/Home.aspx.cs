@@ -51,10 +51,11 @@ namespace FrameworkAnaliticaVisual
             {
                 ListaddlColumnCanvas = new List<string>();
                 ListaddlColumnCanvas.Add("No Seleccionado");
+                ListaddlColumnCanvas.Add("Posicion Y");
+                ListaddlColumnCanvas.Add("Posicion X");
                 ListaddlColumnCanvas.Add("Label");
                 ListaddlColumnCanvas.Add("Index Label");
-                ListaddlColumnCanvas.Add("Posicion X");
-                ListaddlColumnCanvas.Add("Posicion Y");
+                ListaddlColumnCanvas.Add("Name");
                 Session["ListaddlColumnCanvas"] = ListaddlColumnCanvas;
             }
 
@@ -234,6 +235,7 @@ namespace FrameworkAnaliticaVisual
 
         protected void btnEstablecerTablaPrincipal_Click(object sender, EventArgs e)
         {
+            Session["TablaPrincipal"] = ddlTablaPrincipal.Text;
             clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
             if (objEsquema.getdtConstraints().Rows.Count > 0)
             {
@@ -436,7 +438,7 @@ namespace FrameworkAnaliticaVisual
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "Consecutivo";
             dtnewColumns.Columns.Add(column);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 DataRow newRow = dtnewColumns.NewRow();
                 newRow["Consecutivo"] = (i + 1).ToString();
@@ -783,7 +785,7 @@ namespace FrameworkAnaliticaVisual
             }
 
             clsFactory objFactory = new clsFactory();
-            if (objFactory.FactoryMethod(ListaTablasEnlasadas))
+            if (objFactory.FactoryMethod(ListaTablasEnlasadas, Session["TablaPrincipal"].ToString()))
             {
                 Limpiar();
                 Response.Redirect("Home.aspx");

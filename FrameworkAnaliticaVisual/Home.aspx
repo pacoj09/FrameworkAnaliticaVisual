@@ -276,7 +276,7 @@
                     <br />
                     <br />
                     <p>
-                        NOTA: Los enlaces no deben de repetirce por tabla, si hay repetidos se tomara en cuenta el primer enlace unicamente.
+                        NOTA: Los enlaces no deben de repetirce por vista, si hay repetidos se tomara en cuenta el primer enlace unicamente. Debe exitir la "Posicion Y" en todas las vistas.
                     </p>
                 </div>
 

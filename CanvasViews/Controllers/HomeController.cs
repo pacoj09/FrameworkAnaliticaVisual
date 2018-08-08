@@ -13,8 +13,19 @@ namespace CanvasViews.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string id1, string id2, string id3, string id4)
+        {
+            if (string.IsNullOrEmpty(id1) && string.IsNullOrEmpty(id2) && string.IsNullOrEmpty(id3) && string.IsNullOrEmpty(id4))
+            {
+                return IndexLoad();
+            }
+            else
+            {
+                return IndexParameters(id1, id2, id3, id4);
+            }
+        }
+
+        private ActionResult IndexLoad()
         {
             clsVista objVista = new clsVista();
             objVista.cargarListas();
@@ -26,27 +37,46 @@ namespace CanvasViews.Controllers
                 if (contador == 1)
                 {
                     var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < dtEnlaces.Rows.Count; i++)
+                    for (int i = 0; i < query.Columns.Count; i++)
                     {
-                        if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion X"))
+                        if (i == 0)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setX(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setY(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion Y"))
+                        else if (i == 1)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setY(Convert.ToInt32(query.ElementAt(i).Rows[j][0]));
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setX(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("IndexLabel"))
+                        else if (i == 2)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setLabel(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
+                                }
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                            {
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
+                                }
                             }
                         }
                     }
@@ -55,27 +85,46 @@ namespace CanvasViews.Controllers
                 else if (contador == 2)
                 {
                     var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < dtEnlaces.Rows.Count; i++)
+                    for (int i = 0; i < query.Columns.Count; i++)
                     {
-                        if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion X"))
+                        if (i == 0)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setX(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setY(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion Y"))
+                        else if (i == 1)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setY(Convert.ToInt32(query.ElementAt(i).Rows[j][0]));
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setX(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("IndexLabel"))
+                        else if (i == 2)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setLabel(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
+                                }
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                            {
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
+                                }
                             }
                         }
                     }
@@ -84,27 +133,46 @@ namespace CanvasViews.Controllers
                 else if (contador == 3)
                 {
                     var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < dtEnlaces.Rows.Count; i++)
+                    for (int i = 0; i < query.Columns.Count; i++)
                     {
-                        if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion X"))
+                        if (i == 0)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setX(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setY(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion Y"))
+                        else if (i == 1)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setY(Convert.ToInt32(query.ElementAt(i).Rows[j][0]));
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setX(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("IndexLabel"))
+                        else if (i == 2)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setLabel(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
+                                }
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                            {
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
+                                }
                             }
                         }
                     }
@@ -113,27 +181,46 @@ namespace CanvasViews.Controllers
                 else if (contador == 4)
                 {
                     var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < dtEnlaces.Rows.Count; i++)
+                    for (int i = 0; i < query.Columns.Count; i++)
                     {
-                        if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion X"))
+                        if (i == 0)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setX(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setY(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("Posicion Y"))
+                        else if (i == 1)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setY(Convert.ToInt32(query.ElementAt(i).Rows[j][0]));
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setX(Convert.ToInt32(query.Rows[j][i]));
+                                }
                             }
                         }
-                        else if (dtEnlaces.Rows[i][2].ToString().Equals("IndexLabel"))
+                        else if (i == 2)
                         {
-                            for (int j = 0; j < query.ElementAt(i).Rows.Count; j++)
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                             {
-                                dataPoints.ElementAt(j).setLabel(query.ElementAt(i).Rows[j][0].ToString());
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
+                                }
+                            }
+                        }
+                        else if (i == 3)
+                        {
+                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                            {
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
+                                }
                             }
                         }
                     }
@@ -157,6 +244,12 @@ namespace CanvasViews.Controllers
                 ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
             }
             ViewBag.GraphCount = (contador - 1);
+            return View();
+        }
+
+        public ActionResult IndexParameters(string id1, string id2, string id3, string id4)
+        {
+            clsVista objVista = new clsVista();
             return View();
         }
     }

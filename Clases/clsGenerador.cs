@@ -11,11 +11,17 @@ namespace Clases
     public class clsGenerador
     {
         private List<DataTable> ListadtEnlacesTablas;
+        private string TablaPrincipal;
 
         public void setListadtEnlacesTablas(List<DataTable> _ListadtEnlacesTablas)
         {
             this.ListadtEnlacesTablas = new List<DataTable>();
             this.ListadtEnlacesTablas = _ListadtEnlacesTablas;
+        }
+
+        public void setTablaPrincipal(string _TablaPrincipal)
+        {
+            this.TablaPrincipal = _TablaPrincipal;
         }
 
         public clsGenerador() { }
@@ -94,7 +100,7 @@ namespace Clases
         {
             clsEsquema objEsquema = clsEsquema.obtenerclsEsquema();
             string Datos = string.Format("\t\tListadtEnlacesTablas = new List<DataTable>();"
-                + "\r\n\t\tCadenaConexion = \"{0}\";", objEsquema.getConnectionString());
+                + "\r\n\t\tTablaPrincipal = \"{0}\";\r\n\t\tCadenaConexion = \"{1}\";", this.TablaPrincipal, objEsquema.getConnectionString());
             for (int i = 0; i < _numeroVistas; i++)
             {
                 Datos += "\r\n\t\tcargarVista" + (i + 1) + "();";
@@ -147,6 +153,7 @@ namespace Clases
                                 "\r\n\t{"+
                                 "\r\n\t\tprivate List<DataTable> ListadtEnlacesTablas;"+
                                 "\r\n\t\tprivate string CadenaConexion;"+
+                                "\r\n\t\tprivate string TablaPrincipal;"+
                                 "\r\n"+
                                 "\r\n\t\t#region Constructor"+
                                 "\r\n\t\tpublic clsVista(){"+

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 <!DOCTYPE html>
@@ -12,15 +11,23 @@
     <title>Index</title>
 </head>
 <body>
-    <div id="graphs"></div>
-
+    <div id="cabezera">
+        <h1>Framework Analitica Visual</h1>
+    </div>
+    <div id="graphsContainer"></div>
+    <hr />
+    <div align="center">
+        <footer>
+            <p>&copy; 2018 - Framework de Analitica Visual</p>
+        </footer>
+    </div>
     <script type="text/javascript">
 
         var type1 = "bar";
         var type2 = "bar";
         var type3 = "bar";
         var type4 = "bar";
-        var count = @Html.Raw(ViewBag.GraphCount);
+        var count = 3;
 
         window.onload = function () {
             var i;
@@ -49,10 +56,16 @@
             }
         };
 
-        function printGraph(count) {
-            document.getElementById('graphs').innerHTML += '<div id="graph' + count + '" class="graphs"></div>';
-            document.getElementById('graph' + count).innerHTML += '<select id="ddlChartType' + count + '" onchange="reloadChart(this.value,' + count +')"><option value="bar">Bar</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pie</option><option value="doughnut">Doughnut</option></select>';
-            document.getElementById('graph' + count).innerHTML += '<div id="chartContainer' + count + '" style="height: 100%; width: 100%;"></div>';
+        function printGraph(index) {
+            if (index == 1) {
+                document.getElementById('graphsContainer').innerHTML += '<div id="graph' + index + '" class="graphMain"></div>'
+                document.getElementById('graph' + index).innerHTML += 'Tipo de grafico: <select id="ddlChartType' + index + '" onchange="reloadChart(this.value,' + index + ')"><option value="bar">Barra</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pastel</option><option value="doughnut">Dona</option></select>';
+                document.getElementById('graph' + index).innerHTML += '<div id="chartContainer' + index + '" style="height: 100%; width: 100%;"></div>';
+            } else {
+                document.getElementById('graphsContainer').innerHTML += '<div id="graph' + index + '" class="graphs'+count+'"></div>'
+                document.getElementById('graph' + index).innerHTML += 'Tipo de grafico: <select id="ddlChartType' + index + '" onchange="reloadChart(this.value,' + index + ')"><option value="bar">Bar</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pie</option><option value="doughnut">Doughnut</option></select>';
+                document.getElementById('graph' + index).innerHTML += '<div id="chartContainer' + index + '" style="height: 100%; width: 100%;"></div>';
+            }
         }
 
         function printDropDown() {
@@ -60,7 +73,15 @@
         }
 
         function onClick(e) {
-            alert(e.dataSeries.type + ", dataPoint { x:" + e.dataPoint.x + ", y: " + e.dataPoint.y + " }");
+            if (e.chart._containerId == "chartContainer1") {
+                location.href = '@Url.Action("Index", "Home", new { id1 = "ID"})'.replace("ID", e.dataPoint.y);
+            } else if (e.chart._containerId == "chartContainer2") {
+                location.href = '@Url.Action("Index", "Home", new { id2 = "2"})';
+            } else if (e.chart._containerId == "chartContainer3") {
+                location.href = '@Url.Action("Index", "Home", new { id3 = "3"})';
+            } else {
+                location.href = '@Url.Action("Index", "Home", new { id4 = "4"})';
+            }
         }
 
         function reloadChart(value, chartID) {
@@ -89,15 +110,12 @@
 				theme: "theme2",
 				animationEnabled: true,
 				title: {
-					text: "Simple Column Chart in ASP.NET MVC"
+					text: "Vista 1"
 				},
-				subtitles: [
-					{ text: "Try Resizing the Browser" }
-				],
 				data: [
 				{
                     type: type1, //change type to bar, line, area, pie, etc
-                    indexLabelPlacement: "auto",
+                    indexLabelPlacement: "outside",
                     showInLegend: true,
                     click: onClick,
                     //Uncomment below line to add data coming from the controller.
@@ -113,11 +131,8 @@
 				theme: "theme2",
 				animationEnabled: true,
 				title: {
-					text: "Simple Column Chart in ASP.NET MVC"
+					text: "Vista 2"
 				},
-				subtitles: [
-					{ text: "Try Resizing the Browser" }
-				],
 				data: [
 				{
                     type: type2, //change type to bar, line, area, pie, etc
@@ -137,11 +152,8 @@
 				theme: "theme2",
 				animationEnabled: true,
 				title: {
-					text: "Simple Column Chart in ASP.NET MVC"
+					text: "Vista 3"
 				},
-				subtitles: [
-					{ text: "Try Resizing the Browser" }
-				],
 				data: [
 				{
                     type: type3, //change type to bar, line, area, pie, etc
@@ -161,11 +173,8 @@
 				theme: "theme2",
 				animationEnabled: true,
 				title: {
-					text: "Simple Column Chart in ASP.NET MVC"
+					text: "Vista 4"
 				},
-				subtitles: [
-					{ text: "Try Resizing the Browser" }
-				],
 				data: [
 				{
                     type: type4, //change type to bar, line, area, pie, etc
@@ -180,6 +189,5 @@
 			chart.render();
         }
     </script>
-
 </body>
 </html>			
