@@ -63,7 +63,7 @@ namespace CanvasViews.Models
             DataRow newRow2 = dt.NewRow();
             newRow2["Tabla"] = "persona";
             newRow2["Columna"] = "id";
-            newRow2["Enlace"] = "Label / Posicion X";
+            newRow2["Enlace"] = "Posicion X / Label";
             dt.Rows.Add(newRow2);
             ListadtEnlacesTablas.Add(dt);
         }
@@ -93,8 +93,8 @@ namespace CanvasViews.Models
             dt.Rows.Add(newRow1);
             DataRow newRow2 = dt.NewRow();
             newRow2["Tabla"] = "persona";
-            newRow2["Columna"] = "id";
-            newRow2["Enlace"] = "Label / Posicion X";
+            newRow2["Columna"] = "edad";
+            newRow2["Enlace"] = "Posicion X / Label";
             dt.Rows.Add(newRow2);
             DataRow newRow3 = dt.NewRow();
             newRow3["Tabla"] = "contacto";
@@ -123,14 +123,14 @@ namespace CanvasViews.Models
             column.ColumnName = "Enlace";
             dt.Columns.Add(column);
             DataRow newRow1 = dt.NewRow();
-            newRow1["Tabla"] = "profesor";
-            newRow1["Columna"] = "id";
+            newRow1["Tabla"] = "persona";
+            newRow1["Columna"] = "edad";
             newRow1["Enlace"] = "Posicion Y";
             dt.Rows.Add(newRow1);
             DataRow newRow2 = dt.NewRow();
-            newRow2["Tabla"] = "persona";
+            newRow2["Tabla"] = "profesor";
             newRow2["Columna"] = "id";
-            newRow2["Enlace"] = "Label / Posicion X";
+            newRow2["Enlace"] = "Posicion X / Label";
             dt.Rows.Add(newRow2);
             DataRow newRow3 = dt.NewRow();
             newRow3["Tabla"] = "persona";
@@ -217,7 +217,7 @@ namespace CanvasViews.Models
                             {
                                 y = row[1].ToString();
                             }
-                            else if (row[2].ToString().Equals("Label / Posicion X"))
+                            else if (row[2].ToString().Equals("Posicion X / Label"))
                             {
                                 label_x = row[1].ToString();
                             }
@@ -232,7 +232,7 @@ namespace CanvasViews.Models
                         }
 
                         DataTable dtRows = new DataTable();
-                        string query = string.Format("select {0} as 'Posicion Y', {1} as 'Label / Posicion X', {2} as 'Index Label', {3} as 'Name' from {4};", y, label_x, index_label, name, Tablas.FirstOrDefault());
+                        string query = string.Format("select {0} as 'Posicion Y', {1} as 'Posicion X / Label', {2} as 'Index Label', {3} as 'Name' from {4};", y, label_x, index_label, name, Tablas.FirstOrDefault());
                         dtRows = consultar(query);
                         clsEnlaceColumna objEnlaceColumna = new clsEnlaceColumna(dtRows, contador, dtRows.Rows.Count);
                         contador++;
@@ -251,7 +251,7 @@ namespace CanvasViews.Models
                                 y.Add(row[0].ToString());
                                 y.Add(row[1].ToString());
                             }
-                            else if (row[2].ToString().Equals("Label / Posicion X"))
+                            else if (row[2].ToString().Equals("Posicion X / Label"))
                             {
                                 label_x.Add(row[0].ToString());
                                 label_x.Add(row[1].ToString());
@@ -269,7 +269,7 @@ namespace CanvasViews.Models
                         }
 
                         DataTable dtRows = new DataTable();
-                        string query = string.Format("select {0} as 'Posicion Y', {1} as 'Label / Posicion X', {2} as 'Index Label', {3} as 'Name' from {4};", getColumnas(y), getColumnas(label_x), getColumnas(index_label), getColumnas(name), getTablas(Tablas, Keys, MainTable));
+                        string query = string.Format("select {0} as 'Posicion Y', {1} as 'Posicion X / Label', {2} as 'Index Label', {3} as 'Name' from {4};", getColumnas(y), getColumnas(label_x), getColumnas(index_label), getColumnas(name), getTablas(Tablas, Keys, MainTable));
                         dtRows = consultar(query);
                         clsEnlaceColumna objEnlaceColumna = new clsEnlaceColumna(dtRows, contador, dtRows.Rows.Count);
                         contador++;

@@ -52,8 +52,7 @@ namespace FrameworkAnaliticaVisual
                 ListaddlColumnCanvas = new List<string>();
                 ListaddlColumnCanvas.Add("No Seleccionado");
                 ListaddlColumnCanvas.Add("Posicion Y");
-                ListaddlColumnCanvas.Add("Posicion X");
-                ListaddlColumnCanvas.Add("Label");
+                ListaddlColumnCanvas.Add("Posicion X / Label");
                 ListaddlColumnCanvas.Add("Index Label");
                 ListaddlColumnCanvas.Add("Name");
                 Session["ListaddlColumnCanvas"] = ListaddlColumnCanvas;
@@ -438,7 +437,7 @@ namespace FrameworkAnaliticaVisual
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "Consecutivo";
             dtnewColumns.Columns.Add(column);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 DataRow newRow = dtnewColumns.NewRow();
                 newRow["Consecutivo"] = (i + 1).ToString();
