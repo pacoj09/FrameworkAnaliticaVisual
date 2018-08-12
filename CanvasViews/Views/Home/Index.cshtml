@@ -23,11 +23,11 @@
     </div>
     <script type="text/javascript">
 
-        var type1 = "bar";
-        var type2 = "bar";
-        var type3 = "bar";
-        var type4 = "bar";
-        var count = 3;
+        var type1 = '@Html.Raw(ViewBag.type1)';
+        var type2 = '@Html.Raw(ViewBag.type2)';
+        var type3 = '@Html.Raw(ViewBag.type3)';
+        var type4 = '@Html.Raw(ViewBag.type4)';
+        var count = @Html.Raw(ViewBag.GraphCount);
 
         window.onload = function () {
             var i;
@@ -54,34 +54,47 @@
                     loadChart4();
                     break;
             }
+            document.getElementById("ddlChartType1").value = type1;
+            document.getElementById("ddlChartType2").value = type2;
+            document.getElementById("ddlChartType3").value = type3;
+            document.getElementById("ddlChartType4").value = type4;
         };
 
         function printGraph(index) {
             if (index == 1) {
                 document.getElementById('graphsContainer').innerHTML += '<div id="graph' + index + '" class="graphMain"></div>'
                 document.getElementById('graph' + index).innerHTML += 'Tipo de grafico: <select id="ddlChartType' + index + '" onchange="reloadChart(this.value,' + index + ')"><option value="bar">Barra</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pastel</option><option value="doughnut">Dona</option></select>';
+                document.getElementById('graph' + index).innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="image" src="/img/filter.png" height="30" width="30" onclick="removeFilter()"/>';
                 document.getElementById('graph' + index).innerHTML += '<div id="chartContainer' + index + '" style="height: 100%; width: 100%;"></div>';
             } else {
                 document.getElementById('graphsContainer').innerHTML += '<div id="graph' + index + '" class="graphs'+count+'"></div>'
-                document.getElementById('graph' + index).innerHTML += 'Tipo de grafico: <select id="ddlChartType' + index + '" onchange="reloadChart(this.value,' + index + ')"><option value="bar">Bar</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pie</option><option value="doughnut">Doughnut</option></select>';
+                document.getElementById('graph' + index).innerHTML += 'Tipo de grafico: <select id="ddlChartType' + index + '" onchange="reloadChart(this.value,' + index + ')"><option value="bar">Barra</option><option value="spline">Spline</option><option value="area">Area</option><option value="pie">Pastel</option><option value="doughnut">Dona</option></select>';
                 document.getElementById('graph' + index).innerHTML += '<div id="chartContainer' + index + '" style="height: 100%; width: 100%;"></div>';
             }
         }
 
-        function printDropDown() {
-
+        function getChartType() {
+            var chartType = document.getElementById("ddlChartType1").value;
+            for (var i = 2; i <= count; i++) {
+                chartType += "|" + document.getElementById("ddlChartType"+i).value;
+            }
+            return chartType;
         }
 
         function onClick(e) {
-            if (e.chart._containerId == "chartContainer1") {
-                location.href = '@Url.Action("Index", "Home", new { id1 = "ID"})'.replace("ID", e.dataPoint.y);
-            } else if (e.chart._containerId == "chartContainer2") {
-                location.href = '@Url.Action("Index", "Home", new { id2 = "2"})';
-            } else if (e.chart._containerId == "chartContainer3") {
-                location.href = '@Url.Action("Index", "Home", new { id3 = "3"})';
-            } else {
-                location.href = '@Url.Action("Index", "Home", new { id4 = "4"})';
-            }
+            var chartType = getChartType();
+            const url = '@Url.Action("Index", "Home", new { id1 = "ID", types = "CT"})'.replace("ID", e.dataPoint.y).replace("CT", chartType);
+            const parseResult = new DOMParser().parseFromString(url, "text/html");
+            const parsedUrl = parseResult.documentElement.textContent;
+            location.href = parsedUrl;
+        }
+
+        function removeFilter() {
+            var chartType = getChartType();
+            const url = '@Url.Action("Index", "Home", new { id1 = "0", types = "CT"})'.replace("CT", chartType);
+            const parseResult = new DOMParser().parseFromString(url, "text/html");
+            const parsedUrl = parseResult.documentElement.textContent;
+            location.href = parsedUrl;
         }
 
         function reloadChart(value, chartID) {
@@ -144,7 +157,6 @@
                     type: type2, //change type to bar, line, area, pie, etc
                     indexLabelPlacement: "outside",
                     showInLegend: true,
-                    click: onClick,
                     //Uncomment below line to add data coming from the controller.
 					dataPoints: @Html.Raw(ViewBag.DataPoints2)
 				}
@@ -168,7 +180,6 @@
                     type: type3, //change type to bar, line, area, pie, etc
                     indexLabelPlacement: "outside",
                     showInLegend: true,
-                    click: onClick,
                     //Uncomment below line to add data coming from the controller.
 					dataPoints: @Html.Raw(ViewBag.DataPoints3)
 				}
@@ -192,7 +203,6 @@
                     type: type4, //change type to bar, line, area, pie, etc
                     indexLabelPlacement: "outside",
                     showInLegend: true,
-                    click: onClick,
                     //Uncomment below line to add data coming from the controller.
 					dataPoints: @Html.Raw(ViewBag.DataPoints4)
 				}

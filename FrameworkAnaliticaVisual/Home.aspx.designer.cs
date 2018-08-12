@@ -220,12 +220,30 @@ namespace FrameworkAnaliticaVisual {
         protected global::System.Web.UI.WebControls.GridView gvVista_4;
         
         /// <summary>
-        /// Control btnGenrarCodigo.
+        /// Control fuDirectorio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenrarCodigo;
+        protected global::System.Web.UI.WebControls.FileUpload fuDirectorio;
+        
+        /// <summary>
+        /// Control btnEstablecerDirectorio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEstablecerDirectorio;
+        
+        /// <summary>
+        /// Control txtDirectorio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDirectorio;
     }
 }

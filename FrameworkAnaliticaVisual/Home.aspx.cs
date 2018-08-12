@@ -134,6 +134,7 @@ namespace FrameworkAnaliticaVisual
 
         protected void WizardStep3_Load(object sender, EventArgs e)
         {
+            btnEstablecerDirectorio.Attributes.Add("onclick", "document.getElementById('" + fuDirectorio.ClientID + "').click(); return false;");
             if (gvVista_1.Rows.Count < 0)
             {
                 ListaclsTablesColumnsSelected = Session["ListaclsTablesColumnsSelected"] as List<clsTablesColumnsSelected>;
@@ -687,7 +688,7 @@ namespace FrameworkAnaliticaVisual
             }
         }
 
-        protected void btnGenrarCodigo_Click(object sender, EventArgs e)
+        protected void FinishButton_Click(object sender, EventArgs e)
         {
             ListaTablasEnlasadas = Session["ListaTablasEnlasadas"] as List<DataTable>;
             for (int i = 0; i < Convert.ToInt32(ddlNumeroVistas.SelectedValue); i++)
@@ -784,10 +785,10 @@ namespace FrameworkAnaliticaVisual
             }
 
             clsFactory objFactory = new clsFactory();
-            if (objFactory.FactoryMethod(ListaTablasEnlasadas, Session["TablaPrincipal"].ToString()))
+            if (objFactory.FactoryMethod(ListaTablasEnlasadas, Session["TablaPrincipal"].ToString(), txtDirectorio.Text))
             {
-                Limpiar();
-                Response.Redirect("Home.aspx");
+                //Limpiar();
+                //Response.Redirect("Home.aspx");
                 ///no tira el mensaje
                 ScriptManager.RegisterStartupScript(this, GetType(), "Create_Class_True", "alert('Se ha escrito la clase');", true);
             }

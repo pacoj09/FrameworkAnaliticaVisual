@@ -10,6 +10,15 @@ namespace ASPNET_MVC_Samples.Models
     [DataContract]
     public class DataPoint
     {
+        public void setId(string _id)
+        {
+            this.id = _id;
+        }
+
+        public string getId()
+        {
+            return this.id;
+        }
 
         public void setX(double _x)
         {
@@ -63,5 +72,29 @@ namespace ASPNET_MVC_Samples.Models
 
         [DataMember(Name = "y")]
         public Nullable<double> Y = null;
+
+        private string id = null;
+    }
+
+
+    public class clsStaticDataPoints
+    {
+        private static clsStaticDataPoints objStaticDataPoints = new clsStaticDataPoints();
+        private List<List<DataPoint>> ListasDataPoints;
+
+        private clsStaticDataPoints()
+        {
+            ListasDataPoints = new List<List<DataPoint>>();
+        }
+
+        public static clsStaticDataPoints obtenerclsStaticDataPoints()
+        {
+            return objStaticDataPoints;
+        }
+
+        public List<List<DataPoint>> getListasDataPoints()
+        {
+            return ListasDataPoints;
+        }
     }
 }

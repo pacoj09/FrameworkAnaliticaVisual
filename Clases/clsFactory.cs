@@ -11,7 +11,7 @@ namespace Clases
     {
         public clsFactory() { }
 
-        public bool FactoryMethod(List<DataTable> _ListaTablasEnlasadas, string _TablaPrincipal)
+        public bool FactoryMethod(List<DataTable> _ListaTablasEnlasadas, string _TablaPrincipal, string path)
         {
             bool exito = false;
             if (_ListaTablasEnlasadas.Count > 0)
@@ -19,7 +19,7 @@ namespace Clases
                 clsGenerador objGenerador = new clsGenerador();
                 objGenerador.setListadtEnlacesTablas(_ListaTablasEnlasadas);
                 objGenerador.setTablaPrincipal(_TablaPrincipal);
-                objGenerador.GenerateMethod();
+                objGenerador.GenerateMethod(path);
                 exito = true;
             }
             return exito;

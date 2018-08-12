@@ -43,8 +43,6 @@
     <Compile Include="clsFactory.cs" />
     <Compile Include="clsGenerador.cs" />
     <Compile Include="clsEsquema.cs" />
-    <Compile Include="clsTabla.cs" />
-    <Compile Include="clsVista.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

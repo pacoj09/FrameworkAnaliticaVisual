@@ -155,4 +155,3 @@ C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Fra
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.csproj.CopyComplete
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.dll
 C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.pdb
-C:\Users\pacoa\Documents\GitProyects\ProyectoFrameWorkAnaliticaVisual_Juanpa\Framework\CanvasViews\obj\Debug\CanvasViews.csprojResolveAssemblyReference.cache

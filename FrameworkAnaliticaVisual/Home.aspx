@@ -22,6 +22,18 @@
             return true;
         }
 
+        function ValidarDirectorio() {
+            if (document.getElementById("ContentPlaceHolder1_Wizard1_txtDirectorio").value === '') {
+                alert("Debe de escoger un directorio para crear la clase");
+                return false;
+            }
+            return true;
+        }
+
+        function directoryfileInfo() {
+            document.getElementById('ContentPlaceHolder1_Wizard1_txtDirectorio').value = document.getElementById('ContentPlaceHolder1_Wizard1_fuDirectorio').value;
+        }
+
         function enable_startbutton() {
             $("#ContentPlaceHolder1_Wizard1_StartNavigationTemplateContainerID_StartNextButton").prop("disabled", false);
         }
@@ -66,7 +78,7 @@
     <asp:Wizard ID="Wizard1" runat="server" ActiveStepIndex="0" DisplaySideBar="False" CssClass="laclase">
         <FinishNavigationTemplate>
             <asp:Button ID="FinishPreviousButton" CssClass="btn btn-default" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Anterior" />
-            <asp:Button ID="FinishButton" CssClass="btn btn-default" runat="server" CommandName="MoveComplete" Text="Finalizar" />
+            <asp:Button ID="FinishButton" CssClass="btn btn-default" runat="server" CommandName="MoveComplete" Text="Finalizar" OnClick="FinishButton_Click" OnClientClick="return ValidarDirectorio()" />
         </FinishNavigationTemplate>
         <StartNavigationTemplate>
             <br />
@@ -91,21 +103,22 @@
                         </asp:DropDownList>
                         <br>
                         Nombre del Servidor:<br>
-                        <asp:TextBox ID="txtServidor" runat="server" style="width:430px;"></asp:TextBox>
+                        <asp:TextBox ID="txtServidor" runat="server" Style="width: 430px;"></asp:TextBox>
                         <br>
                         Nombre de la Base de Datos:<br>
-                        <asp:TextBox ID="txtBaseDatos" runat="server" style="width:430px;"></asp:TextBox>
+                        <asp:TextBox ID="txtBaseDatos" runat="server" Style="width: 430px;"></asp:TextBox>
                         <br>
                         Nombre de Usario:<br>
-                        <asp:TextBox ID="txtUser" runat="server" style="width:430px;"></asp:TextBox>
+                        <asp:TextBox ID="txtUser" runat="server" Style="width: 430px;"></asp:TextBox>
                         <br>
                         Contrase&ntilde;a:<br>
-                        <asp:TextBox ID="txtPassword" runat="server" style="width:430px;"></asp:TextBox>
+                        <asp:TextBox ID="txtPassword" runat="server" Style="width: 430px;"></asp:TextBox>
                         <br>
                         <br>
                         <asp:Button ID="btnProbarConexion" CssClass="btn btn-default" runat="server" Text="Probar Conexion" OnClick="btnProbarConexion_Click" OnClientClick="return ValidarFormulario()" />
                     </fieldset>
                     <br />
+                    <hr />
                     <br />
                     <p>NOTA: Si tiene problemas de acceso pongase en contacto con nosotros</p>
                 </div>
@@ -126,6 +139,7 @@
                         <asp:Button ID="btnAgregarTabla" CssClass="btn btn-default" runat="server" Text="Agregar Nueva Tabla" OnClick="btnAgregarTabla_Click" Enabled="false" />
                     </fieldset>
                     <br />
+                    <hr />
                     <br />
                     <p>
                         NOTA: Debe de establecer una tabla principal antes de agregar tablas secundarias.<br />
@@ -179,7 +193,7 @@
                             <br />
                             <br />
                         </div>
-                        
+
                         <div id="Vista_2" style="display: none">
                             <asp:Label ID="lblVista_2" runat="server" Text="Label">VISTA 2</asp:Label><br>
                             <asp:GridView ID="gvVista_2" runat="server" Enabled="true" OnRowDataBound="gvVista_2_RowDataBound" OnRowCreated="gvVista_2_RowCreated" OnSelectedIndexChanged="gvVista_2_SelectedIndexChanged">
@@ -210,7 +224,7 @@
                             <br />
                             <br />
                         </div>
-                        
+
                         <div id="Vista_3" style="display: none">
                             <asp:Label ID="lblVista_3" runat="server" Text="Label">VISTA 3</asp:Label><br>
                             <asp:GridView ID="gvVista_3" runat="server" Enabled="true" OnRowDataBound="gvVista_3_RowDataBound" OnRowCreated="gvVista_3_RowCreated" OnSelectedIndexChanged="gvVista_3_SelectedIndexChanged">
@@ -241,7 +255,7 @@
                             <br />
                             <br />
                         </div>
-                        
+
                         <div id="Vista_4" style="display: none">
                             <asp:Label ID="lblVista_4" runat="server" Text="Label">VISTA 4</asp:Label><br>
                             <asp:GridView ID="gvVista_4" runat="server" Enabled="true" OnRowDataBound="gvVista_4_RowDataBound" OnRowCreated="gvVista_4_RowCreated" OnSelectedIndexChanged="gvVista_4_SelectedIndexChanged">
@@ -274,14 +288,24 @@
                         </div>
                     </fieldset>
                     <br />
+                    <hr />
                     <br />
                     <p>
                         NOTA: Los enlaces no deben de repetirce por vista, si hay repetidos se tomara en cuenta el primer enlace unicamente. Debe exitir la "Posicion Y" en todas las vistas.
                     </p>
                 </div>
-
-                <asp:Button ID="btnGenrarCodigo" CssClass="btn btn-default" runat="server" Text="Generar Codigo" OnClick="btnGenrarCodigo_Click" />
-
+                <hr />
+                <div align="center">
+                    <asp:FileUpload ID="fuDirectorio" runat="server" style="display:none" onchange="directoryfileInfo()" />
+                    <asp:Button ID="btnEstablecerDirectorio"  CssClass="btn btn-default" runat="server" Text="Establecer Directorio" /><br /><br />
+                    <asp:TextBox ID="txtDirectorio" runat="server" Style="width: 430px;"></asp:TextBox>
+                    <br />
+                    <hr />
+                    <br />
+                    <p>
+                        NOTA: Debe de existir el archivo clsVista.cs, de no existir debera crearlo en el directorio seleccionado.
+                    </p>
+                </div>
             </asp:WizardStep>
         </WizardSteps>
     </asp:Wizard>

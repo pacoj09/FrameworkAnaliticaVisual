@@ -94,7 +94,6 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\Site.css" />
-    <Content Include="DBSelection.aspx" />
     <None Include="packages.config" />
     <Content Include="css\styles.css" />
     <Content Include="ExView.aspx" />
@@ -146,13 +145,6 @@
     </Compile>
     <Compile Include="StandardForm.Master.designer.cs">
       <DependentUpon>StandardForm.Master</DependentUpon>
-    </Compile>
-    <Compile Include="DBSelection.aspx.cs">
-      <DependentUpon>DBSelection.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DBSelection.aspx.designer.cs">
-      <DependentUpon>DBSelection.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
