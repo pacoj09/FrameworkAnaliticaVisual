@@ -15,12 +15,18 @@ namespace CanvasViews.Controllers
     {
         public ActionResult Index(string id1, string types)
         {
-            if (string.IsNullOrEmpty(id1))
+            clsStaticDataPoints objStaticDataPoints = clsStaticDataPoints.obtenerclsStaticDataPoints();
+            if (string.IsNullOrEmpty(id1) && !objStaticDataPoints.getListasDataPoints().Any())
             {
                 return IndexLoad();
             }
             else
             {
+                if (string.IsNullOrEmpty(id1) && string.IsNullOrEmpty(types))
+                {
+                    id1 = "0";
+                    types = "bar|bar|bar|bar";
+                }
                 return IndexParameters(id1, types);
             }
         }
@@ -30,317 +36,124 @@ namespace CanvasViews.Controllers
             clsStaticDataPoints objStaticDataPoints = clsStaticDataPoints.obtenerclsStaticDataPoints();
             clsVista objVista = new clsVista();
             objVista.cargarListas();
-            int contador = 1;
-            foreach (DataTable dtEnlaces in objVista.getListadtEnlacesTablas())
-            {
-                DataPoint objDataPoint = new DataPoint();
-                List<DataPoint> dataPoints = objDataPoint.obtenerLista(objVista.getListaEnlaceColumnas().ElementAt(contador - 1).getMaxRows());
-                if (contador == 1)
-                {
-                    var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < query.Columns.Count; i++)
-                    {
-                        if (i == 0)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setId(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 1)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setY(Convert.ToDouble(query.Rows[j][i]));
-                                }
-                            }
-                        }
-                        else if (i == 2)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                if (Double.TryParse(query.Rows[0][i].ToString(), out double n))
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setX(Convert.ToDouble(query.Rows[j][i]));
-                                    }
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
-                                    }
-                                }
-                            }
-                        }
-                        else if (i == 3)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 4)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                    }
-                    objStaticDataPoints.getListasDataPoints().Add(dataPoints);
-                    ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints);
-                }
-                else if (contador == 2)
-                {
-                    var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < query.Columns.Count; i++)
-                    {
-                        if (i == 0)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setId(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 1)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setY(Convert.ToDouble(query.Rows[j][i]));
-                                }
-                            }
-                        }
-                        else if (i == 2)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                if (Double.TryParse(query.Rows[0][i].ToString(), out double n))
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setX(Convert.ToDouble(query.Rows[j][i]));
-                                    }
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
-                                    }
-                                }
-                            }
-                        }
-                        else if (i == 3)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 4)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                    }
-                    objStaticDataPoints.getListasDataPoints().Add(dataPoints);
-                    ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints);
-                }
-                else if (contador == 3)
-                {
-                    var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < query.Columns.Count; i++)
-                    {
-                        if (i == 0)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setId(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 1)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setY(Convert.ToDouble(query.Rows[j][i]));
-                                }
-                            }
-                        }
-                        else if (i == 2)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                if (Double.TryParse(query.Rows[0][i].ToString(), out double n))
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setX(Convert.ToDouble(query.Rows[j][i]));
-                                    }
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
-                                    }
-                                }
-                            }
-                        }
-                        else if (i == 3)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 4)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                    }
-                    objStaticDataPoints.getListasDataPoints().Add(dataPoints);
-                    ViewBag.DataPoints3 = JsonConvert.SerializeObject(dataPoints);
-                }
-                else if (contador == 4)
-                {
-                    var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador - 1)) select dtRow.getdtColumnas()).FirstOrDefault();
-                    for (int i = 0; i < query.Columns.Count; i++)
-                    {
-                        if (i == 0)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setId(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 1)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setY(Convert.ToDouble(query.Rows[j][i]));
-                                }
-                            }
-                        }
-                        else if (i == 2)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                if (Double.TryParse(query.Rows[0][i].ToString(), out double n))
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setX(Convert.ToDouble(query.Rows[j][i]));
-                                    }
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < query.Rows.Count; j++)
-                                    {
-                                        dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
-                                    }
-                                }
-                            }
-                        }
-                        else if (i == 3)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                        else if (i == 4)
-                        {
-                            if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
-                                }
-                            }
-                        }
-                    }
-                    objStaticDataPoints.getListasDataPoints().Add(dataPoints);
-                    ViewBag.DataPoints4 = JsonConvert.SerializeObject(dataPoints);
-                }
-                contador++;
-            }
-            if ((contador - 1) == 1)
-            {
-                ViewBag.DataPoints2 = JsonConvert.SerializeObject("");
-                ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
-                ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
-            }
-            else if ((contador - 1) == 2)
-            {
-                ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
-                ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
-            }
-            else if ((contador - 1) == 3)
-            {
-                ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
-            }
-            ViewBag.GraphCount = (contador - 1);
+            int contador = 0;
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject("");
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject("");
+            ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
+            ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
             ViewBag.type1 = "bar";
             ViewBag.type2 = "bar";
             ViewBag.type3 = "bar";
             ViewBag.type4 = "bar";
+            ViewBag.Enable = 1;
+            foreach (DataTable dtEnlaces in objVista.getListadtEnlacesTablas())
+            {
+                DataPoint objDataPoint = new DataPoint();
+                List<DataPoint> dataPoints = objDataPoint.obtenerLista(objVista.getListaEnlaceColumnas().ElementAt(contador).getMaxRows());
+                var query = (from dtRow in objVista.getListaEnlaceColumnas() where dtRow.getVista().Equals((contador)) select dtRow.getdtColumnas()).FirstOrDefault();
+                for (int i = 0; i < query.Columns.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                        {
+                            for (int j = 0; j < query.Rows.Count; j++)
+                            {
+                                dataPoints.ElementAt(j).setId(query.Rows[j][i].ToString());
+                            }
+                        }
+                    }
+                    else if (i == 1)
+                    {
+                        if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                        {
+                            for (int j = 0; j < query.Rows.Count; j++)
+                            {
+                                dataPoints.ElementAt(j).setY(Convert.ToDouble(query.Rows[j][i]));
+                            }
+                        }
+                    }
+                    else if (i == 2)
+                    {
+                        if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                        {
+                            if (Double.TryParse(query.Rows[0][i].ToString(), out double n))
+                            {
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setX(Convert.ToDouble(query.Rows[j][i]));
+                                }
+                            }
+                            else
+                            {
+                                for (int j = 0; j < query.Rows.Count; j++)
+                                {
+                                    dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
+                                }
+                            }
+                        }
+                    }
+                    else if (i == 3)
+                    {
+                        if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                        {
+                            for (int j = 0; j < query.Rows.Count; j++)
+                            {
+                                dataPoints.ElementAt(j).setIndexLabel(query.Rows[j][i].ToString());
+                            }
+                        }
+                    }
+                    else if (i == 4)
+                    {
+                        if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
+                        {
+                            for (int j = 0; j < query.Rows.Count; j++)
+                            {
+                                dataPoints.ElementAt(j).setName(query.Rows[j][i].ToString());
+                            }
+                        }
+                    }
+                }
+                objStaticDataPoints.getListasDataPoints().Add(dataPoints);
+
+
+                switch (contador)
+                {
+                    case 0:
+                        ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints);
+                        break;
+
+                    case 1:
+                        ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints);
+                        break;
+
+                    case 2:
+                        ViewBag.DataPoints3 = JsonConvert.SerializeObject(dataPoints);
+                        break;
+
+                    case 3:
+                        ViewBag.DataPoints4 = JsonConvert.SerializeObject(dataPoints);
+                        break;
+                }
+                contador++;
+            }
+            ViewBag.GraphCount = (contador);
             return View();
         }
 
         public ActionResult IndexParameters(string id1, string types)
         {
             string[] chartType = types.Split('|');
-            
             clsStaticDataPoints objStaticDataPoints = clsStaticDataPoints.obtenerclsStaticDataPoints();
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject("");
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject("");
+            ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
+            ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
+            ViewBag.type1 = "bar";
+            ViewBag.type2 = "bar";
+            ViewBag.type3 = "bar";
+            ViewBag.type4 = "bar";
+            ViewBag.Enable = 1;
             if (Convert.ToInt32(id1) == 0)
             {
                 for (int i = 0; i < objStaticDataPoints.getListasDataPoints().Count; i++)
@@ -348,29 +161,17 @@ namespace CanvasViews.Controllers
                     if (i == 0)
                     {
                         ViewBag.DataPoints1 = JsonConvert.SerializeObject(objStaticDataPoints.getListasDataPoints().ElementAt(i));
-                        ViewBag.DataPoints2 = JsonConvert.SerializeObject("");
-                        ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
-                        ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
                         ViewBag.type1 = chartType[i];
-                        ViewBag.type2 = "bar";
-                        ViewBag.type3 = "bar";
-                        ViewBag.type4 = "bar";
                     }
                     else if (i == 1)
                     {
                         ViewBag.DataPoints2 = JsonConvert.SerializeObject(objStaticDataPoints.getListasDataPoints().ElementAt(i));
-                        ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
-                        ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
                         ViewBag.type2 = chartType[i];
-                        ViewBag.type3 = "bar";
-                        ViewBag.type4 = "bar";
                     }
                     else if (i == 2)
                     {
                         ViewBag.DataPoints3 = JsonConvert.SerializeObject(objStaticDataPoints.getListasDataPoints().ElementAt(i));
-                        ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
                         ViewBag.type3 = chartType[i];
-                        ViewBag.type4 = "bar";
                     }
                     else if (i == 3)
                     {
@@ -394,7 +195,6 @@ namespace CanvasViews.Controllers
                         {
                             List<DataPoint> listaDP = objStaticDataPoints.getListasDataPoints().ElementAt(i);
                             List<DataPoint> listaFiltro = new List<DataPoint>();
-                            List<int> ListaIndices = new List<int>();
                             foreach (DataPoint item in listaDP)
                             {
                                 if (item.getId().Equals(id1))
@@ -407,11 +207,11 @@ namespace CanvasViews.Controllers
                                 if (listaFiltro.Count > 0)
                                 {
                                     ViewBag.DataPoints2 = JsonConvert.SerializeObject(listaFiltro);
-                                    ViewBag.DataPoints3 = JsonConvert.SerializeObject("");
-                                    ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
                                     ViewBag.type2 = chartType[i];
-                                    ViewBag.type3 = "bar";
-                                    ViewBag.type4 = "bar";
+                                }
+                                else
+                                {
+                                    ViewBag.Enable = 0;
                                 }
                             }
                             else if (i == 2)
@@ -419,9 +219,11 @@ namespace CanvasViews.Controllers
                                 if (listaFiltro.Count > 0)
                                 {
                                     ViewBag.DataPoints3 = JsonConvert.SerializeObject(listaFiltro);
-                                    ViewBag.DataPoints4 = JsonConvert.SerializeObject("");
                                     ViewBag.type3 = chartType[i];
-                                    ViewBag.type4 = "bar";
+                                }
+                                else
+                                {
+                                    ViewBag.Enable = 0;
                                 }
                             }
                             else if (i == 3)
@@ -431,11 +233,16 @@ namespace CanvasViews.Controllers
                                     ViewBag.DataPoints4 = JsonConvert.SerializeObject(listaFiltro);
                                     ViewBag.type4 = chartType[i];
                                 }
+                                else
+                                {
+                                    ViewBag.Enable = 0;
+                                }
                             }
                         }
                     }
                 }
             }
+
             ViewBag.GraphCount = (objStaticDataPoints.getListasDataPoints().Count);
             return View();
         }

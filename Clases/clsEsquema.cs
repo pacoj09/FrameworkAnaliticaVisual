@@ -61,18 +61,18 @@ namespace Clases
             {
                 if (_ListaCadenaConexion.First().Equals("SQL Server"))
                 {
-                    setConnectionString(string.Format("Server={0};Initial Catalog={1};Persist Security Info=False;User ID={2};Password={3};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", 
+                    setConnectionString(string.Format("Server={0};Initial Catalog={1};Persist Security Info=False;User ID={2};Password={3};MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;", 
                         _ListaCadenaConexion.ElementAt(1), _ListaCadenaConexion.ElementAt(2), _ListaCadenaConexion.ElementAt(3), _ListaCadenaConexion.ElementAt(4)));
                 }
                 else if (_ListaCadenaConexion.First().Equals("Oracle"))
                 {
                     ///Hay que cambiar el string connection a Oracle, los metodos que ejecutan los selects deben de revisarse y cambiarse igual
-                    setConnectionString(string.Format("Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+                    setConnectionString(string.Format("Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;"));
                 }
                 else if (_ListaCadenaConexion.First().Equals("MySQL"))
                 {
                     ///Hay que cambiar el string connection a MySQL, los metodos que ejecutan los selects deben de revisarse y cambiarse igual
-                    setConnectionString(string.Format("Server=tcp:frameworkanaliticavisual.database.windows.net,1433;Initial Catalog=frameworkanaliticavisual;Persist Security Info=False;User ID=frameworkanaliticavisual;Password=Seminario123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+                    setConnectionString(string.Format("Server=PACOJ09AW\\PACOAWSQL;Initial Catalog=DB_SCFAMA;Persist Security Info=False;User ID=sa;Password=sa;MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;"));
                 }
 
                 clsConexion objConexion = clsConexion.obtenerclsConexion();

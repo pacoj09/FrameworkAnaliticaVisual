@@ -36,7 +36,7 @@ namespace ConexionBD
             {
                 CNX.Open();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Exito = false;
             }
@@ -50,7 +50,7 @@ namespace ConexionBD
             {
                 CNX.Close();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Exito = false;
             }

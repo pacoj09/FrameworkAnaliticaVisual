@@ -245,7 +245,7 @@ namespace Clases
                                 "\r\n\t\t\t\t\t\t}"+
                                 "\r\n\t\t\t\t\t}"+
                                 "\r\n"+
-                                "\r\n\t\t\t\t\tif (Tablas.Count() == 1)"+
+                                "\r\n\t\t\t\t\tif (Tablas.Count() == 1 && Tablas.ElementAt(0).Equals(this.TablaPrincipal))"+
                                 "\r\n\t\t\t\t\t{"+
                                 "\r\n\t\t\t\t\t\tstring y = \"null\";"+
                                 "\r\n\t\t\t\t\t\tstring label_x = \"null\";"+
@@ -272,7 +272,7 @@ namespace Clases
                                 "\r\n\t\t\t\t\t\t}"+
                                 "\r\n"+
                                 "\r\n\t\t\t\t\t\tDataTable dtRows = new DataTable();"+
-                                "\r\n\t\t\t\t\t\tstring query = string.Format(\"select {0} as 'id', {1} as 'Posicion Y', {2} as 'Posicion X / Label', {3} as 'Index Label', {4} as 'Name' from {5};\", this.TablaPrincipal + \".\" + getPrimaryKey(this.TablaPrincipal), y, label_x, index_label, name, Tablas.FirstOrDefault());"+
+                                "\r\n\t\t\t\t\t\tstring query = string.Format(\"select {0} as 'id', {1} as 'Posicion Y', {2} as 'Posicion X / Label', {3} as 'Index Label', {4} as 'Name' from {5};\", Keys.FirstOrDefault(), y, label_x, index_label, name, Tablas.FirstOrDefault());"+
                                 "\r\n\t\t\t\t\t\tdtRows = consultar(query);"+
                                 "\r\n\t\t\t\t\t\tclsEnlaceColumna objEnlaceColumna = new clsEnlaceColumna(dtRows, contador, dtRows.Rows.Count);"+
                                 "\r\n\t\t\t\t\t\tcontador++;"+

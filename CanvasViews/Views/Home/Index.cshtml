@@ -28,6 +28,7 @@
         var type3 = '@Html.Raw(ViewBag.type3)';
         var type4 = '@Html.Raw(ViewBag.type4)';
         var count = @Html.Raw(ViewBag.GraphCount);
+        var enable = @Html.Raw(ViewBag.Enable);
 
         window.onload = function () {
             var i;
@@ -37,27 +38,36 @@
             switch (count) {
                 case 1:
                     loadChart1();
+                    document.getElementById("ddlChartType1").value = type1;
                     break;
                 case 2:
                     loadChart1();
                     loadChart2();
+                    document.getElementById("ddlChartType1").value = type1;
+                    document.getElementById("ddlChartType2").value = type2;
                     break;
                 case 3:
                     loadChart1();
                     loadChart2();
                     loadChart3();
+                    document.getElementById("ddlChartType1").value = type1;
+                    document.getElementById("ddlChartType2").value = type2;
+                    document.getElementById("ddlChartType3").value = type3;
                     break;
                 case 4:
                     loadChart1();
                     loadChart2();
                     loadChart3();
                     loadChart4();
+                    document.getElementById("ddlChartType1").value = type1;
+                    document.getElementById("ddlChartType2").value = type2;
+                    document.getElementById("ddlChartType3").value = type3;
+                    document.getElementById("ddlChartType4").value = type4;
                     break;
             }
-            document.getElementById("ddlChartType1").value = type1;
-            document.getElementById("ddlChartType2").value = type2;
-            document.getElementById("ddlChartType3").value = type3;
-            document.getElementById("ddlChartType4").value = type4;
+            if (enable === 0) {
+                alert('Ups!, hay vistas vacías!, ya que no hay elementos que coincidan con la Vista Principal');
+            }
         };
 
         function printGraph(index) {
