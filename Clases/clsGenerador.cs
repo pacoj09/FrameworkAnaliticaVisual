@@ -324,41 +324,34 @@ namespace Clases
                                 "\r\n\t\tprivate string getTablas(List<string> Tablas, List<string> Keys, bool MainTable)"+
                                 "\r\n\t\t{"+
                                 "\r\n\t\t\tstring innerJoin = \"\";"+
-                                "\r\n\t\t\tif (Tablas.Count == 1)"+
+                                "\r\n\t\t\tif (MainTable)"+
                                 "\r\n\t\t\t{"+
-                                "\r\n\t\t\t\tinnerJoin = Tablas.FirstOrDefault();"+
+                                "\r\n\t\t\t\tstring PrimaryKey = \"\";"+
+                                "\r\n\t\t\t\tint IndexMainTable = 0;"+
+                                "\r\n\t\t\t\tfor (int i = 0; i < Tablas.Count; i++)"+
+                                "\r\n\t\t\t\t{"+
+                                "\r\n\t\t\t\t\tif (Tablas.ElementAt(i).Equals(this.TablaPrincipal))"+
+                                "\r\n\t\t\t\t\t{"+
+                                "\r\n\t\t\t\t\t\tIndexMainTable = i;"+
+                                "\r\n\t\t\t\t\t\tbreak;"+
+                                "\r\n\t\t\t\t\t}"+
+                                "\r\n\t\t\t\t}"+
+                                "\r\n\t\t\t\tPrimaryKey = Keys.ElementAt(IndexMainTable);"+
+                                "\r\n\t\t\t\tTablas.RemoveAt(IndexMainTable);"+
+                                "\r\n\t\t\t\tKeys.RemoveAt(IndexMainTable);"+
+                                "\r\n\t\t\t\tinnerJoin = this.TablaPrincipal;"+
+                                "\r\n\t\t\t\tfor (int i = 0; i < Tablas.Count; i++)"+
+                                "\r\n\t\t\t\t{"+
+                                "\r\n\t\t\t\t\tinnerJoin += string.Format(\" inner join {0} on {1}.{2} = {3}.{4}\", Tablas.ElementAt(i), this.TablaPrincipal, PrimaryKey, Tablas.ElementAt(i), Keys.ElementAt(i));"+
+                                "\r\n\t\t\t\t}"+
                                 "\r\n\t\t\t}"+
                                 "\r\n\t\t\telse"+
                                 "\r\n\t\t\t{"+
-                                "\r\n\t\t\t\tif (MainTable)"+
+                                "\r\n\t\t\t\tstring PrimaryKey = getPrimaryKey(this.TablaPrincipal);"+
+                                "\r\n\t\t\t\tinnerJoin = this.TablaPrincipal;"+
+                                "\r\n\t\t\t\tfor (int i = 0; i < Tablas.Count; i++)"+
                                 "\r\n\t\t\t\t{"+
-                                "\r\n\t\t\t\t\tstring PrimaryKey = \"\";"+
-                                "\r\n\t\t\t\t\tint IndexMainTable = 0;"+
-                                "\r\n\t\t\t\t\tfor (int i = 0; i < Tablas.Count; i++)"+
-                                "\r\n\t\t\t\t\t{"+
-                                "\r\n\t\t\t\t\t\tif (Tablas.ElementAt(i).Equals(this.TablaPrincipal))"+
-                                "\r\n\t\t\t\t\t\t{"+
-                                "\r\n\t\t\t\t\t\t\tIndexMainTable = i;"+
-                                "\r\n\t\t\t\t\t\t\tbreak;"+
-                                "\r\n\t\t\t\t\t\t}"+
-                                "\r\n\t\t\t\t\t}"+
-                                "\r\n\t\t\t\t\tPrimaryKey = Keys.ElementAt(IndexMainTable);"+
-                                "\r\n\t\t\t\t\tTablas.RemoveAt(IndexMainTable);"+
-                                "\r\n\t\t\t\t\tKeys.RemoveAt(IndexMainTable);"+
-                                "\r\n\t\t\t\t\tinnerJoin = this.TablaPrincipal;"+
-                                "\r\n\t\t\t\t\tfor (int i = 0; i < Tablas.Count; i++)"+
-                                "\r\n\t\t\t\t\t{"+
-                                "\r\n\t\t\t\t\t\tinnerJoin += string.Format(\" inner join {0} on {1}.{2} = {3}.{4}\", Tablas.ElementAt(i), this.TablaPrincipal, PrimaryKey, Tablas.ElementAt(i), Keys.ElementAt(i));"+
-                                "\r\n\t\t\t\t\t}"+
-                                "\r\n\t\t\t\t}"+
-                                "\r\n\t\t\t\telse"+
-                                "\r\n\t\t\t\t{"+
-                                "\r\n\t\t\t\t\tstring PrimaryKey = getPrimaryKey(this.TablaPrincipal);"+
-                                "\r\n\t\t\t\t\tinnerJoin = this.TablaPrincipal;"+
-                                "\r\n\t\t\t\t\tfor (int i = 0; i < Tablas.Count; i++)"+
-                                "\r\n\t\t\t\t\t{"+
-                                "\r\n\t\t\t\t\t\tinnerJoin += string.Format(\" inner join {0} on {1}.{2} = {3}.{4}\", Tablas.ElementAt(i), this.TablaPrincipal, PrimaryKey, Tablas.ElementAt(i), Keys.ElementAt(i));"+
-                                "\r\n\t\t\t\t\t}"+
+                                "\r\n\t\t\t\t\tinnerJoin += string.Format(\" inner join {0} on {1}.{2} = {3}.{4}\", Tablas.ElementAt(i), this.TablaPrincipal, PrimaryKey, Tablas.ElementAt(i), Keys.ElementAt(i));"+
                                 "\r\n\t\t\t\t}"+
                                 "\r\n\t\t\t}"+
                                 "\r\n\t\t\treturn innerJoin;"+

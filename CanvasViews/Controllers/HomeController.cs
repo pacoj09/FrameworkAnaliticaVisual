@@ -77,19 +77,9 @@ namespace CanvasViews.Controllers
                     {
                         if (!string.IsNullOrEmpty(query.Rows[0][i].ToString()))
                         {
-                            if (Double.TryParse(query.Rows[0][i].ToString(), out double n))
+                            for (int j = 0; j < query.Rows.Count; j++)
                             {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setX(Convert.ToDouble(query.Rows[j][i]));
-                                }
-                            }
-                            else
-                            {
-                                for (int j = 0; j < query.Rows.Count; j++)
-                                {
-                                    dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
-                                }
+                                dataPoints.ElementAt(j).setLabel(query.Rows[j][i].ToString());
                             }
                         }
                     }

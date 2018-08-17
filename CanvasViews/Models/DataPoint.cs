@@ -20,11 +20,6 @@ namespace ASPNET_MVC_Samples.Models
             return this.id;
         }
 
-        public void setX(double _x)
-        {
-            this.X = _x;
-        }
-
         public void setY(double _y)
         {
             this.Y = _y;
@@ -66,9 +61,6 @@ namespace ASPNET_MVC_Samples.Models
 
         [DataMember(Name = "name")]
         public string name = null;
-
-        [DataMember(Name = "x")]
-        public Nullable<double> X = null;
 
         [DataMember(Name = "y")]
         public Nullable<double> Y = null;
